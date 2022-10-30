@@ -1,52 +1,62 @@
+import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:kadojopapp/Model/shar.dart';
 import 'package:kadojopapp/components/components.dart';
+import 'package:kadojopapp/shard/components/componentes.dart';
+import 'package:kadojopapp/shard/styles/colors.dart';
 
 class home_screen extends StatelessWidget {
+  /*
+  List<Image> image = [
+    Image.network(
+        'https://miro.medium.com/max/2400/1*rM3u1FqmoWyXdGwQ1Gqnlg.jpeg'),
+    Image.network(
+        'https://s41256.pcdn.co/wp-content/uploads/2022/07/Appen_Website_link-logo.jpg'),
+    Image.network(
+        'https://assets.bossjob.com/companies/22693/logo/MvJquPY6C06SKmzOTuDGPmdKu74Vpw0AvmMvPS8a.png'),
+    Image.network(
+        'https://mma.prnewswire.com/media/789578/bytedance_Logo.jpg?p=facebook'),
+  ];
+  */
+  final List<String> images = [
+    'https://miro.medium.com/max/2400/1*rM3u1FqmoWyXdGwQ1Gqnlg.jpeg',
+    'https://mma.prnewswire.com/media/789578/bytedance_Logo.jpg?p=facebook',
+    'https://s41256.pcdn.co/wp-content/uploads/2022/07/Appen_Website_link-logo.jpg',
+    'https://assets.bossjob.com/companies/22693/logo/MvJquPY6C06SKmzOTuDGPmdKu74Vpw0AvmMvPS8a.png',
+  ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
-          Container(
+          Text('Companies we work with',style: TextStyle(
+            fontSize: 15,
+            color: defaultColor,
+            fontWeight: FontWeight.bold
+          ),),
+          SizedBox(
+            height: 200.0,
             width: double.infinity,
-            height: 260,
-            color: TextColors,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                top: 20,
-                left: 10,
-                right: 15,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    'Do not miss the chance to earn extra income.This is a great opportunity for you and your friends!',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 28),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    'we are extremely excited to have you join the Kado Job and participate in our Projects',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
-              ),
+            child: Carousel(
+              dotSpacing: 15.0,
+              dotSize: 5.0,
+              dotIncreasedColor: defaultColor,
+              dotColor: Colors.grey,
+              dotBgColor: Colors.transparent,
+              indicatorBgPadding: 10.0,
+              dotPosition: DotPosition.bottomCenter,
+              images: images
+                  .map((item) => Image.network(
+                        item,
+                        //  fit: BoxFit.cover,
+                      ))
+                  .toList(),
             ),
           ),
           const SizedBox(
-            height: 30,
+            height: 15,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,121 +64,66 @@ class home_screen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.headset,
                     color: Colors.grey,
                   ),
-                  SizedBox(
-                    width: 10,
+                  const SizedBox(
+                    width: 5,
                   ),
                   Text(
-                    'Old Transcription  Projcet',
+                    'Old Transcription  Project',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      fontSize: 15,
                       color: TextColors,
                     ),
                   ),
-                  SizedBox(
+                  const Spacer(),
+                  const SizedBox(
                     width: 50,
                   ),
-                  const Text(
-                    'see more -> ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 10,
-                      color: Colors.grey,
+                  defaultTextButton(
+                    lable: const Text(
+                      'see more ->',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10,
+                        color: Colors.grey,
+                      ),
                     ),
+                    function: () {},
                   ),
                 ],
               ),
               const SizedBox(
                 height: 15,
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Row(
-                    children: [
-                      ProjectContainer(
-                          Tatole: 'Dutch Transcription',
-                          Body:
-                              'A previous Dutch transcription project worked with us 24 Native people '),
-                      const SizedBox(
-                        width: 24,
-                      ),
-                      ProjectContainer(
-                          Tatole: 'Italian Transcription',
-                          Body:
-                              'A previous Italian transcription project worked with us 250 Native people'),
-                      const SizedBox(
-                        width: 24,
-                      ),
-                      ProjectContainer(
-                          Tatole: 'Turkish Transcription',
-                          Body:
-                              'A previous Turkish transcription project worked with us 200 Native people'),
-                      const SizedBox(
-                        width: 24,
-                      ),
-                      ProjectContainer(
-                          Tatole: 'Polish Transcription',
-                          Body:
-                              'A previous Polish transcription project worked with us 25 Native people'),
-                      const SizedBox(
-                        width: 24,
-                      ),
-                      ProjectContainer(
-                          Tatole: 'English Transcription',
-                          Body:
-                              'A previous English transcription project worked with us 300 Native people'),
-                      const SizedBox(
-                        width: 24,
-                      ),
-                      ProjectContainer(
-                          Tatole: 'French Transcription',
-                          Body:
-                              'A previous French transcription project worked with us 500 Native people'),
-                      const SizedBox(
-                        width: 24,
-                      ),
-                      ProjectContainer(
-                          Tatole: 'Portuguese Transcription',
-                          Body:
-                              'A previous Portuguese transcription project worked with us 55 Native people'),
-                      const SizedBox(
-                        width: 24,
-                      ),
-                      ProjectContainer(
-                          Tatole: 'Thai Transcription',
-                          Body:
-                              'A previous Thai transcription project worked with us 30 Native people'),
-                      const SizedBox(
-                        width: 24,
-                      ),
-                      ProjectContainer(
-                          Tatole: 'Egypt Transcription',
-                          Body:
-                              'A previous Egypt transcription project worked with us 3000 Native people'),
-                      const SizedBox(
-                        width: 24,
-                      ),
-                      ProjectContainer(
-                          Tatole: 'Swedish Transcription',
-                          Body:
-                              'A previous Swedish transcription project worked with us 50 Native people'),
-                      const SizedBox(
-                        width: 24,
-                      ),
-                    ],
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
+                child: Container(
+                  height: 120,
+                  color: Colors.grey,
+                  width: double.infinity,
+                  child: GridView.count(
+                   scrollDirection: Axis.vertical,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    crossAxisCount: 2,
+                    mainAxisSpacing:1.0,
+                    crossAxisSpacing: 1.0,
+                    childAspectRatio: 1 / 0.7,
+                    children: List.generate(
+                             2,
+                        (index) => buildGridProduct(),
+                  ),
                   ),
                 ),
               ),
             ],
           ),
           const SizedBox(
-            height: 50,
+            height: 20,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,22 +131,23 @@ class home_screen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.mic,
                     color: Colors.grey,
                   ),
-                  SizedBox(
-                    width: 10,
+                  const SizedBox(
+                    width: 2,
                   ),
                   Text(
-                    'Old Recording  Projects',
+                    'Old Recording  Project',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                       color: TextColors,
                     ),
                   ),
-                  SizedBox(
+                  const Spacer(),
+                  const SizedBox(
                     width: 70,
                   ),
                   const Text(
@@ -219,7 +175,7 @@ class home_screen extends StatelessWidget {
                               'A previous Spanish recording  project worked with us 100 Native people',
                           micc: true),
                       const SizedBox(
-                        width: 24,
+                        width: 5,
                       ),
                       ProjectContainer(
                           Tatole: 'Arabic Recording',

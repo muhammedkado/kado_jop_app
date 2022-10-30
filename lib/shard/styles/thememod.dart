@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:kadojopapp/shard/styles/colors.dart';
 
 ThemeData lightTheme = ThemeData(
   textTheme: const TextTheme(
@@ -11,15 +12,16 @@ ThemeData lightTheme = ThemeData(
     ),
   ),
   scaffoldBackgroundColor: Colors.white,
-  appBarTheme: const AppBarTheme(
+  appBarTheme:  AppBarTheme(
     iconTheme: IconThemeData(
       color: Colors.black,
     ),
     titleTextStyle: TextStyle(
-      color: Colors.black,
+      color:defaultColor,
       fontSize: 20.0,
       fontWeight: FontWeight.bold,
     ),
+
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: Colors.white,
       statusBarIconBrightness: Brightness.dark,

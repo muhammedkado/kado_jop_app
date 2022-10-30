@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-
 import '../Model/shar.dart';
 
 @override
@@ -63,18 +61,13 @@ Widget defoultButtun({
 @override
 Widget ProjectContainer({required String Tatole,required String Body,bool micc = false,}) =>
     Container(
-      height: 200,
+      height: 175,
       width: 175,
       decoration: const BoxDecoration(
         boxShadow: [
           BoxShadow(color: Colors.grey, spreadRadius: 1, blurRadius: 0.15)
         ],
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(80),
-          bottomLeft: Radius.circular(10),
-          bottomRight: Radius.circular(10),
-        ),
+
         color: Colors.white,
       ),
       child: Column(
@@ -217,4 +210,49 @@ Widget ProjectScreenContainer({
       ),
     ),*/
       ],
+    );
+
+
+
+Widget buildGridProduct() =>
+    Container(
+      height: 120,
+      width: 120,
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            alignment: Alignment.bottomLeft,
+            children: [
+              Icon(Icons.headphones,size: 50,),
+
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Dutch Transcription',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontSize: 14, height: 1.1),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  'A previous Dutch transcription project worked with us 24 Native people ',
+                  maxLines: 4,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontSize: 10, height: 1.1),
+                ),
+
+              ],
+            ),
+          ),
+        ],
+      ),
     );

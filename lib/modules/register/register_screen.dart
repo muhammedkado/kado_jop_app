@@ -29,9 +29,7 @@ class RegisterScreen extends StatelessWidget {
         },
         builder: (context, state) {
           return Scaffold(
-            appBar: AppBar(
-
-            ),
+            appBar: AppBar(),
             body: Center(
               child: SingleChildScrollView(
                 child: Padding(
@@ -106,7 +104,7 @@ class RegisterScreen extends StatelessWidget {
                             height: 15,
                           ),
                           defaultFormField(
-                            lable: 'Phone Number',
+                              lable: 'Phone Number',
                               prefix: Icons.phone,
                               controller: phoneControlar,
                               keybord: TextInputType.phone,
@@ -114,7 +112,6 @@ class RegisterScreen extends StatelessWidget {
                                 if (value!.isEmpty) {
                                   return 'Phone is not be Empty';
                                 }
-
                               }),
                           const SizedBox(
                             height: 15,
