@@ -1,77 +1,123 @@
+
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({Key? key}) : super(key: key);
-
-  @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
-}
-
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 3: Settings',
-      style: optionStyle,
-    ),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+class test extends StatelessWidget {
+  const test({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    List<Image> image = [
+      Image.network('https://www.kadojob.com/assets/img/values-1.png'),
+      Image.network('https://www.kadojob.com/assets/img/values-1.png'),
+      Image.network('https://www.kadojob.com/assets/img/values-1.png'),
+      Image.network('https://www.kadojob.com/assets/img/values-1.png'),
+    ];
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
-      ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-            backgroundColor: Colors.red,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
-            backgroundColor: Colors.green,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
-            backgroundColor: Colors.purple,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-            backgroundColor: Colors.pink,
+      body: Column(
+        children: [
+          CarouselSlider(
+            items:image.map((e) =>Image(image:e.image)).toList()
+
+                ,
+            
+            options: CarouselOptions(
+                height: 230,
+                initialPage: 0,
+                autoPlay: true,
+                autoPlayAnimationDuration: const Duration(seconds: 1),
+                autoPlayInterval: const Duration(seconds: 4),
+                autoPlayCurve: Curves.fastOutSlowIn,
+                scrollDirection: Axis.horizontal,
+                viewportFraction: 1
+              // reverse: false,
+            ),
           ),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
       ),
     );
   }
 }
+/*
+SingleChildScrollView(
+scrollDirection: Axis.horizontal,
+child: Padding(
+padding: const EdgeInsets.all(15.0),
+child: Row(
+children: [
+ProjectContainer(
+Tatole: 'Dutch Transcription',
+Body:
+'A previous Dutch transcription project worked with us 24 Native people '),
+const SizedBox(
+width: 24,
+),
+ProjectContainer(
+Tatole: 'Italian Transcription',
+Body:
+'A previous Italian transcription project worked with us 250 Native people'),
+const SizedBox(
+width: 24,
+),
+ProjectContainer(
+Tatole: 'Turkish Transcription',
+Body:
+'A previous Turkish transcription project worked with us 200 Native people'),
+const SizedBox(
+width: 24,
+),
+ProjectContainer(
+Tatole: 'Polish Transcription',
+Body:
+'A previous Polish transcription project worked with us 25 Native people'),
+const SizedBox(
+width: 24,
+),
+ProjectContainer(
+Tatole: 'English Transcription',
+Body:
+'A previous English transcription project worked with us 300 Native people'),
+const SizedBox(
+width: 24,
+),
+ProjectContainer(
+Tatole: 'French Transcription',
+Body:
+'A previous French transcription project worked with us 500 Native people'),
+const SizedBox(
+width: 24,
+),
+ProjectContainer(
+Tatole: 'Portuguese Transcription',
+Body:
+'A previous Portuguese transcription project worked with us 55 Native people'),
+const SizedBox(
+width: 24,
+),
+ProjectContainer(
+Tatole: 'Thai Transcription',
+Body:
+'A previous Thai transcription project worked with us 30 Native people'),
+const SizedBox(
+width: 24,
+),
+ProjectContainer(
+Tatole: 'Egypt Transcription',
+Body:
+'A previous Egypt transcription project worked with us 3000 Native people'),
+const SizedBox(
+width: 24,
+),
+ProjectContainer(
+Tatole: 'Swedish Transcription',
+Body:
+'A previous Swedish transcription project worked with us 50 Native people'),
+const SizedBox(
+width: 24,
+),
+],
+),
+),
+),
+
+ */

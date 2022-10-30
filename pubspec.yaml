@@ -29,6 +29,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  #carousel_pro: ^1.0.0
+  carousel_pro_nullsafety: ^1.0.2
+  carousel_slider: ^4.1.1
   cupertino_icons: ^1.0.2
   firebase_core: ^1.17.1
   firebase_auth: ^3.3.19

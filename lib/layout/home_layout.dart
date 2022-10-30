@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kadojopapp/layout/cubit/cubit.dart';
 import 'package:kadojopapp/layout/cubit/states.dart';
+import 'package:kadojopapp/shard/styles/colors.dart';
 import '../Model/shar.dart';
 
 class Home_layout extends StatelessWidget {
@@ -13,6 +14,14 @@ class Home_layout extends StatelessWidget {
       builder: (context, state) => Scaffold(
         appBar: AppBar(
           title: Text(cubit.title[cubit.currentIndex]),
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.notifications_active_outlined,
+                  color: defaultColor,
+                ))
+          ],
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: cubit.currentIndex,
@@ -21,20 +30,28 @@ class Home_layout extends StatelessWidget {
           },
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home, color: Color(0xFF285681)),
+              icon: Icon(
+                Icons.home,
+              ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.business, color: Color(0xFF285681)),
+              icon: Icon(
+                Icons.business,
+              ),
               label: 'Project',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.send_rounded, color: Color(0xFF285681)),
+              icon: Icon(
+                Icons.send_rounded,
+              ),
               label: 'Contact',
               activeIcon: Icon(Icons.send_outlined),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings, color: Color(0xFF285681)),
+              icon: Icon(
+                Icons.settings,
+              ),
               label: 'Settings',
             ),
           ],
