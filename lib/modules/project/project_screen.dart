@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kadojopapp/Model/projectmodel.dart';
+import 'package:kadojopapp/shard/components/componentes.dart';
+import 'package:kadojopapp/shard/styles/colors.dart';
 
 import '../../components/components.dart';
 
@@ -61,46 +63,103 @@ class Project_Screen extends StatelessWidget {
 /*
 , */
   ];
+
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
+    //Size size = MediaQuery.of(context).size;
+    TabController? tabController;
     return SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
-              child: TextFormField(
-                  onChanged: (s) {
-                    print(s);
-                  },
-                  decoration: InputDecoration(
-                    //focusColor: Colors.yellowAccent,
-                    filled: true,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide.none),
-                    icon: const Icon(Icons.search),
+      child: DefaultTabController(
+        length: 2,
+        child: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
+          child: Column(
+            children: [
+              Container(
+                // color: Colors.amber,
+                //   height: 500,
+                width: double.infinity,
 
-                    label: const Text(
-                      'Search',
-                      style: TextStyle(color: Colors.grey),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      child: TabBar(
+                         padding: EdgeInsets.all(5),
+
+                        indicatorColor: defaultColor,
+                        indicatorWeight: 2,
+                        indicatorSize: TabBarIndicatorSize.label,
+                        labelColor: Colors.black,
+                        unselectedLabelColor: Colors.grey,
+                        controller: tabController,
+                        tabs: [
+                          Tab(
+                            child: Row(
+                              children: const [
+                                Icon(
+                                  Icons.mic,
+                                  size: 20,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text('Recording')
+                              ],
+                            ),
+                          ),
+                          Tab(
+
+                            child: Row(
+                              children: const [
+                                Icon(
+                                  Icons.headphones,
+                                  size: 20,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text('Transcription')
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  )),
-            ),
-            ListView.separated(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context, index) => buildProject(user[index]),
-                separatorBuilder: (context, index) => const SizedBox(
-                      height: 25,
+                    SizedBox(
+                      height: 4,
                     ),
-                itemCount: user.length),
-            SizedBox(
-              height: 25,
-            )
-          ],
+
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      width: double.infinity,
+                      height: 480,
+                      child: TabBarView(
+                          children: [
+                        ListView.separated(
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) => defaultProjectCard(),
+                          separatorBuilder: (context, index) =>const SizedBox(
+                            height: 20,
+                          ),
+                          itemCount: 10,
+                        ),
+                        ListView.separated(
+
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) =>defaultProjectCard(),
+                            separatorBuilder: (context, index) =>const SizedBox(
+                                  height: 20
+                                ),
+                            itemCount: user.length),
+                      ]),
+                    ),
+                  ],
+                ),
+              ),
+
+            ],
+          ),
         ),
       ),
     );

@@ -1,14 +1,14 @@
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kadojopapp/shard/styles/colors.dart';
 
 NavigatorAndFinish({required context, required Widget}) =>
     Navigator.pushAndRemoveUntil(context,
         MaterialPageRoute(builder: (context) => Widget), (route) => false);
 Navigatorto({required context, required Widget}) => Navigator.push(
-  context,
-  MaterialPageRoute(builder: (context) => Widget),
-);
+      context,
+      MaterialPageRoute(builder: (context) => Widget),
+    );
 
 @override
 Widget defaultFormField({
@@ -36,13 +36,13 @@ Widget defaultFormField({
         filled: true,
         suffixIcon: suffix != null
             ? IconButton(
-          onPressed: () {
-            suffixPressed!();
-          },
-          icon: Icon(
-            suffix,
-          ),
-        )
+                onPressed: () {
+                  suffixPressed!();
+                },
+                icon: Icon(
+                  suffix,
+                ),
+              )
             : null,
         labelText: lable,
         prefixIcon: Icon(
@@ -106,21 +106,148 @@ Color? ChooseTostColor(TostState state) {
   switch (state) {
     case TostState.ERROR:
       {
-        color= Colors.red;
-
+        color = Colors.red;
       }
       break;
     case TostState.WARNING:
       {
-        color= Colors.amber;
+        color = Colors.amber;
       }
       break;
     case TostState.SUCCESS:
       {
-        color= Colors.green;
+        color = Colors.green;
       }
       break;
-
   }
   return color;
 }
+
+Widget defaultProjectCard() => Container(
+      padding: const EdgeInsets.all(20),
+      margin: const EdgeInsets.all(1),
+      decoration: BoxDecoration(
+        border: Border.all(width: 0.3),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: const [
+              Icon(
+                Icons.mic,
+                size: 25,
+                color: defaultColor,
+              ),
+              Text(
+                'German Recording ',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: defaultColor,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                  flex: 2,
+                  child: Column(
+                    children: const [
+                      Text(
+                        'Less than 30 h/week',
+                        style: TextStyle(
+                          fontSize: 13,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Hourly',
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  )),
+              Expanded(
+                  flex: 1,
+                  child: Column(
+                    children: const [
+                      Text(
+                        '1 month',
+                        style: TextStyle(fontSize: 13),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text('Duration', style: TextStyle(color: Colors.grey))
+                    ],
+                  )),
+              Expanded(
+                flex: 2,
+                child: Column(
+                  children: const [
+                    Text('Intermediate', style: TextStyle(fontSize: 13)),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text('Experience Level',
+                        style: TextStyle(color: Colors.grey)),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          const Text(
+            'Online German Recording  Task for Native Borne German (not immigrant) of German,Europe only.',
+            style: TextStyle(
+              fontSize: 12,
+            ),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.start,
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              defaultButton(
+                function: () {},
+                text: 'See More',
+                width: 100,
+                height: 30,
+                colors: defaultColor
+              ),
+              const Spacer(),
+              const Icon(Icons.schedule, size: 15, color: Colors.grey),
+              const SizedBox(
+                width: 2,
+              ),
+              const Text(
+                '11/4/2022',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 11,
+                ),
+                textAlign: TextAlign.start,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
