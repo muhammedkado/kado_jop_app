@@ -31,11 +31,6 @@ class home_screen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Companies we work with',style: TextStyle(
-            fontSize: 15,
-            color: defaultColor,
-            fontWeight: FontWeight.bold
-          ),),
           SizedBox(
             height: 200.0,
             width: double.infinity,
@@ -112,7 +107,7 @@ class home_screen extends StatelessWidget {
                     crossAxisCount: 2,
                     mainAxisSpacing:1.0,
                     crossAxisSpacing: 1.0,
-                    childAspectRatio: 1 / 0.7,
+                    childAspectRatio: 1 /2,
                     children: List.generate(
                              2,
                         (index) => buildGridProduct(),
