@@ -121,3 +121,24 @@ width: 24,
 ),
 
  */
+
+//setting background Container
+/*
+                    height: 10,
+ Align(
+                            alignment: AlignmentDirectional.topCenter,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[300],
+                                borderRadius: const BorderRadiusDirectional.vertical(
+                                    bottom: Radius.elliptical(50,50))
+                              ),
+
+                              width: double.infinity,
+                              height: 140,
+                            ),
+                          ),
+
+
+
+ */

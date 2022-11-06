@@ -6,6 +6,7 @@ import 'package:kadojopapp/layout/cubit/states.dart';
 import 'package:kadojopapp/layout/home_layout.dart';
 import 'package:kadojopapp/modules/login/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:kadojopapp/modules/setting/cubit/cubit.dart';
 import 'package:kadojopapp/shard/components/constants.dart';
 import 'package:kadojopapp/shard/network/local/CachHelper.dart';
 import 'package:kadojopapp/shard/styles/thememod.dart';
@@ -36,18 +37,26 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (context) => HomeCubit()..getUserData(),
-        child: BlocConsumer<HomeCubit, HomeState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              theme: lightTheme,
-              darkTheme: darkTheme,
-              home: startScreen,
-            );
-          },
-        ));
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => SettingCubit(),
+        ),
+        BlocProvider(
+          create: (context) => HomeCubit(),
+        ),
+      ],
+      child: BlocConsumer<HomeCubit,HomeState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: lightTheme,
+            darkTheme: darkTheme,
+            home: startScreen,
+          );
+        },
+      ),
+    );
   }
 }
