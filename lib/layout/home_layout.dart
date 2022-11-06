@@ -13,12 +13,20 @@ class Home_layout extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) => Scaffold(
         appBar: AppBar(
+        titleSpacing: 10,
+          elevation: 0.2,
           title: Text(cubit.title[cubit.currentIndex]),
           actions: [
             IconButton(
                 onPressed: () {},
-                icon: Icon(
-                  Icons.notifications_active_outlined,
+                icon:const Icon(
+                  Icons.search,
+                  color: defaultColor,
+                )),
+            IconButton(
+                onPressed: () {},
+                icon:const Icon(
+                  Icons.notifications,
                   color: defaultColor,
                 ))
           ],

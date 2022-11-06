@@ -1,109 +1,218 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kadojopapp/Model/shar.dart';
-import 'package:kadojopapp/components/components.dart';
-import 'package:kadojopapp/layout/cubit/cubit.dart';
-import 'package:kadojopapp/layout/cubit/states.dart';
-import 'package:kadojopapp/modules/setting/aboutapp_screen.dart';
-
+import 'package:kadojopapp/modules/setting/cubit/cubit.dart';
+import 'package:kadojopapp/modules/setting/cubit/states.dart';
+import 'package:kadojopapp/shard/styles/colors.dart';
 
 class Setting_Screen extends StatelessWidget {
 //  final user = FirebaseAuth.instance.currentUser!;
+
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit,HomeState>(
-      listener: (context,state){},
-      builder: (context,state){
-        return   Scaffold(
+    return BlocConsumer<SettingCubit, SettingStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        return Scaffold(
           body: SingleChildScrollView(
             child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    top: 15,
-                    left: 20,
-                    right: 20,
-                  ),
-                  child: Column(
-                    children: [
-                      const CircleAvatar(
-                        radius: 60,
-                        child: Icon(Icons.settings, size: 100),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Align(
+                    child: CircleAvatar(
+                      radius: 50,
+                      child: Icon(
+                        Icons.person,
+                        size: 80,
                       ),
-                      spec,
-                      Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: ExpansionTile(
-                              textColor: TextColors,
-                              collapsedBackgroundColor: TextColors,
-                              iconColor: TextColors,
-                              collapsedIconColor: Colors.white,
-                              collapsedTextColor: Colors.white,
-                              childrenPadding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 5),
-                              backgroundColor: Colors.white10,
-                              title: const Center(
-                                  child: Text(
-                                    'See Your Information',
-                                    style: TextStyle(fontWeight: FontWeight.bold
-                                      //color: Colors.black,
-                                    ),
-                                  )),
-                              children: [
-                                Text(
-                                  'Email : user.email',
-                                  style:const TextStyle(
-                                      fontSize: 20, fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          SizedBox(
-                            width: 500,
-                            height: 50,
-                            child: defoultButtun(
-                              text: 'About',
-                              function: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => AboutApp()));
-                              }, ), ), ], ),
-                      const   SizedBox(
-                        height: 25,
+                    ),
+                  ),
+                 const SizedBox(
+                    height: 10,
+                  ),
+                  const Align(
+                    child: Text(
+                      'Muhammed kado',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        'mehmetkado9@gmail.com ',
+                        style: TextStyle(
+                          //color: Colors.grey
+                          fontSize: 14,
+                        ),
                       ),
                       SizedBox(
-                        height: 50,
-                        width: 500,
-                        child: MaterialButton(
-                          color: Colors.red,
-                          onPressed: () {
-                          //  FirebaseAuth.instance.signOut().then((value) {
-                            // print('signed out');
-                          //   Navigator.push(context,
-        // MaterialPageRoute(builder: (context) => Login()));
-                            //  });
-                          },
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          child: const Text(
-                            'Logout',
-                            style: TextStyle(
-                                color: Colors.white, fontWeight: FontWeight.bold),
-                          ),
+                        width: 8,
+                        child: Text('|'),
+                      ),
+                      Text(
+                        '+905387399262',
+                        style: TextStyle(
+                          //color: Colors.grey
+                          fontSize: 14,
                         ),
                       ),
                     ],
                   ),
-                )),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(10),
+                    // padding: EdgeInsets.all(1),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(
+                          blurRadius: 4,
+                          color: Colors.grey,
+                        )
+                      ],
+                      borderRadius: BorderRadiusDirectional.circular(15),
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ListTile(
+                          title: const Text('Dark Mod'),
+                          leading: Icon(
+                            SettingCubit.get(context).isOff == true
+                                ? Icons.dark_mode
+                                : Icons.dark_mode_outlined,
+                            color: SettingCubit.get(context).isOff == true
+                                ? defaultColor
+                                : Colors.grey,
+                          ),
+                          trailing: Switch(
+                            activeColor: defaultColor,
+                            activeTrackColor: Colors.green,
+                            focusColor: Colors.red,
+                            value: SettingCubit.get(context).isOff,
+                            onChanged: (index) {
+                              SettingCubit.get(context)
+                                  .changeNotification(index);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(10),
+                    // padding: EdgeInsets.all(1),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(
+                          blurRadius: 4,
+                          color: Colors.grey,
+                        )
+                      ],
+                      borderRadius: BorderRadiusDirectional.circular(15),
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ListTile(
+                          onTap: () {},
+                          title: const Text('Edit Profile'),
+                          leading: const Icon(Icons.edit),
+                          // subtitle:const Text('Name, Email, Password, Phone'),
+                          trailing: const Icon(
+                            Icons.arrow_forward_ios,
+                            color: defaultColor,
+                          ),
+                        ),
+                        //Divider(),
+                        ListTile(
+                          title: const Text('Notification'),
+                          leading: Icon(
+                            SettingCubit.get(context).isOff == true
+                                ? Icons.notifications_active
+                                : Icons.notifications,
+                            color: SettingCubit.get(context).isOff == true
+                                ? defaultColor
+                                : Colors.grey,
+                          ),
+                          trailing: Switch(
+                            activeColor: defaultColor,
+                            activeTrackColor: Colors.green,
+                            focusColor: Colors.red,
+                            value: SettingCubit.get(context).isOff,
+                            onChanged: (index) {
+                              SettingCubit.get(context)
+                                  .changeNotification(index);
+                            },
+                          ),
+                        ),
+                        // Divider(),
+                        ListTile(
+                          onTap: () {},
+                          title: const Text('Language'),
+                          leading: const Icon(Icons.translate),
+                          trailing: const Icon(
+                            Icons.arrow_forward_ios,
+                            color: defaultColor,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(10),
+                    // padding: EdgeInsets.all(1),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(
+                          blurRadius: 4,
+                          color: Colors.grey,
+                        )
+                      ],
+                      borderRadius: BorderRadiusDirectional.circular(15),
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ListTile(
+                          onTap: () {},
+                          title: const Text('Contact'),
+                          leading: const Icon(Icons.send_rounded),
+                          // subtitle:const Text('Name, Email, Password, Phone'),
+                          trailing: const Icon(
+                            Icons.arrow_forward_ios,
+                            color: defaultColor,
+                          ),
+                        ),
+                        ListTile(
+                          onTap: () {},
+                          title: const Text('About'),
+                          leading: const Icon(Icons.info),
+                          // subtitle:const Text('Name, Email, Password, Phone'),
+                          trailing: const Icon(
+                            Icons.arrow_forward_ios,
+                            color: defaultColor,
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         );
       },
-
     );
   }
 }
