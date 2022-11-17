@@ -43,7 +43,10 @@ dependencies:
   shared_preferences: ^2.0.15
   bloc: ^8.1.0
   flutter_bloc: ^8.1.1
-
+  intl: ^0.17.0
+  intl_phone_number_input: ^0.7.1
+  country_state_city_picker: ^1.2.8
+  country_list_pick: ^1.0.1+6
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,13 +1,10 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kadojopapp/Model/shar.dart';
 import 'package:kadojopapp/layout/home_layout.dart';
 import 'package:kadojopapp/modules/login/cubit/cubit.dart';
 import 'package:kadojopapp/modules/login/cubit/states.dart';
 import 'package:kadojopapp/modules/register/register_screen.dart';
-import 'package:kadojopapp/modules/forget_password/resetpassowrd_screen.dart';
 import 'package:kadojopapp/shard/components/componentes.dart';
 import 'package:kadojopapp/shard/network/local/CachHelper.dart';
 import 'package:kadojopapp/shard/styles/colors.dart';
@@ -109,7 +106,7 @@ class Login extends StatelessWidget{
                             condition: state is! LoginLoadingState,
                             builder: (context) => defaultButton(
                               colors: defaultColor,
-                              text: 'Login',
+                              text: Text('Login',style: TextStyle(color: Colors.white),),
                               function: () {
                                 if (formKey.currentState!.validate()) {
                                   LoginCubit.get(context).userLogin(

@@ -1,11 +1,14 @@
 abstract class HomeState{}
 
 class HomeInitialState extends HomeState{}
-class GetUserLoadingState extends HomeState{}
-class GetUserSuccessState extends HomeState{}
-class GetUserErrorState extends HomeState{
+class GetUserUpdateLoadingState extends HomeState{}
+class GetUserUpdateSuccessState extends HomeState{}
+class GetUserUpdateErrorState extends HomeState{
   final String error;
 
-  GetUserErrorState(this.error);
+  GetUserUpdateErrorState(this.error);
 }
 class ChangeNavBarSuccessState extends HomeState{}
+
+class EditProfileChangePasswordVisibilityState extends HomeState{}
+class UpdateGenderSuccessState extends HomeState{}

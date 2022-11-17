@@ -24,3 +24,6 @@ class CreateErorrState extends RegisterStates {
   final String Error;
   CreateErorrState(this.Error);
 }
+
+
+class GenderSuccessState extends RegisterStates {}

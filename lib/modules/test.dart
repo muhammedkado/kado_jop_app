@@ -20,7 +20,7 @@ class test extends StatelessWidget {
             items:image.map((e) =>Image(image:e.image)).toList()
 
                 ,
-            
+
             options: CarouselOptions(
                 height: 230,
                 initialPage: 0,
@@ -142,3 +142,5 @@ width: 24,
 
 
  */
+
+

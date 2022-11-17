@@ -19,10 +19,18 @@ Widget defaultFormField({
   String lable = 'Email Addrees',
   IconData? suffix,
   Function? onSubmit,
+  Function? ontap,
   Function? suffixPressed,
   bool isPassword = false,
+  bool isClickable=true,
 }) =>
     TextFormField(
+      style: TextStyle(color: defaultColor),
+
+      enabled:isClickable ,
+      onTap: (){
+        ontap!();
+      },
       obscureText: isPassword,
       onFieldSubmitted: (s) {
         onSubmit!(s);
@@ -33,7 +41,10 @@ Widget defaultFormField({
         return validate(value);
       },
       decoration: InputDecoration(
-        filled: true,
+        hintStyle: TextStyle(
+            color: Colors.grey.shade500
+        ),
+        filled: false,
         suffixIcon: suffix != null
             ? IconButton(
                 onPressed: () {
@@ -46,7 +57,7 @@ Widget defaultFormField({
             : null,
         labelText: lable,
         prefixIcon: Icon(
-          prefix,
+          prefix,color: defaultColor,
         ),
         border: OutlineInputBorder(),
       ),
@@ -57,7 +68,7 @@ Widget defaultButton({
   double width = double.infinity,
   double? height,
   required Color colors,
-  required String text,
+  required Text text,
   required Function function,
 }) =>
     Container(
@@ -69,12 +80,7 @@ Widget defaultButton({
         onPressed: () {
           function();
         },
-        child: Text(
-          text.toUpperCase(),
-          style: const TextStyle(
-            color: Colors.white,
-          ),
-        ),
+        child: text
       ),
     );
 
@@ -228,7 +234,7 @@ Widget defaultProjectCard() => Container(
             children: [
               defaultButton(
                 function: () {},
-                text: 'See More',
+                text: Text('See More'),
                 width: 100,
                 height: 30,
                 colors: defaultColor

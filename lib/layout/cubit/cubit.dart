@@ -32,17 +32,36 @@ class HomeCubit extends Cubit<HomeState> {
     emit(ChangeNavBarSuccessState());
   }
 
-  UserModel? model;
-  void getUserData() {
-    emit(GetUserLoadingState());
-    FirebaseFirestore.instance.collection('user').doc(uId).get().then((value)
-    {
-      print(value.data());
-      model=UserModel.fromJson(value.data()!);
-      emit(GetUserSuccessState());
-    }).catchError((Error){
+  UserModel? userModel;
+  void getUserData() async {
+    emit(GetUserUpdateLoadingState());
+
+   await FirebaseFirestore.instance.collection('user').doc(uId).get().then
+     (
+      (value) {
+        print('Value data${value.data()}');
+      userModel = UserModel.fromJson(value.data() as Map<String, dynamic>);
+       print('Uid data${userModel!.uId}');
+      emit(GetUserUpdateSuccessState());
+    }).catchError((Error) {
       print(Error.toString());
-      emit(GetUserErrorState(Error.toString()));
-    });
+      emit(GetUserUpdateErrorState(Error.toString()));
+    }
+    );
+  }
+
+  IconData suffix = Icons.visibility_outlined;
+  bool isPassword = true;
+  void changePasswordVisibility() {
+    isPassword = !isPassword;
+    suffix =
+        isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
+    emit(EditProfileChangePasswordVisibilityState());
+  }
+
+  var gender;
+  genderDropdown(value) {
+    gender = value.toString();
+    emit(UpdateGenderSuccessState());
   }
 }
