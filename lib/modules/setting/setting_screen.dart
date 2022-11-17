@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kadojopapp/modules/login/login_screen.dart';
 import 'package:kadojopapp/modules/setting/cubit/cubit.dart';
 import 'package:kadojopapp/modules/setting/cubit/states.dart';
+import 'package:kadojopapp/modules/setting/edit_profile/edit_profile_screen.dart';
+import 'package:kadojopapp/shard/components/componentes.dart';
 import 'package:kadojopapp/shard/styles/colors.dart';
 
 class Setting_Screen extends StatelessWidget {
@@ -94,7 +97,7 @@ class Setting_Screen extends StatelessWidget {
                           ),
                           trailing: Switch(
                             activeColor: defaultColor,
-                            activeTrackColor: Colors.green,
+                            activeTrackColor: defaultColor,
                             focusColor: Colors.red,
                             value: SettingCubit.get(context).isOff,
                             onChanged: (index) {
@@ -123,7 +126,9 @@ class Setting_Screen extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ListTile(
-                          onTap: () {},
+                          onTap: () {
+                            Navigatorto(context: context, Widget: EditProfile());
+                          },
                           title: const Text('Edit Profile'),
                           leading: const Icon(Icons.edit),
                           // subtitle:const Text('Name, Email, Password, Phone'),
@@ -145,7 +150,7 @@ class Setting_Screen extends StatelessWidget {
                           ),
                           trailing: Switch(
                             activeColor: defaultColor,
-                            activeTrackColor: Colors.green,
+                            activeTrackColor: defaultColor,
                             focusColor: Colors.red,
                             value: SettingCubit.get(context).isOff,
                             onChanged: (index) {
@@ -204,9 +209,14 @@ class Setting_Screen extends StatelessWidget {
                           ),
                         ),
 
+
                       ],
                     ),
                   ),
+
+                  defaultButton(colors: Colors.red, text:Text('LogOut',style: TextStyle(color: Colors.white)), function: (){
+                    NavigatorAndFinish(context: context, Widget: Login());
+                  })
                 ],
               ),
             ),

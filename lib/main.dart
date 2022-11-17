@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kadojopapp/blocobserver.dart';
@@ -11,7 +12,7 @@ import 'package:kadojopapp/shard/components/constants.dart';
 import 'package:kadojopapp/shard/network/local/CachHelper.dart';
 import 'package:kadojopapp/shard/styles/thememod.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = SimpleBlocObserver();
   await Firebase.initializeApp();
@@ -43,13 +44,15 @@ class MyApp extends StatelessWidget {
           create: (context) => SettingCubit(),
         ),
         BlocProvider(
-          create: (context) => HomeCubit(),
+          create: (context) => HomeCubit()..getUserData(),
         ),
       ],
       child: BlocConsumer<HomeCubit,HomeState>(
         listener: (context, state) {},
         builder: (context, state) {
+
           return MaterialApp(
+
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
             darkTheme: darkTheme,
