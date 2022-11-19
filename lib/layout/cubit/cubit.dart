@@ -27,29 +27,33 @@ class HomeCubit extends Cubit<HomeState> {
     'F.A.Q',
     'Setting',
   ];
+
   void changeNavBar(int index) {
     currentIndex = index;
     emit(ChangeNavBarSuccessState());
   }
 
   UserModel? userModel;
+
   void getUserData() async {
     emit(GetUserUpdateLoadingState());
 
-   await FirebaseFirestore.instance.collection('user').doc(uId).get().then
-     (
-      (value) {
-        print('Value data${value.data()}');
+    await FirebaseFirestore.instance
+        .collection('user')
+        .doc(uId)
+        .get()
+        .then((value) {
+      print('Value data${value.data()}');
       userModel = UserModel.fromJson(value.data() as Map<String, dynamic>);
-       print('Uid data${userModel!.uId}');
+      print('Uid data${userModel!.uId}');
       emit(GetUserUpdateSuccessState());
     }).catchError((Error) {
       print(Error.toString());
       emit(GetUserUpdateErrorState(Error.toString()));
-    }
-    );
+    });
   }
 
+/*
   IconData suffix = Icons.visibility_outlined;
   bool isPassword = true;
   void changePasswordVisibility() {
@@ -58,10 +62,43 @@ class HomeCubit extends Cubit<HomeState> {
         isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
     emit(EditProfileChangePasswordVisibilityState());
   }
-
+*/
   var gender;
+
   genderDropdown(value) {
     gender = value.toString();
     emit(UpdateGenderSuccessState());
+  }
+
+  void userUpdate({
+    required String email,
+    required String name,
+    required String phone,
+    required String brithDay,
+    String? gender,
+    String? uId,
+    String? country,
+  }) async {
+    emit(UserUpdateLoadingState());
+    UserModel model = UserModel(
+        name: name,
+        email: email,
+        phone: phone,
+        brithDay: brithDay,
+        country: userModel!.country,
+        gender: userModel!.gender,
+        uId: userModel!.uId,
+        isEmailVerified: false,
+    );
+    FirebaseFirestore.instance
+        .collection('user')
+        .doc(userModel!.uId)
+        .update(model.toMap())
+        .then((value) {
+      getUserData();
+
+    }).catchError((Error) {
+      print(Error.toString());
+    });
   }
 }

@@ -15,7 +15,7 @@ class RegisterScreen extends StatelessWidget {
   var nameControlar = TextEditingController();
   var emailControlar = TextEditingController();
   var passwordControlar = TextEditingController();
-  var phoneControlar = TextEditingController();
+  String? phoneControlar ;
   var brithDayControlar = TextEditingController();
   var countryControlar = TextEditingController();
 
@@ -123,17 +123,20 @@ class RegisterScreen extends StatelessWidget {
                                 InternationalPhoneNumberInput(
                                   //maxLength: 1,
                                   textAlign: TextAlign.start,
-                                  selectorConfig:const SelectorConfig(
+                                  selectorConfig: const SelectorConfig(
                                     leadingPadding: 5,
                                     trailingSpace: true,
                                     useEmoji: true,
-                                    selectorType:PhoneInputSelectorType.BOTTOM_SHEET,
+                                    selectorType:
+                                        PhoneInputSelectorType.BOTTOM_SHEET,
                                   ),
-                                  onInputChanged: (value) {},
-                                  textFieldController: phoneControlar,
+                                  onInputChanged: (PhoneNumber number) {
+                                    phoneControlar=number.phoneNumber!;
+                                  },
+                                 // textFieldController: phoneControlar,
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return 'Password is to short';
+                                      return 'phone number is not be empty ';
                                     }
                                     return null;
                                   },
@@ -301,7 +304,7 @@ class RegisterScreen extends StatelessWidget {
                                     brithDay: brithDayControlar.text,
                                     email: emailControlar.text,
                                     name: nameControlar.text,
-                                    phone: phoneControlar.text,
+                                    phone: phoneControlar!,
                                     password: passwordControlar.text,
                                     country: chooseCountry,
                                   );

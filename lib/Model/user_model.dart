@@ -8,16 +8,16 @@ class UserModel {
   String? uId;
   bool? isEmailVerified;
 
-  UserModel(
-    this.name,
-    this.email,
-    this.phone,
-    this.brithDay,
-    this.country,
-    this.gender,
-    this.uId,
-    this.isEmailVerified,
-  );
+  UserModel({
+    required this.name,
+    required this.email,
+    required this.phone,
+    required this.brithDay,
+    required this.country,
+    required this.gender,
+    required this.uId,
+    required this.isEmailVerified,
+  });
 
   UserModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -42,5 +42,4 @@ class UserModel {
       'isEmailVerified': isEmailVerified,
     };
   }
-
 }

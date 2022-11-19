@@ -1,8 +1,6 @@
-import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:kadojopapp/layout/cubit/cubit.dart';
 import 'package:kadojopapp/layout/cubit/states.dart';
 import 'package:kadojopapp/shard/components/componentes.dart';
@@ -11,7 +9,6 @@ class EditProfile extends StatelessWidget {
   EditProfile({Key? key}) : super(key: key);
   var nameController = TextEditingController();
   var emailController = TextEditingController();
-  var passwordController = TextEditingController();
   var phoneController = TextEditingController();
   var brithDayController = TextEditingController();
   var countryController = TextEditingController();
@@ -22,13 +19,13 @@ class EditProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
-      listener: (context, index) {},
-      builder: (context, index) {
+      listener: (context, state) {},
+      builder: (context, state) {
         var userModel = HomeCubit.get(context).userModel;
+        var upadate = HomeCubit.get(context);
         nameController.text = userModel!.name!;
         emailController.text = userModel.email!;
         phoneController.text = userModel.phone!;
-
         brithDayController.text = userModel.brithDay!;
         chooseCountry = userModel.country!;
 
@@ -36,7 +33,16 @@ class EditProfile extends StatelessWidget {
           appBar: AppBar(
             elevation: 0.3,
             actions: [
-              defaultTextButton(function: () {}, lable: const Text('Update'))
+              defaultTextButton(
+                  function: () {
+                    upadate.userUpdate(
+                      email: emailController.text,
+                      name: nameController.text,
+                      phone: phoneController.text,
+                      brithDay: brithDayController.text,
+                    );
+                  },
+                  lable: const Text('Update'))
             ],
           ),
           body: GestureDetector(
@@ -46,6 +52,8 @@ class EditProfile extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  if(state is UserUpdateLoadingState)
+                    const LinearProgressIndicator(),
                   Container(
                     padding: const EdgeInsets.only(left: 15, bottom: 15),
                     child: Column(
@@ -114,10 +122,10 @@ class EditProfile extends StatelessWidget {
                             prefix: Icons.person_outline,
                             controller: nameController,
                             keybord: TextInputType.text,
-                            lable: 'User Name',
+                            lable: 'Full Name',
                             validate: (value) {
                               if (value!.isEmpty) {
-                                return 'user name is not be Empty';
+                                return 'Name must not be Empty';
                               }
                               return null;
                             }),
@@ -130,7 +138,7 @@ class EditProfile extends StatelessWidget {
                             keybord: TextInputType.emailAddress,
                             validate: (value) {
                               if (value!.isEmpty) {
-                                return 'Email Address is not be Empty';
+                                return 'Email Address must not be Empty';
                               }
                               return null;
                             }),
@@ -138,179 +146,45 @@ class EditProfile extends StatelessWidget {
                           height: 15,
                         ),
                         defaultFormField(
-                            prefix: Icons.lock_outline,
-                            isPassword: HomeCubit.get(context).isPassword,
-                            suffix: HomeCubit.get(context).suffix,
-                            controller: passwordController,
-                            keybord: TextInputType.visiblePassword,
-                            validate: (value) {
-                              if (value!.isEmpty) {
-                                return 'Password is to short';
-                              }
-                              return null;
-                            },
-                            lable: 'Password',
-                            suffixPressed: () {
-                              HomeCubit.get(context).changePasswordVisibility();
-                            }),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Container(
-                          //  width: 300,
-                          padding: const EdgeInsets.only(left: 10),
-
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey),
-                          ),
-                          child: Stack(
-                            children: [
-                              InternationalPhoneNumberInput(
-                                //maxLength: 1,
-
-                             //   initialValue: PhoneNumber(dialCode: '+90',phoneNumber: '053877',isoCode: '+90'),
-                                textAlign: TextAlign.start,
-                                selectorConfig: const SelectorConfig(
-
-                                  leadingPadding: 5,
-                                  trailingSpace: true,
-                                  setSelectorButtonAsPrefixIcon: true,
-                                  showFlags: true,
-                                  useEmoji: true,
-                                  selectorType:
-                                      PhoneInputSelectorType.BOTTOM_SHEET,
-                                ),
-                                onInputChanged: (value) {},
-                                textFieldController: phoneController,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Password is to short';
-                                  }
-                                  return null;
-                                },
-                                inputDecoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  contentPadding: const EdgeInsets.all(10),
-                                  filled: false,
-                                  labelText: 'Phone number',
-                                  hintStyle:
-                                      TextStyle(color: Colors.grey.shade500),
-                                ),
-                              ),
-                              Positioned(
-                                  top: 8,
-                                  left: 90,
-                                  bottom: 8,
-                                  child: Container(
-                                    width: 1,
-                                    height: 30,
-                                    color: Colors.black.withOpacity(0.13),
-                                  ))
-                            ],
-                          ),
+                          lable: 'Phone',
+                          prefix: Icons.phone,
+                          controller: phoneController,
+                          keybord: TextInputType.visiblePassword,
+                          validate: (value) {
+                            if (value!.isEmpty) {
+                              return 'Password is too short';
+                            }
+                            return null;
+                          },
                         ),
                         const SizedBox(
                           height: 15,
                         ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: 180,
-                              height: 60,
-                              child: defaultFormField(
-                                lable: 'BrithDay',
-                                ontap: () async {
-                                  await showDatePicker(
-                                    context: context,
-                                    initialDate: DateTime.now(),
-                                    firstDate: DateTime(1900),
-                                    lastDate: DateTime.now(),
-                                  ).then((value) {
-                                    // print(DateFormat.yMd().format(value!));
-                                    brithDayController.text =
-                                        DateFormat.yMd().format(value!);
-                                  });
-                                },
-                                controller: brithDayController,
-                                keybord: TextInputType.datetime,
-                                validate: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'BrithDay is not be Empty';
-                                  }
-                                },
-                                prefix: Icons.date_range,
-                              ),
-                            ),
-                            const Spacer(),
-                            Container(
-                              width: 180,
-                              height: 60,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButton(
-                                  hint: const Text(
-                                    'Gender',
-                                  ),
-                                  icon: const Visibility(
-                                      visible: false,
-                                      child: Icon(Icons.arrow_downward)),
-                                  items: ['MALE', 'FEMALE']
-                                      .map((e) => DropdownMenuItem(
-                                            child: Text('$e'),
-                                            value: e,
-                                          ))
-                                      .toList(),
-                                  onChanged: (val) {
-                                    HomeCubit.get(context).genderDropdown(val);
-                                  },
-                                  value: HomeCubit.get(context).gender,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 25,
-                        ),
-                        Container(
-                          decoration: const BoxDecoration(boxShadow: [
-                            BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 6,
-                                spreadRadius: 0.5)
-                          ]),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(5)),
-                            child: CountryListPick(
-                              initialSelection: chooseCountry='Turkey',
-                              theme: CountryTheme(
-                                  labelColor: Colors.black,
-                                  showEnglishName: true,
-                                  alphabetTextColor: Colors.black,
-                                  isShowCode: false),
 
-                              // to initial code number countrey
-
-                              // to get feedback data from picker
-                              onChanged: (code) {
-                                if (code!.dialCode != null) {
-                                  chooseCountry = code.name!;
-                                  print('this is in sead $chooseCountry');
-                                } else {
-                                  print('error =>>>> code.dialCode = null');
-                                }
-                              },
-                            ),
-                          ),
+                        defaultFormField(
+                          lable: 'BrithDay',
+                          ontap: () async {
+                            await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1900),
+                              lastDate: DateTime.now(),
+                            ).then((value) {
+                              // print(DateFormat.yMd().format(value!));
+                              brithDayController.text =
+                                  DateFormat.yMd().format(value!);
+                            });
+                          },
+                          controller: brithDayController,
+                          keybord: TextInputType.datetime,
+                          validate: (value) {
+                            if (value!.isEmpty) {
+                              return 'BrithDay must not be Empty';
+                            }
+                          },
+                          prefix: Icons.date_range,
                         ),
+
                       ],
                     ),
                   ),
