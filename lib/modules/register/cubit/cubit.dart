@@ -21,10 +21,12 @@ class RegisterCubit extends Cubit<RegisterStates> {
     String? uId,
   }) async {
     emit(RegisterLoadingState());
-    FirebaseAuth.instance.createUserWithEmailAndPassword(
+    FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
       email: email,
       password: password,
-    ).then((value) {
+    )
+        .then((value) {
       userCreate(
         email: email,
         name: name,
@@ -51,15 +53,14 @@ class RegisterCubit extends Cubit<RegisterStates> {
     bool isEmailVerified = false,
   }) {
     UserModel model = UserModel(
-      name,
-      email,
-      phone,
-      brithDay,
-      country,
-      gender,
-      uId,
-      isEmailVerified,
-    );
+        name: name,
+        email: email,
+        phone: phone,
+        brithDay: brithDay,
+        country: country,
+        gender: gender,
+        uId: uId,
+        isEmailVerified: isEmailVerified);
     emit(CreateLoadingState());
     FirebaseFirestore.instance
         .collection('user')
@@ -77,7 +78,8 @@ class RegisterCubit extends Cubit<RegisterStates> {
   bool isPassword = true;
   changePasswordVisibility() {
     isPassword = !isPassword;
-    suffix =isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
+    suffix =
+        isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
     emit(RegisterChangePasswordVisibilityState());
   }
 
