@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kadojopapp/modules/login/login_screen.dart';
+import 'package:kadojopapp/modules/setting/about/about_screen.dart';
+import 'package:kadojopapp/modules/setting/contact/conract_screen.dart';
 import 'package:kadojopapp/modules/setting/cubit/cubit.dart';
 import 'package:kadojopapp/modules/setting/cubit/states.dart';
 import 'package:kadojopapp/modules/setting/edit_profile/edit_profile_screen.dart';
@@ -189,8 +191,10 @@ class Setting_Screen extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ListTile(
-                          onTap: () {},
-                          title: const Text('Contact'),
+                          onTap: () {
+                            Navigatorto(context: context, Widget:const ContactScreen());
+                          },
+                          title: const Text('Contact & F.Q.A'),
                           leading: const Icon(Icons.send_rounded),
                           // subtitle:const Text('Name, Email, Password, Phone'),
                           trailing: const Icon(
@@ -199,7 +203,9 @@ class Setting_Screen extends StatelessWidget {
                           ),
                         ),
                         ListTile(
-                          onTap: () {},
+                          onTap: () {
+                            Navigatorto(context: context, Widget:const AboutScreen());
+                          },
                           title: const Text('About'),
                           leading: const Icon(Icons.info),
                           // subtitle:const Text('Name, Email, Password, Phone'),
@@ -214,7 +220,7 @@ class Setting_Screen extends StatelessWidget {
                     ),
                   ),
 
-                  defaultButton(colors: Colors.red, text:Text('LogOut',style: TextStyle(color: Colors.white)), function: (){
+                  defaultButton(colors: Colors.red, text:const Text('LogOut',style: TextStyle(color: Colors.white)), function: (){
                     NavigatorAndFinish(context: context, Widget: Login());
                   })
                 ],
