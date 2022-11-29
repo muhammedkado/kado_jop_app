@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kadojopapp/modules/login/login_screen.dart';
 import 'package:kadojopapp/modules/setting/about/about_screen.dart';
-import 'package:kadojopapp/modules/setting/contact/conract_screen.dart';
+import 'package:kadojopapp/modules/setting/contact/contact_screen.dart';
 import 'package:kadojopapp/modules/setting/cubit/cubit.dart';
 import 'package:kadojopapp/modules/setting/cubit/states.dart';
 import 'package:kadojopapp/modules/setting/edit_profile/edit_profile_screen.dart';
@@ -25,10 +25,11 @@ class Setting_Screen extends StatelessWidget {
                 children: [
                   const Align(
                     child: CircleAvatar(
+                      backgroundColor: defaultColor,
                       radius: 50,
                       child: Icon(
                         Icons.person,
-                        size: 80,
+                        size: 80,color: Colors.white,
                       ),
                     ),
                   ),
@@ -99,8 +100,7 @@ class Setting_Screen extends StatelessWidget {
                           ),
                           trailing: Switch(
                             activeColor: defaultColor,
-                            activeTrackColor: defaultColor,
-                            focusColor: Colors.red,
+                            activeTrackColor: Colors.green,
                             value: SettingCubit.get(context).isOff,
                             onChanged: (index) {
                               SettingCubit.get(context)
@@ -152,8 +152,7 @@ class Setting_Screen extends StatelessWidget {
                           ),
                           trailing: Switch(
                             activeColor: defaultColor,
-                            activeTrackColor: defaultColor,
-                            focusColor: Colors.red,
+                            activeTrackColor: Colors.green,
                             value: SettingCubit.get(context).isOff,
                             onChanged: (index) {
                               SettingCubit.get(context)
@@ -192,7 +191,7 @@ class Setting_Screen extends StatelessWidget {
                       children: [
                         ListTile(
                           onTap: () {
-                            Navigatorto(context: context, Widget:const ContactScreen());
+                            Navigatorto(context: context, Widget: ContactScreen());
                           },
                           title: const Text('Contact & F.Q.A'),
                           leading: const Icon(Icons.send_rounded),
