@@ -1,33 +1,31 @@
-class ContactModel{
-
+class ContactModel {
   String? subject;
-  String? massage;
+  String? message;
   String? email;
+  String? phone;
   String? name;
   ContactModel({
-required this.email,
+    required this.email,
     required this.name,
+    required this.phone,
     required this.subject,
-    required this.massage,
+    required this.message,
   });
-  ContactModel.fromJson(Map<String,dynamic> json)
-  {
+  ContactModel.fromJson(Map<String, dynamic> json) {
     name=json['name'];
     email=json['email'];
-  subject=json['subject'];
-  massage=json['massage'];
+    phone=json['phone'];
+    subject = json['subject'];
+    message = json['massage'];
   }
 
   Map<String, dynamic> toMap() {
     return {
-
       'subject': subject,
-      'massage': massage,
+      'massage': message,
       'name': name,
       'email': email,
+      'phone': phone,
     };
   }
-
-
-
 }
