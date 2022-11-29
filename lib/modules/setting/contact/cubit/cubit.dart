@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kadojopapp/Model/contact_model.dart';
 import 'package:kadojopapp/Model/user_model.dart';
 import 'package:kadojopapp/modules/setting/contact/cubit/states.dart';
-import 'package:kadojopapp/shard/components/constants.dart';
 
 class ContactCubit extends Cubit<ContactState> {
   ContactCubit() : super(ContactInitialState());
@@ -33,33 +32,36 @@ class ContactCubit extends Cubit<ContactState> {
   */
   UserModel? userModel;
   ContactModel? contactModel;
-  saveMassage({
-    required String massage,
+  saveMessage({
+    required String message,
     required String subject,
+    required String email,
+    required String phone,
+    required String name,
   }) {
     ContactModel contactModel = ContactModel(
-      // name: contactModell!.name,
-      // email: contactModell!.email,
-      //  phone: contactModell!.phone,
-      massage: massage,
+      // name: contactModel!.name,
+       email: email,
+        name:name,
+      phone:phone,
+      message: message,
       subject: subject,
-      email: userModel!.email,
-      name: userModel!.name,
-    );
-    print('massage= $massage');
-    print('subject= $subject');
-    print('contactModel.massage = ${contactModel.massage}');
 
-    emit(MassageSaveLoadingState());
+    );
+    print('massage= $message');
+    print('subject= $subject');
+    print('contactModel.massage = ${contactModel.message}');
+
+    emit(MessageSaveLoadingState());
     FirebaseFirestore.instance
         .collection('contact')
-        .doc(uId)
+        .doc()
         .set(contactModel.toMap())
         .then((value) {
-      emit(MassageSaveSuccessesState());
+      emit(MessageSaveSuccessesState());
     }).catchError((Error) {
       print(Error.toString());
-      emit(MassageSaveErrorState(Error.toString()));
+      emit(MessageSaveErrorState(Error.toString()));
     });
   }
 }

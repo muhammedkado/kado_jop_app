@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kadojopapp/Model/shar.dart';
 import 'package:kadojopapp/components/components.dart';
+import 'package:kadojopapp/layout/cubit/cubit.dart';
 import 'package:kadojopapp/modules/setting/contact/cubit/cubit.dart';
 import 'package:kadojopapp/modules/setting/contact/cubit/states.dart';
+import 'package:kadojopapp/shard/components/componentes.dart';
+import 'package:kadojopapp/shard/styles/colors.dart';
 
 class ContactScreen extends StatelessWidget {
   ContactScreen({Key? key}) : super(key: key);
@@ -11,12 +14,14 @@ class ContactScreen extends StatelessWidget {
   var subjectController = TextEditingController();
   var massgController = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
         create: (context) => ContactCubit(),
         child: BlocConsumer<ContactCubit, ContactState>(
             builder: (context, state) {
+              var Homecubits=HomeCubit.get(context).userModel!;
               return Scaffold(
                 appBar: AppBar(
                   title: const Text('Contact & F.Q.A'),
@@ -41,6 +46,7 @@ class ContactScreen extends StatelessWidget {
                         ),
                         children: [
                           Text(
+
                             'We are a company that aims to provide jobs for people who want to provide them with additional income and help individuals develop their skills and professional backgrounds We also provide applicants with training to help them facilitate their work throughout their time working with us.',
                             style: TextStyle(color: TextColors),
                           )
@@ -129,7 +135,14 @@ class ContactScreen extends StatelessWidget {
                                       fontSize: 25),
                                 ),
                                 const SizedBox(
-                                  height: 10,
+                                  height: 1,
+                                ),
+                                const Text('If you have any problem contact us',style: TextStyle(
+                                  fontSize: 14,
+                                  color: defaultColor,fontWeight: FontWeight.bold
+                                ),),
+                                const SizedBox(
+                                  height: 15,
                                 ),
                                 defoutformfield(
                                     validator: (value) {
@@ -146,39 +159,53 @@ class ContactScreen extends StatelessWidget {
                                 const SizedBox(
                                   height: 3,
                                 ),
+
                                 TextFormField(
                                     controller: massgController,
-                                    maxLength: 300,
+                                    maxLength: 200,
                                     maxLines: 6,
                                     keyboardType: TextInputType.text,
                                     textAlignVertical: TextAlignVertical.top,
                                     decoration: InputDecoration(
                                         filled: true,
-                                        labelText: "Massage",
+                                        labelText: "Message",
                                         alignLabelWithHint: true,
                                         border: OutlineInputBorder(
                                             borderRadius:
                                                 BorderRadius.circular(20)))),
-                                const SizedBox(
-                                  height: 15,
-                                ),
+
                                 defoultButtun(
-                                  text: 'Sand Massage',
+                                  text: 'Sand Message',
                                   function: () {
-                                    ContactCubit.get(context).saveMassage(
-                                      massage: massgController.text,
+
+                                    ContactCubit.get(context).saveMessage(
+                                      email: Homecubits.email!,
+                                      name: Homecubits.name!,
+                                      phone: Homecubits.phone!,
+                                      message: massgController.text,
                                       subject: subjectController.text,
                                     );
                                   },
                                 ),
+
+
+
+
                               ]),
                         ),
-                      )
+                      ),
+                     const SizedBox(
+                        height: 15,
+                      ),
                     ],
                   ),
                 ),
               );
             },
-            listener: (context, state) {}));
+            listener: (context, state) {
+              if (state is MessageSaveSuccessesState){
+                ShowTost(msg: 'Message has been sent', state: TostState.SUCCESS);
+              }
+            }));
   }
 }

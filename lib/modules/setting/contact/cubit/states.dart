@@ -1,9 +1,9 @@
 abstract class ContactState {}
 class ContactInitialState extends ContactState{}
-class MassageSaveSuccessesState extends ContactState{}
-class MassageSaveLoadingState extends ContactState{}
-class MassageSaveErrorState extends ContactState{
+class MessageSaveSuccessesState extends ContactState{}
+class MessageSaveLoadingState extends ContactState{}
+class MessageSaveErrorState extends ContactState{
   final Error;
 
-  MassageSaveErrorState(this.Error);
+  MessageSaveErrorState(this.Error);
 }
