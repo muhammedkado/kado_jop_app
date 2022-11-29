@@ -7,6 +7,7 @@ import 'package:kadojopapp/layout/cubit/states.dart';
 import 'package:kadojopapp/layout/home_layout.dart';
 import 'package:kadojopapp/modules/login/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:kadojopapp/modules/setting/contact/cubit/cubit.dart';
 import 'package:kadojopapp/modules/setting/cubit/cubit.dart';
 import 'package:kadojopapp/shard/components/constants.dart';
 import 'package:kadojopapp/shard/network/local/CachHelper.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context)=>ContactCubit()),
         BlocProvider(
           create: (context) => SettingCubit(),
         ),
