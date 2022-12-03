@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kadojopapp/Model/shar.dart';
-import 'package:kadojopapp/components/components.dart';
 import 'package:kadojopapp/layout/cubit/cubit.dart';
 import 'package:kadojopapp/modules/setting/contact/cubit/cubit.dart';
 import 'package:kadojopapp/modules/setting/contact/cubit/states.dart';

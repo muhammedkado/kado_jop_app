@@ -1,5 +1,7 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kadojopapp/layout/cubit/cubit.dart';
 import 'package:kadojopapp/modules/login/login_screen.dart';
 import 'package:kadojopapp/modules/setting/about/about_screen.dart';
 import 'package:kadojopapp/modules/setting/contact/contact_screen.dart';
@@ -17,6 +19,7 @@ class Setting_Screen extends StatelessWidget {
     return BlocConsumer<SettingCubit, SettingStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        var homecubit = HomeCubit.get(context).userModel;
         return Scaffold(
           body: SingleChildScrollView(
             child: Center(
@@ -29,18 +32,22 @@ class Setting_Screen extends StatelessWidget {
                       radius: 50,
                       child: Icon(
                         Icons.person,
-                        size: 80,color: Colors.white,
+                        size: 80,
+                        color: Colors.white,
                       ),
                     ),
                   ),
-                 const SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  const Align(
+                  Align(
                     child: Text(
-                      'Muhammed kado',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      homecubit!.name!,
+                      style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          overflow: TextOverflow.ellipsis),
+                      maxLines: 1,
                     ),
                   ),
                   const SizedBox(
@@ -48,24 +55,28 @@ class Setting_Screen extends StatelessWidget {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       Text(
-                        'mehmetkado9@gmail.com ',
-                        style: TextStyle(
+                        homecubit.email!,
+                        style: const TextStyle(
+                          overflow: TextOverflow.ellipsis,
                           //color: Colors.grey
                           fontSize: 14,
                         ),
+                        maxLines: 1,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 8,
                         child: Text('|'),
                       ),
                       Text(
-                        '+905387399262',
-                        style: TextStyle(
+                        homecubit.phone!,
+                        style: const TextStyle(
+                          overflow: TextOverflow.ellipsis,
                           //color: Colors.grey
                           fontSize: 14,
                         ),
+                        maxLines: 1,
                       ),
                     ],
                   ),
@@ -129,7 +140,8 @@ class Setting_Screen extends StatelessWidget {
                       children: [
                         ListTile(
                           onTap: () {
-                            Navigatorto(context: context, Widget: EditProfile());
+                            Navigatorto(
+                                context: context, Widget: EditProfile());
                           },
                           title: const Text('Edit Profile'),
                           leading: const Icon(Icons.edit),
@@ -191,7 +203,8 @@ class Setting_Screen extends StatelessWidget {
                       children: [
                         ListTile(
                           onTap: () {
-                            Navigatorto(context: context, Widget: ContactScreen());
+                            Navigatorto(
+                                context: context, Widget: ContactScreen());
                           },
                           title: const Text('Contact & F.Q.A'),
                           leading: const Icon(Icons.send_rounded),
@@ -203,7 +216,8 @@ class Setting_Screen extends StatelessWidget {
                         ),
                         ListTile(
                           onTap: () {
-                            Navigatorto(context: context, Widget:const AboutScreen());
+                            Navigatorto(
+                                context: context, Widget: const AboutScreen());
                           },
                           title: const Text('About'),
                           leading: const Icon(Icons.info),
@@ -213,15 +227,23 @@ class Setting_Screen extends StatelessWidget {
                             color: defaultColor,
                           ),
                         ),
-
-
                       ],
                     ),
                   ),
-
-                  defaultButton(colors: Colors.red, text:const Text('LogOut',style: TextStyle(color: Colors.white)), function: (){
-                    NavigatorAndFinish(context: context, Widget: Login());
-                  })
+                  ConditionalBuilder(
+                    condition: state is! SignOutLoadingState,
+                    builder: (context) => defaultButton(
+                      colors: Colors.red,
+                      text: const Text(
+                        'SignOut',
+                          style: TextStyle(color: Colors.white),),
+                      function: () {
+                        SettingCubit.get(context).signOut(context: context, screen: Login());
+                      },
+                    ),
+                    fallback: (context) =>
+                        const Center(child: CircularProgressIndicator()),
+                  ),
                 ],
               ),
             ),

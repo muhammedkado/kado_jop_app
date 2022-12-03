@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kadojopapp/blocobserver.dart';
@@ -41,7 +40,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context)=>ContactCubit()),
+        BlocProvider(
+          create: (context) => ContactCubit(),
+        ),
         BlocProvider(
           create: (context) => SettingCubit(),
         ),
@@ -49,12 +50,10 @@ class MyApp extends StatelessWidget {
           create: (context) => HomeCubit()..getUserData(),
         ),
       ],
-      child: BlocConsumer<HomeCubit,HomeState>(
+      child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {},
         builder: (context, state) {
-
           return MaterialApp(
-
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
             darkTheme: darkTheme,

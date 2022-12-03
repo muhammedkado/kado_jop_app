@@ -64,31 +64,31 @@ class EditProfile extends StatelessWidget {
                         ),
                         Text(
                           '${userModel.name}',
+                          maxLines: 1,
                           style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                              fontSize: 20, fontWeight: FontWeight.bold,),
                         ),
                         const SizedBox(
                           height: 8,
                         ),
+                        Text(
+                          'Email: ${userModel.email}',
+                          style: const TextStyle(
+                            //color: Colors.grey
+                            fontSize: 14,
+                          ),
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              'Email: ${userModel.email}',
-                              style: const TextStyle(
-                                //color: Colors.grey
-                                fontSize: 14,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 8,
-                              child: Text('|'),
-                            ),
-                            Text(
-                              'Phone:${userModel.phone}',
-                              style: const TextStyle(
-                                //color: Colors.grey
-                                fontSize: 14,
+
+                            Expanded(
+                              child: Text(
+                                'Phone:${userModel.phone}',
+                                style: const TextStyle(
+                                  //color: Colors.grey
+                                  fontSize: 14,
+                                ),
                               ),
                             ),
                           ],

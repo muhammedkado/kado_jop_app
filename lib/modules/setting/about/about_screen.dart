@@ -49,6 +49,10 @@ class AboutScreen extends StatelessWidget {
                         ),
                         textAlign: TextAlign.start,
                       ),
+                  const Text('This application has been programmed with Flutter + Firebase.',
+                    style:TextStyle(
+                        fontSize: 15
+                    ),),
                       const SizedBox(
                         height: 5,
                       ),
@@ -56,16 +60,14 @@ class AboutScreen extends StatelessWidget {
                         children: const [
                           Text('Program Version: '),
                           Text(
-                            'Version 1.2',
+                            'Version 1.0',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
                           )
                         ],
                       ),
-                      const SizedBox(
-                        height: 5,
-                      ),
+
                       Row(
                         children: const [
                           Text('programed bay:'),

@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kadojopapp/Model/projectmodel.dart';
 import 'package:kadojopapp/shard/components/componentes.dart';
 import 'package:kadojopapp/shard/styles/colors.dart';
-
-import '../../components/components.dart';
-
 class Project_Screen extends StatelessWidget {
   List<ProjectModel> user = [
     ProjectModel(
@@ -166,12 +163,7 @@ class Project_Screen extends StatelessWidget {
   }
 }
 
-Widget buildProject(ProjectModel user) {
-  return ProjectScreenContainer(
-      Body: '${user.Body}',
-      Tatole: '${user.ProjectName}',
-      projectType: user.projectType);
-}
+
 /*Widget buildProject(ProjectModel user) => Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,

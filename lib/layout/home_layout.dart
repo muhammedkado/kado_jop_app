@@ -41,14 +41,14 @@ class Home_layout extends StatelessWidget {
               icon: Icon(
                 Icons.home,
               ),
-              label: 'Home',
+              label: 'New Project',
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.business,
+                Icons.check_box_outlined,
               ),
-              label: 'Project',
-            ),
+              label: 'My project',
+            ),/*
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.send_rounded,
@@ -56,6 +56,7 @@ class Home_layout extends StatelessWidget {
               label: 'Contact',
               activeIcon: Icon(Icons.send_outlined),
             ),
+            */
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.settings,
