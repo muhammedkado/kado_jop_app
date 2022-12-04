@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kadojopapp/Model/projectmodel.dart';
 import 'package:kadojopapp/shard/components/componentes.dart';
 import 'package:kadojopapp/shard/styles/colors.dart';
+
 class Project_Screen extends StatelessWidget {
   List<ProjectModel> user = [
     ProjectModel(
@@ -69,7 +70,7 @@ class Project_Screen extends StatelessWidget {
       child: DefaultTabController(
         length: 2,
         child: SingleChildScrollView(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           child: Column(
             children: [
               Container(
@@ -82,8 +83,7 @@ class Project_Screen extends StatelessWidget {
                   children: [
                     Container(
                       child: TabBar(
-                         padding: EdgeInsets.all(5),
-
+                        padding: const EdgeInsets.all(5),
                         indicatorColor: defaultColor,
                         indicatorWeight: 2,
                         indicatorSize: TabBarIndicatorSize.label,
@@ -106,7 +106,6 @@ class Project_Screen extends StatelessWidget {
                             ),
                           ),
                           Tab(
-
                             child: Row(
                               children: const [
                                 Icon(
@@ -123,38 +122,34 @@ class Project_Screen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 4,
                     ),
-
                     Container(
-                      margin: EdgeInsets.all(10),
+                      margin: const EdgeInsets.all(10),
                       width: double.infinity,
                       height: 480,
-                      child: TabBarView(
-                          children: [
+                      child: TabBarView(children: [
                         ListView.separated(
                           shrinkWrap: true,
                           itemBuilder: (context, index) => defaultProjectCard(),
-                          separatorBuilder: (context, index) =>const SizedBox(
+                          separatorBuilder: (context, index) => const SizedBox(
                             height: 20,
                           ),
                           itemCount: 10,
                         ),
                         ListView.separated(
-
                             shrinkWrap: true,
-                            itemBuilder: (context, index) =>defaultProjectCard(),
-                            separatorBuilder: (context, index) =>const SizedBox(
-                                  height: 20
-                                ),
+                            itemBuilder: (context, index) =>
+                                defaultProjectCard(),
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(height: 20),
                             itemCount: user.length),
                       ]),
                     ),
                   ],
                 ),
               ),
-
             ],
           ),
         ),
@@ -162,7 +157,6 @@ class Project_Screen extends StatelessWidget {
     );
   }
 }
-
 
 /*Widget buildProject(ProjectModel user) => Row(
       crossAxisAlignment: CrossAxisAlignment.start,
