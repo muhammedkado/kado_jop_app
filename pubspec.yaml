@@ -47,6 +47,7 @@ dependencies:
   intl_phone_number_input: ^0.7.1
   country_state_city_picker: ^1.2.8
   country_list_pick: ^1.0.1+6
+  readmore: ^2.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

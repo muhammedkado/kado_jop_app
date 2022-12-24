@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kadojopapp/Model/shar.dart';
+import 'package:kadojopapp/modules/join_project/join_project_screen.dart';
 import 'package:kadojopapp/shard/styles/colors.dart';
 
-NavigatorAndFinish({required context, required Widget}) =>Navigator.pushAndRemoveUntil(context,
+NavigatorAndFinish({required context, required Widget}) =>
+    Navigator.pushAndRemoveUntil(context,
         MaterialPageRoute(builder: (context) => Widget), (route) => false);
 Navigatorto({required context, required Widget}) => Navigator.push(
       context,
@@ -16,7 +18,7 @@ Widget defaultFormField({
   required TextInputType keybord,
   required Function validate,
   required IconData prefix,
-  String lable = 'Email Addrees',
+  String lable = 'Email Address',
   IconData? suffix,
   Function? onSubmit,
   Function? ontap,
@@ -25,7 +27,9 @@ Widget defaultFormField({
   bool isClickable = true,
 }) =>
     TextFormField(
-      style: TextStyle(color: defaultColor),
+      style: const TextStyle(
+        color: defaultColor,
+      ),
       enabled: isClickable,
       onTap: () {
         ontap!();
@@ -260,7 +264,7 @@ Widget defoutformfield({
   required TextEditingController controller,
   TextInputType? keybord,
   required String lebel,
-  required  Function validator,
+  required Function validator,
   Function? onChanged,
   Icon? icon,
   int? maxLength,
@@ -305,76 +309,74 @@ Widget defoultButtun({
       ),
     );
 
-
-Widget newProjectHorizontalCard()=>  Padding(
-  padding: const EdgeInsets.symmetric(horizontal:10),
-  child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      const SizedBox(
-        height: 8,
-      ),
-      Container(
-        width: double.infinity,
-        height: 90,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 1.2,
-              spreadRadius: 0.5,
-            )
-          ],
-        ),
-        child: ListTile(
-          onTap: () {},
-
-          contentPadding: const EdgeInsets.all(10),
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: const [
-              Text(
-                'German Transcription ',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    overflow: TextOverflow.ellipsis),
-                maxLines: 1,
-              ),
-              SizedBox(
-                height: 5,
-              )
-            ],
+Widget newProjectHorizontalCard(BuildContext context, newProject) => Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(
+            height: 8,
           ),
-          subtitle: const Text(
-            'In this paper we analyze the relevance of gameplay and game mechanics from',
-            style: TextStyle(
-                color: Colors.grey,
-                fontSize: 14,
-                overflow: TextOverflow.ellipsis),
-            maxLines: 2,
-          ),
+          Container(
+            width: double.infinity,
+            height: 90,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 1.2,
+                  spreadRadius: 0.5,
+                )
+              ],
+            ),
+            child: ListTile(
+              onTap: () {
+                Navigatorto(
+                    context: context, Widget: const JoinProjectScreen());
+              },
 
-          trailing: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: const [
-              Text('new',
-                  style: TextStyle(
-                    color: Colors.black,
+              contentPadding: const EdgeInsets.all(10),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    '${newProject.projectModel!.name } ',
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        overflow: TextOverflow.ellipsis),
+                    maxLines: 1,
                   ),
-                  textAlign: TextAlign.start),
-            ],
+                  const SizedBox(
+                    height: 5,
+                  )
+                ],
+              ),
+              subtitle:  Text(
+                '${newProject.projectModel!.detail==null ? CircularProgressIndicator() :newProject.projectModel!.detail} ',
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14,
+                    overflow: TextOverflow.ellipsis),
+                maxLines: 2,
+              ),
+
+              trailing: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: const [
+                  Text('new',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                      textAlign: TextAlign.start),
+                ],
+              ),
+              //  horizontalTitleGap: 10,
+            ),
           ),
-          //  horizontalTitleGap: 10,
-        ),
+        ],
       ),
-
-    ],
-  ),
-);
-
-
-
+    );

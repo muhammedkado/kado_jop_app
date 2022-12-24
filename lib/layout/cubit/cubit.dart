@@ -41,15 +41,17 @@ class HomeCubit extends Cubit<HomeState> {
         .doc(uId)
         .get()
         .then((value) {
-      print('Value data${value.data()}');
       userModel = UserModel.fromJson(value.data() as Map<String, dynamic>);
-      print('Uid data${userModel!.uId}');
+     // print('Value data${value.data()}');
+
+     // print('Uid data${userModel!.uId}');
       emit(GetUserUpdateSuccessState());
     }).catchError((Error) {
       print(Error.toString());
       emit(GetUserUpdateErrorState(Error.toString()));
     });
   }
+
 
 /*
   IconData suffix = Icons.visibility_outlined;
