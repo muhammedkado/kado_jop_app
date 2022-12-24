@@ -165,10 +165,10 @@ class Setting_Screen extends StatelessWidget {
                           trailing: Switch(
                             activeColor: defaultColor,
                             activeTrackColor: Colors.green,
+                            hoverColor: Colors.black,
                             value: SettingCubit.get(context).isOff,
                             onChanged: (index) {
-                              SettingCubit.get(context)
-                                  .changeNotification(index);
+                              SettingCubit.get(context).changeNotification(index);
                             },
                           ),
                         ),
@@ -236,9 +236,11 @@ class Setting_Screen extends StatelessWidget {
                       colors: Colors.red,
                       text: const Text(
                         'SignOut',
-                          style: TextStyle(color: Colors.white),),
+                        style: TextStyle(color: Colors.white),
+                      ),
                       function: () {
-                        SettingCubit.get(context).signOut(context: context, screen: Login());
+                        SettingCubit.get(context)
+                            .signOut(context: context, screen: Login());
                       },
                     ),
                     fallback: (context) =>

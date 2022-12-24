@@ -1,5 +1,9 @@
 import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kadojopapp/modules/home/cubit/cubit.dart';
+import 'package:kadojopapp/modules/home/cubit/states.dart';
 import 'package:kadojopapp/shard/components/componentes.dart';
 import 'package:kadojopapp/shard/styles/colors.dart';
 
@@ -13,56 +17,72 @@ class NewProject_Screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
-      scrollDirection: Axis.vertical,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            decoration:const BoxDecoration(
-              border: Border(bottom: BorderSide(color: Colors.black12))
-
-            ),
-            height: 200.0,
-            width: double.infinity,
-            child: Carousel(
-              dotSpacing: 15.0,
-              dotSize: 5.0,
-              dotIncreasedColor: defaultColor,
-              dotColor: Colors.grey,
-              dotBgColor: Colors.transparent,
-              indicatorBgPadding: 10.0,
-              dotPosition: DotPosition.bottomCenter,
-              images: images
-                  .map((item) => Image.network(
-                        item,
-                        //  fit: BoxFit.cover,
-                      ))
-                  .toList(),
-            ),
-          ),SizedBox(height: 15,),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: const Text(
-              'NEW PROJECT',
-              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
-            ),
+    return BlocConsumer<NewProjectCubit, NewProjectStates>(
+      listener: (context, state) => {},
+      builder: (context, state) {
+        var newProject = NewProjectCubit.get(context);
+        return SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                decoration: const BoxDecoration(
+                    border: Border(bottom: BorderSide(color: Colors.black12))),
+                height: 200.0,
+                width: double.infinity,
+                child: Carousel(
+                  dotSpacing: 15.0,
+                  dotSize: 5.0,
+                  dotIncreasedColor: defaultColor,
+                  dotColor: Colors.grey,
+                  dotBgColor: Colors.transparent,
+                  indicatorBgPadding: 10.0,
+                  dotPosition: DotPosition.bottomCenter,
+                  images: images
+                      .map((item) => Image.network(
+                            item,
+                            //  fit: BoxFit.cover,
+                          ))
+                      .toList(),
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: const Text(
+                  'NEW PROJECT',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+              ),
+              ConditionalBuilder(
+                condition: state is! GetNewProjectLoadingState,
+                builder: (context) => ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) =>
+                      newProjectHorizontalCard(context, newProject),
+                  separatorBuilder: (context, index) => const SizedBox(),
+                  itemCount: 3,
+                ),
+                fallback: (context) =>
+                    const Center(child: CircularProgressIndicator()),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+            ],
           ),
-          ListView.separated(
-            shrinkWrap: true,
-            physics:const NeverScrollableScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            itemBuilder: (context, index) => newProjectHorizontalCard(),
-            separatorBuilder: (context, index) => SizedBox(),
-            itemCount: 10,
-          ),
-         const SizedBox(height: 10,)
-        ],
-      ),
+        );
+      },
     );
   }
 }
+
 /*
 Column(
               crossAxisAlignment: CrossAxisAlignment.start,

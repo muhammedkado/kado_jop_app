@@ -25,8 +25,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
         .createUserWithEmailAndPassword(
       email: email,
       password: password,
-    )
-        .then((value) {
+    ).then((value) {
       userCreate(
         email: email,
         name: name,
