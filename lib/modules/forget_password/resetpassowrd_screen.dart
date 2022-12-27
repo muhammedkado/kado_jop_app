@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kadojopapp/shard/components/componentes.dart';
-import '../../Model/shar.dart';
+import 'package:kadojopapp/shard/styles/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Reset extends StatefulWidget {
@@ -24,7 +24,7 @@ class _ResetState extends State<Reset> {
           style: TextStyle(
               fontWeight: FontWeight.bold, color: Colors.white, fontSize: 30),
         ),
-        backgroundColor: TextColors,
+        backgroundColor: defaultColor,
       ),
       body: Padding(
         padding: const EdgeInsets.only(
@@ -41,8 +41,7 @@ class _ResetState extends State<Reset> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  spec,
-                  spec,
+
                   defoutformfield(
                       validator: (value) {
                         if (value.isEmpty) {
@@ -54,7 +53,7 @@ class _ResetState extends State<Reset> {
                       icon: const Icon(Icons.email),
                       controller: emailController,
                       keybord: TextInputType.emailAddress),
-                  spec,
+
                   defoultButtun(
                       text: 'Reset Password',
                       function: () {

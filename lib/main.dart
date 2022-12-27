@@ -42,20 +42,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+
         BlocProvider(
           create: (context) => NewProjectCubit()..getProject(),
         ),
         BlocProvider(
-          create: (context) => JoinProjectCubit(),
+          create: (context) => JoinProjectCubit()..getProject(),
         ),
         BlocProvider(
           create: (context) => ContactCubit(),
         ),
         BlocProvider(
-          create: (context) => SettingCubit(),
+          create: (context) => SettingCubit()..getUserData(),
         ),
         BlocProvider(
-          create: (context) => HomeCubit()..getUserData(),
+          create: (context) => HomeCubit()
         ),
       ],
       child: BlocConsumer<HomeCubit, HomeState>(
@@ -65,7 +66,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
             darkTheme: darkTheme,
-            home: startScreen,
+            home:startScreen,
           );
         },
       ),

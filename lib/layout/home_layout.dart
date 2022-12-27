@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kadojopapp/layout/cubit/cubit.dart';
 import 'package:kadojopapp/layout/cubit/states.dart';
 import 'package:kadojopapp/shard/styles/colors.dart';
-import '../Model/shar.dart';
 
 class Home_layout extends StatelessWidget {
   @override
@@ -64,7 +63,7 @@ class Home_layout extends StatelessWidget {
               label: 'Settings',
             ),
           ],
-          selectedItemColor: TextColors,
+          selectedItemColor: defaultColor,
         ),
         body: cubit.screen[cubit.currentIndex],
       ),

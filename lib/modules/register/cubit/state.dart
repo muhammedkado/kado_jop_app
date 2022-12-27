@@ -27,3 +27,4 @@ class CreateErorrState extends RegisterStates {
 
 
 class GenderSuccessState extends RegisterStates {}
+class CheckBoxState extends RegisterStates {}

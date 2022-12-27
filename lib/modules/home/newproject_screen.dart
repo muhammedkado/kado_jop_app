@@ -75,6 +75,29 @@ class NewProject_Screen extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
+              Container(
+                width: double.infinity,
+                height: 100,
+                decoration: BoxDecoration(
+                    color: Colors.yellowAccent,
+                    border: Border.all(color: Colors.black)),
+                child: Column(
+                  children: [
+                    Center(
+                        child: Text(
+                            'TODO',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Center(
+                        child: Text(
+                            '1- Add Time In contact Database AND project Database')),
+                    Center(
+                        child: Text(
+                            '2- creat database for join project and save mamber date in him ')),
+                  ],
+                ),
+              ),
             ],
           ),
         );

@@ -7,6 +7,7 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:kadojopapp/layout/home_layout.dart';
 import 'package:kadojopapp/modules/register/cubit/cubit.dart';
 import 'package:kadojopapp/modules/register/cubit/state.dart';
+import 'package:kadojopapp/modules/register/webview.dart';
 import 'package:kadojopapp/shard/components/componentes.dart';
 import 'package:kadojopapp/shard/styles/colors.dart';
 
@@ -15,7 +16,7 @@ class RegisterScreen extends StatelessWidget {
   var nameControlar = TextEditingController();
   var emailControlar = TextEditingController();
   var passwordControlar = TextEditingController();
-  String? phoneControlar ;
+  String? phoneControlar;
   var brithDayControlar = TextEditingController();
   var countryControlar = TextEditingController();
 
@@ -131,9 +132,9 @@ class RegisterScreen extends StatelessWidget {
                                         PhoneInputSelectorType.BOTTOM_SHEET,
                                   ),
                                   onInputChanged: (PhoneNumber number) {
-                                    phoneControlar=number.phoneNumber!;
+                                    phoneControlar = number.phoneNumber!;
                                   },
-                                 // textFieldController: phoneControlar,
+                                  // textFieldController: phoneControlar,
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       return 'phone number is not be empty ';
@@ -237,7 +238,7 @@ class RegisterScreen extends StatelessWidget {
                                   decoration: const BoxDecoration(boxShadow: [
                                     BoxShadow(
                                         color: Colors.grey,
-                                        blurRadius: 6,
+                                        blurRadius: 2,
                                         spreadRadius: 0.5)
                                   ]),
                                   child: Container(
@@ -286,6 +287,36 @@ class RegisterScreen extends StatelessWidget {
                           const SizedBox(
                             height: 25,
                           ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Checkbox(
+                                checkColor: Colors.white,
+                                activeColor: defaultColor,
+                                value: RegisterCubit.get(context).isActiv,
+                                onChanged: (value) {
+                                  RegisterCubit.get(context).checkBox(value);
+                                },
+                              ),
+                              Text(
+                                'I agree to ',
+                                style: TextStyle(
+                                  color: RegisterCubit.get(context).isActiv ==
+                                          false
+                                      ? Colors.red
+                                      : Colors.green,
+                                ),
+                              ),
+                              defaultTextButton(
+                                function: () {
+                                  Navigatorto(
+                                      context: context,
+                                      Widget: WebViewScreen());
+                                },
+                                lable: const Text('Terms & Conditions'),
+                              ),
+                            ],
+                          ),
                           ConditionalBuilder(
                             condition: state is! RegisterLoadingState,
                             builder: (context) => defaultButton(
@@ -297,17 +328,25 @@ class RegisterScreen extends StatelessWidget {
                               ),
                               function: () {
                                 if (formKey.currentState!.validate()) {
-                                  RegisterCubit.get(context).userRegister(
-                                    gender: RegisterCubit.get(context)
-                                        .gender
-                                        .toString(),
-                                    brithDay: brithDayControlar.text,
-                                    email: emailControlar.text,
-                                    name: nameControlar.text,
-                                    phone: phoneControlar!,
-                                    password: passwordControlar.text,
-                                    country: chooseCountry,
-                                  );
+                                  if (RegisterCubit.get(context).isActiv ==
+                                      true) {
+                                    RegisterCubit.get(context).userRegister(
+                                      gender: RegisterCubit.get(context)
+                                          .gender
+                                          .toString(),
+                                      brithDay: brithDayControlar.text,
+                                      email: emailControlar.text,
+                                      name: nameControlar.text,
+                                      phone: phoneControlar!,
+                                      password: passwordControlar.text,
+                                      country: chooseCountry,
+                                    );
+                                  } else {
+                                    ShowTost(
+                                        msg:
+                                            'Please Agree To Terms && Condition',
+                                        state: TostState.WARNING);
+                                  }
                                 }
                               },
                             ),
