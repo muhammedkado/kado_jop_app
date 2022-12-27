@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kadojopapp/Model/project_model.dart';
 import 'package:kadojopapp/modules/join_project/cubit/states.dart';
 
 class JoinProjectCubit extends Cubit<JoinProjectStates> {
@@ -22,5 +24,35 @@ class JoinProjectCubit extends Cubit<JoinProjectStates> {
 
     CurrentStep=value;
     emit(CurrentStepState());
+  }
+  ProjectModel? projectModel;
+  void getProject() async{
+    //
+    emit(JoinProjectLoadingState());
+    await FirebaseFirestore.instance
+        .collection('project')
+        .doc('gFYmoTD4xzfb9MrGmqt0')
+        .get()
+        .then((value) {
+      print("value.data()==${value.data()}");
+      projectModel =
+          ProjectModel.fromJson(value.data() as Map<String, dynamic>);
+      emit(JoinProjectSuccessState());
+    }).catchError((Error) {
+      print(Error.toString());
+      emit(JoinProjectErrorState(Error.toString()));
+    });
+  }
+
+  bool? isActiv=false;
+  void checkBox(value){
+    isActiv=value;
+    emit(TermsCheckBoxState());
+  }
+
+  bool? isActiv2=false;
+  void checkBox2(value){
+    isActiv2=value;
+    emit(Terms2CheckBoxState());
   }
 }

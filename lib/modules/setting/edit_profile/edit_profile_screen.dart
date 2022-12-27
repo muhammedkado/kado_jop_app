@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:kadojopapp/layout/cubit/cubit.dart';
-import 'package:kadojopapp/layout/cubit/states.dart';
+import 'package:kadojopapp/modules/setting/cubit/cubit.dart';
+import 'package:kadojopapp/modules/setting/cubit/states.dart';
 import 'package:kadojopapp/shard/components/componentes.dart';
 
 class EditProfile extends StatelessWidget {
@@ -18,16 +18,15 @@ class EditProfile extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit, HomeState>(
+    return BlocConsumer<SettingCubit, SettingStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var userModel = HomeCubit.get(context).userModel;
-        var upadate = HomeCubit.get(context);
-        nameController.text = userModel!.name!;
-        emailController.text = userModel.email!;
-        phoneController.text = userModel.phone!;
-        brithDayController.text = userModel.brithDay!;
-        chooseCountry = userModel.country!;
+        var cubit = SettingCubit.get(context);
+        nameController.text = cubit.userModel!.name!;
+        emailController.text = cubit.userModel!.email!;
+        phoneController.text = cubit.userModel!.phone!;
+        brithDayController.text = cubit.userModel!.brithDay!;
+        chooseCountry = cubit.userModel!.country!;
 
         return Scaffold(
           appBar: AppBar(
@@ -35,7 +34,7 @@ class EditProfile extends StatelessWidget {
             actions: [
               defaultTextButton(
                   function: () {
-                    upadate.userUpdate(
+                    cubit.userUpdate(
                       email: emailController.text,
                       name: nameController.text,
                       phone: phoneController.text,
@@ -63,7 +62,7 @@ class EditProfile extends StatelessWidget {
                           height: 10,
                         ),
                         Text(
-                          '${userModel.name}',
+                          '${cubit.userModel!.name}',
                           maxLines: 1,
                           style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold,),
@@ -72,7 +71,7 @@ class EditProfile extends StatelessWidget {
                           height: 8,
                         ),
                         Text(
-                          'Email: ${userModel.email}',
+                          'Email: ${cubit.userModel!.email}',
                           style: const TextStyle(
                             //color: Colors.grey
                             fontSize: 14,
@@ -84,7 +83,7 @@ class EditProfile extends StatelessWidget {
 
                             Expanded(
                               child: Text(
-                                'Phone:${userModel.phone}',
+                                'Phone:${cubit.userModel!.phone}',
                                 style: const TextStyle(
                                   //color: Colors.grey
                                   fontSize: 14,
@@ -97,13 +96,13 @@ class EditProfile extends StatelessWidget {
                           height: 5,
                         ),
                         Text(
-                          'Nationality:${userModel.country}.',
+                          'Nationality:${cubit.userModel!.country}.',
                         ),
                         const SizedBox(
                           height: 5,
                         ),
                         Text(
-                          'BrithDay: ${userModel.brithDay}.',
+                          'BrithDay: ${cubit.userModel!.brithDay}.',
                         ),
                       ],
                     ),

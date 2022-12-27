@@ -26,4 +26,5 @@ class NewProjectCubit extends Cubit<NewProjectStates> {
       emit(GetNewProjectErrorState(Error.toString()));
     });
   }
+
 }

@@ -88,4 +88,9 @@ class RegisterCubit extends Cubit<RegisterStates> {
     gender = value.toString();
     emit(GenderSuccessState());
   }
+  bool? isActiv=false;
+ void checkBox(value){
+     isActiv=value;
+     emit(CheckBoxState());
+  }
 }

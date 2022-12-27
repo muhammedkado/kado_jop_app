@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kadojopapp/Model/shar.dart';
 import 'package:kadojopapp/modules/join_project/join_project_screen.dart';
 import 'package:kadojopapp/shard/styles/colors.dart';
 
@@ -273,7 +272,7 @@ Widget defoutformfield({
         controller: controller,
         maxLength: maxLength,
         validator: (s) {
-          validator(s);
+        return  validator(s);
         },
         keyboardType: keybord,
         textAlignVertical: TextAlignVertical.top,
@@ -293,10 +292,10 @@ Widget defoultButtun({
   RoundedRectangleBorder? shape,
 }) =>
     SizedBox(
-      height: btnheight,
-      width: btnWidth,
+      height: 45,
+      width: 200,
       child: MaterialButton(
-        color: TextColors,
+        color: defaultColor,
         onPressed: () {
           function();
         },
@@ -343,7 +342,7 @@ Widget newProjectHorizontalCard(BuildContext context, newProject) => Padding(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    '${newProject.projectModel!.name } ',
+                    '${newProject.projectModel!.name} ',
                     style: const TextStyle(
                         color: Colors.black,
                         fontSize: 20,
@@ -355,9 +354,9 @@ Widget newProjectHorizontalCard(BuildContext context, newProject) => Padding(
                   )
                 ],
               ),
-              subtitle:  Text(
-                '${newProject.projectModel!.detail==null ? CircularProgressIndicator() :newProject.projectModel!.detail} ',
-                style: TextStyle(
+              subtitle: Text(
+                '${newProject.projectModel!.detail ?? const CircularProgressIndicator()} ',
+                style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 14,
                     overflow: TextOverflow.ellipsis),
@@ -366,9 +365,9 @@ Widget newProjectHorizontalCard(BuildContext context, newProject) => Padding(
 
               trailing: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: const [
-                  Text('new',
-                      style: TextStyle(
+                children: [
+                  Text('${newProject.projectModel!.publishtime}',
+                      style: const TextStyle(
                         color: Colors.black,
                       ),
                       textAlign: TextAlign.start),

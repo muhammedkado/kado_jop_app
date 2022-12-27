@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kadojopapp/Model/shar.dart';
-import 'package:kadojopapp/layout/cubit/cubit.dart';
 import 'package:kadojopapp/modules/setting/contact/cubit/cubit.dart';
 import 'package:kadojopapp/modules/setting/contact/cubit/states.dart';
+import 'package:kadojopapp/modules/setting/cubit/cubit.dart';
 import 'package:kadojopapp/shard/components/componentes.dart';
 import 'package:kadojopapp/shard/styles/colors.dart';
 
@@ -13,198 +12,203 @@ class ContactScreen extends StatelessWidget {
   var subjectController = TextEditingController();
   var massgController = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
         create: (context) => ContactCubit(),
-        child: BlocConsumer<ContactCubit, ContactState>(
-            builder: (context, state) {
-              var Homecubits=HomeCubit.get(context).userModel!;
-              return Scaffold(
-                appBar: AppBar(
-                  title: const Text('Contact & F.Q.A'),
-                ),
-                body: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      ExpansionTile(
-                        textColor: TextColors,
-                        collapsedBackgroundColor: TextColors,
-                        iconColor: TextColors,
-                        collapsedIconColor: Colors.white,
-                        collapsedTextColor: Colors.white,
-                        childrenPadding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
-                        backgroundColor: Colors.white10,
-                        title: const Text(
-                          'Who We Are',
-                          style: TextStyle(fontWeight: FontWeight.bold
-                              //color: Colors.black,
-                              ),
-                        ),
-                        children: [
-                          Text(
-
-                            'We are a company that aims to provide jobs for people who want to provide them with additional income and help individuals develop their skills and professional backgrounds We also provide applicants with training to help them facilitate their work throughout their time working with us.',
-                            style: TextStyle(color: TextColors),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 0.5,
-                        child: Container(
-                          color: Colors.white,
-                        ),
-                      ),
-                      ExpansionTile(
-                        textColor: TextColors,
-                        collapsedBackgroundColor: TextColors,
-                        iconColor: TextColors,
-                        collapsedIconColor: Colors.white,
-                        collapsedTextColor: Colors.white,
-                        childrenPadding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
-                        backgroundColor: Colors.white10,
-                        title: const Text(
-                          'How We To Pay',
-                          style: TextStyle(fontWeight: FontWeight.bold
-                              //color: Colors.black,
-                              ),
-                        ),
-                        children: [
-                          Text(
-                            'Payment is made by these currencies:\n'
-                            ' - Usdt\n'
-                            ' - Payoneer\n'
-                            ' - Binance\n'
-                            ' - Payeer\n'
-                            ' - Bank transfer for people residing inside Turkey',
-                            style: TextStyle(color: TextColors),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 0.5,
-                        child: Container(
-                          color: Colors.white,
-                        ),
-                      ),
-                      ExpansionTile(
-                        textColor: TextColors,
-                        collapsedBackgroundColor: TextColors,
-                        iconColor: TextColors,
-                        collapsedIconColor: Colors.white,
-                        collapsedTextColor: Colors.white,
-                        childrenPadding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
-                        backgroundColor: Colors.white10,
-                        title: const Text(
-                          'What are the skills required to work with you?',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
+        child:
+            BlocConsumer<ContactCubit, ContactState>(builder: (context, state) {
+          var settingCubit = SettingCubit.get(context).userModel!;
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Contact & F.Q.A'),
+            ),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  ExpansionTile(
+                    textColor: defaultColor,
+                    collapsedBackgroundColor: defaultColor,
+                    iconColor: defaultColor,
+                    collapsedIconColor: Colors.white,
+                    collapsedTextColor: Colors.white,
+                    childrenPadding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    backgroundColor: Colors.white10,
+                    title: const Text(
+                      'Who We Are',
+                      style: TextStyle(fontWeight: FontWeight.bold
+                          //color: Colors.black,
                           ),
-                        ),
-                        children: [
-                          Text(
-                            '- Proficiency in 90% of the language in which to work\n'
-                            '- Time management and serious work\n'
-                            '- Teamwork and speed at work\n',
-                            style: TextStyle(color: TextColors),
-                          )
-                        ],
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Form(
-                          key: formKey,
-                          child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              //mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                spec,
-                                Text(
-                                  'Contact',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: TextColors,
-                                      fontSize: 25),
-                                ),
-                                const SizedBox(
-                                  height: 1,
-                                ),
-                                const Text('If you have any problem contact us',style: TextStyle(
-                                  fontSize: 14,
-                                  color: defaultColor,fontWeight: FontWeight.bold
-                                ),),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                defoutformfield(
-                                    validator: (value) {
-                                      if (value.isEmpty) {
-                                        return "Subject must not empty";
-                                      }
-                                      return null;
-                                    },
-                                    lebel: 'Subject',
-                                    maxLength: 20,
-                                    icon: const Icon(Icons.subject),
-                                    controller: subjectController,
-                                    keybord: TextInputType.text),
-                                const SizedBox(
-                                  height: 3,
-                                ),
-
-                                TextFormField(
-                                    controller: massgController,
-                                    maxLength: 200,
-                                    maxLines: 6,
-                                    keyboardType: TextInputType.text,
-                                    textAlignVertical: TextAlignVertical.top,
-                                    decoration: InputDecoration(
-                                        filled: true,
-                                        labelText: "Message",
-                                        alignLabelWithHint: true,
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20)))),
-
-                                defoultButtun(
-                                  text: 'Sand Message',
-                                  function: () {
-
-                                    ContactCubit.get(context).saveMessage(
-                                      email: Homecubits.email!,
-                                      name: Homecubits.name!,
-                                      phone: Homecubits.phone!,
-                                      message: massgController.text,
-                                      subject: subjectController.text,
-                                    );
-                                  },
-                                ),
-
-
-
-
-                              ]),
-                        ),
-                      ),
-                     const SizedBox(
-                        height: 15,
-                      ),
+                    ),
+                    children: [
+                      Text(
+                        'We are a company that aims to provide jobs for people who want to provide them with additional income and help individuals develop their skills and professional backgrounds We also provide applicants with training to help them facilitate their work throughout their time working with us.',
+                        style: TextStyle(color: defaultColor),
+                      )
                     ],
                   ),
-                ),
-              );
-            },
-            listener: (context, state) {
-              if (state is MessageSaveSuccessesState){
-                ShowTost(msg: 'Message has been sent', state: TostState.SUCCESS);
-              }
-            }));
+                  SizedBox(
+                    width: double.infinity,
+                    height: 0.5,
+                    child: Container(
+                      color: Colors.white,
+                    ),
+                  ),
+                  ExpansionTile(
+                    textColor: defaultColor,
+                    collapsedBackgroundColor: defaultColor,
+                    iconColor: defaultColor,
+                    collapsedIconColor: Colors.white,
+                    collapsedTextColor: Colors.white,
+                    childrenPadding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    backgroundColor: Colors.white10,
+                    title: const Text(
+                      'How We To Pay',
+                      style: TextStyle(fontWeight: FontWeight.bold
+                          //color: Colors.black,
+                          ),
+                    ),
+                    children: [
+                      Text(
+                        'Payment is made by these currencies:\n'
+                        ' - Usdt\n'
+                        ' - Payoneer\n'
+                        ' - Binance\n'
+                        ' - Payeer\n'
+                        ' - Bank transfer for people residing inside Turkey',
+                        style: TextStyle(color: defaultColor),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 0.5,
+                    child: Container(
+                      color: Colors.white,
+                    ),
+                  ),
+                  ExpansionTile(
+                    textColor: defaultColor,
+                    collapsedBackgroundColor: defaultColor,
+                    iconColor: defaultColor,
+                    collapsedIconColor: Colors.white,
+                    collapsedTextColor: Colors.white,
+                    childrenPadding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    backgroundColor: Colors.white10,
+                    title: const Text(
+                      'What are the skills required to work with you?',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    children: [
+                      Text(
+                        '- Proficiency in 90% of the language in which to work\n'
+                        '- Time management and serious work\n'
+                        '- Teamwork and speed at work\n',
+                        style: TextStyle(color: defaultColor),
+                      )
+                    ],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          //mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Contact',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: defaultColor,
+                                  fontSize: 25),
+                            ),
+                            const SizedBox(
+                              height: 1,
+                            ),
+                            const Text(
+                              'If you have any problem contact us',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: defaultColor,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            defoutformfield(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please write the Subject';
+                                  }
+                                  return null;
+                                },
+                                lebel: 'Subject',
+                                maxLength: 20,
+                                icon: const Icon(Icons.subject),
+                                controller: subjectController,
+                                keybord: TextInputType.text),
+                            const SizedBox(
+                              height: 3,
+                            ),
+                            TextFormField(
+                              controller: massgController,
+                              maxLength: 200,
+                              maxLines: 6,
+                              validator: (value){
+                                if (value!.isEmpty)
+                                {
+                                  return 'Please writs the Massage ';
+                                }
+                              },
+                              keyboardType: TextInputType.text,
+                              textAlignVertical: TextAlignVertical.top,
+                              decoration: InputDecoration(
+                                filled: true,
+                                labelText: "Message",
+                                alignLabelWithHint: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                            ),
+                            defoultButtun(
+                              text: 'Sand Message',
+                              function: () {
+                                if (formKey.currentState!.validate()) {
+
+                                  ContactCubit.get(context).saveMessage(
+                                    email: settingCubit.email!,
+                                    name: settingCubit.name!,
+                                    phone: settingCubit.phone!,
+                                    message: massgController.text,
+                                    subject: subjectController.text,
+
+
+                                  );
+                                }
+                              },
+                            ),
+                          ]),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                ],
+              ),
+            ),
+          );
+        }, listener: (context, state) {
+          if (state is MessageSaveSuccessesState) {
+            ShowTost(msg: 'Message has been sent', state: TostState.SUCCESS);
+          }
+        }));
   }
 }

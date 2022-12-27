@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserModel {
   String? name;
   String? email;
@@ -6,6 +8,7 @@ class UserModel {
   String? country;
   String? gender;
   String? uId;
+  Timestamp? timeStamp;
   bool? isEmailVerified;
 
   UserModel({
@@ -16,6 +19,7 @@ class UserModel {
     required this.country,
     required this.gender,
     required this.uId,
+    // this.timeStamp,
     required this.isEmailVerified,
   });
 
@@ -27,6 +31,7 @@ class UserModel {
     country = json['country'];
     gender = json['gender'];
     uId = json['uId'];
+   // timeStamp = json['timeStamp'];
     isEmailVerified = json['isEmailVerified'];
   }
 
@@ -39,6 +44,7 @@ class UserModel {
       'country': country,
       'gender': gender,
       'uId': uId,
+      //'timeStamp': DateTime.now(),
       'isEmailVerified': isEmailVerified,
     };
   }

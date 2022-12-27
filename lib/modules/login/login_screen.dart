@@ -25,7 +25,8 @@ class Login extends StatelessWidget {
                 key: 'uId',
                 value: state.uid,
               ).then((value) {
-                uId= state.uid!;
+                uId = state.uid;
+
                 NavigatorAndFinish(context: context, Widget: Home_layout());
                 ShowTost(msg: 'Login Success', state: TostState.SUCCESS);
               }).catchError((Error) {
@@ -104,16 +105,17 @@ class Login extends StatelessWidget {
                         const SizedBox(
                           height: 5,
                         ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children:const [
-
-                           Text('forget password?',),
-                          SizedBox(
-                            width: 15,
-                          ),
-                        ],
-                      ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: const [
+                            Text(
+                              'forget password?',
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                          ],
+                        ),
                         const SizedBox(
                           height: 15,
                         ),
@@ -140,14 +142,14 @@ class Login extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text('Dons\'t Have Account?'),
+                            const Text('Don\'t Have Account?'),
                             defaultTextButton(
-                                function: () {
-                                  Navigatorto(
-                                      context: context,
-                                      Widget: RegisterScreen());
-                                },
-                                lable: Text('Register'))
+                              function: () {
+                                Navigatorto(
+                                    context: context, Widget: RegisterScreen());
+                              },
+                              lable: const Text('Register'),
+                            ),
                           ],
                         )
                       ],
