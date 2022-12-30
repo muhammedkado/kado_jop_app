@@ -59,6 +59,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
         country: country,
         gender: gender,
         uId: uId,
+        timeStamp: DateTime.now(),
         isEmailVerified: isEmailVerified);
     emit(CreateLoadingState());
     FirebaseFirestore.instance

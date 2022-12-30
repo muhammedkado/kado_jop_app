@@ -13,3 +13,12 @@ class JoinProjectErrorState extends JoinProjectStates{
 
 class TermsCheckBoxState extends JoinProjectStates{}
 class Terms2CheckBoxState extends JoinProjectStates{}
+
+class GetUserInfoLoadingState extends JoinProjectStates {}
+
+class GetUserInfoSuccessState extends JoinProjectStates {}
+
+class GetUserInfoErrorState extends JoinProjectStates {
+  final Error;
+  GetUserInfoErrorState(this.Error);
+}
