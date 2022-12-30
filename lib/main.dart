@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
           create: (context) => NewProjectCubit()..getProject(),
         ),
         BlocProvider(
-          create: (context) => JoinProjectCubit()..getProject(),
+          create: (context) => JoinProjectCubit()..getProject()..getUserData(),
         ),
         BlocProvider(
           create: (context) => ContactCubit(),

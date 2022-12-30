@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kadojopapp/modules/home/cubit/cubit.dart';
 import 'package:kadojopapp/modules/join_project/cubit/cubit.dart';
 import 'package:kadojopapp/modules/join_project/cubit/states.dart';
 import 'package:kadojopapp/modules/join_project/information.dart';
@@ -25,7 +26,7 @@ class JoinProjectScreen extends StatelessWidget {
               centerTitle: true,
             ),
             body: ConditionalBuilder(
-              condition: state is! JoinProjectLoadingState,
+              condition: state is!GetUserInfoLoadingState,
               builder: (context) => Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -116,7 +117,7 @@ class JoinProjectScreen extends StatelessWidget {
                         ),
                         Spacer(),
                         Text(
-                          '${project.projectModel!.publishtime}',
+                          '${NewProjectCubit.formattedDate(project.projectModel!.timeStamp)}',
                           style: const TextStyle(
                             color: Colors.grey,
                           ),

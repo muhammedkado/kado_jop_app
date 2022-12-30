@@ -26,16 +26,16 @@ class ContactScreen extends StatelessWidget {
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  ExpansionTile(
+                  const ExpansionTile(
                     textColor: defaultColor,
                     collapsedBackgroundColor: defaultColor,
                     iconColor: defaultColor,
                     collapsedIconColor: Colors.white,
                     collapsedTextColor: Colors.white,
                     childrenPadding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     backgroundColor: Colors.white10,
-                    title: const Text(
+                    title: Text(
                       'Who We Are',
                       style: TextStyle(fontWeight: FontWeight.bold
                           //color: Colors.black,
@@ -55,16 +55,16 @@ class ContactScreen extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  ExpansionTile(
+                  const ExpansionTile(
                     textColor: defaultColor,
                     collapsedBackgroundColor: defaultColor,
                     iconColor: defaultColor,
                     collapsedIconColor: Colors.white,
                     collapsedTextColor: Colors.white,
                     childrenPadding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     backgroundColor: Colors.white10,
-                    title: const Text(
+                    title: Text(
                       'How We To Pay',
                       style: TextStyle(fontWeight: FontWeight.bold
                           //color: Colors.black,
@@ -89,16 +89,16 @@ class ContactScreen extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  ExpansionTile(
+                  const ExpansionTile(
                     textColor: defaultColor,
                     collapsedBackgroundColor: defaultColor,
                     iconColor: defaultColor,
                     collapsedIconColor: Colors.white,
                     collapsedTextColor: Colors.white,
                     childrenPadding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     backgroundColor: Colors.white10,
-                    title: const Text(
+                    title: Text(
                       'What are the skills required to work with you?',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -122,7 +122,7 @@ class ContactScreen extends StatelessWidget {
                           //mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
+                            const Text(
                               'Contact',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -161,9 +161,8 @@ class ContactScreen extends StatelessWidget {
                               controller: massgController,
                               maxLength: 200,
                               maxLines: 6,
-                              validator: (value){
-                                if (value!.isEmpty)
-                                {
+                              validator: (value) {
+                                if (value!.isEmpty) {
                                   return 'Please writs the Massage ';
                                 }
                               },
@@ -182,15 +181,13 @@ class ContactScreen extends StatelessWidget {
                               text: 'Sand Message',
                               function: () {
                                 if (formKey.currentState!.validate()) {
-
                                   ContactCubit.get(context).saveMessage(
+                                    time: DateTime.now(),
                                     email: settingCubit.email!,
                                     name: settingCubit.name!,
                                     phone: settingCubit.phone!,
                                     message: massgController.text,
                                     subject: subjectController.text,
-
-
                                   );
                                 }
                               },

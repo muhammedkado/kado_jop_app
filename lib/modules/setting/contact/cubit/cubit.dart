@@ -9,6 +9,7 @@ class ContactCubit extends Cubit<ContactState> {
   ContactCubit() : super(ContactInitialState());
 
   static ContactCubit get(context) => BlocProvider.of(context);
+
 /*
   ContactModel? userModel;
 
@@ -32,21 +33,23 @@ class ContactCubit extends Cubit<ContactState> {
   */
   UserModel? userModel;
   ContactModel? contactModel;
+
   saveMessage({
     required String message,
     required String subject,
     required String email,
     required String phone,
     required String name,
+    required DateTime time,
   }) {
     ContactModel contactModel = ContactModel(
       // name: contactModel!.name,
-       email: email,
-        name:name,
-      phone:phone,
+      email: email,
+      name: name,
+      phone: phone,
       message: message,
       subject: subject,
-
+      time: time,
     );
     print('massage= $message');
     print('subject= $subject');

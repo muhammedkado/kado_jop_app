@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:kadojopapp/Model/project_model.dart';
 import 'package:kadojopapp/modules/home/cubit/states.dart';
 
@@ -26,5 +27,15 @@ class NewProjectCubit extends Cubit<NewProjectStates> {
       emit(GetNewProjectErrorState(Error.toString()));
     });
   }
+
+ static String formattedDate(timeStamp) {
+   // var dateFromTimeStamp=DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
+
+    return DateFormat('dd-MM-yyyy').format(timeStamp) ;
+
+  }
+
+
+
 
 }

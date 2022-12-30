@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProjectModel {
   String? duration;
@@ -13,7 +12,7 @@ class ProjectModel {
   String? vaildhurs;
   String? terms1;
   String? terms2;
-  Timestamp? timeStamp;
+  DateTime? timeStamp;
   ProjectModel(
     this.duration,
     this.jobrole,
@@ -43,7 +42,7 @@ class ProjectModel {
     vaildhurs = json['vaildhurs'];
     terms1 = json['terms1'];
     terms2 = json['terms2'];
-    timeStamp = json['timeStamp'];
+    timeStamp = json['timeStamp'].toDate();
   }
 
   Map<String, dynamic> toMap() {
@@ -60,7 +59,7 @@ class ProjectModel {
       'vaildhurs': vaildhurs,
       'terms2': terms2,
       'terms1': terms1,
-     'timeStamp': DateTime.now(),
+     //'timeStamp': DateTime.now(),
     };
   }
 }

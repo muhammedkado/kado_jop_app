@@ -4,12 +4,14 @@ class ContactModel {
   String? email;
   String? phone;
   String? name;
+  DateTime? time;
   ContactModel({
     required this.email,
     required this.name,
     required this.phone,
     required this.subject,
     required this.message,
+    required this.time,
   });
   ContactModel.fromJson(Map<String, dynamic> json) {
     name=json['name'];
@@ -17,6 +19,7 @@ class ContactModel {
     phone=json['phone'];
     subject = json['subject'];
     message = json['massage'];
+    time = json['time'];
   }
 
   Map<String, dynamic> toMap() {
@@ -26,6 +29,7 @@ class ContactModel {
       'name': name,
       'email': email,
       'phone': phone,
+      'time': time,
     };
   }
 }

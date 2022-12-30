@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kadojopapp/Model/project_model.dart';
+import 'package:kadojopapp/modules/home/cubit/cubit.dart';
 import 'package:kadojopapp/modules/join_project/join_project_screen.dart';
 import 'package:kadojopapp/shard/styles/colors.dart';
 
 NavigatorAndFinish({required context, required Widget}) =>
     Navigator.pushAndRemoveUntil(context,
         MaterialPageRoute(builder: (context) => Widget), (route) => false);
+
 Navigatorto({required context, required Widget}) => Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => Widget),
@@ -272,7 +275,7 @@ Widget defoutformfield({
         controller: controller,
         maxLength: maxLength,
         validator: (s) {
-        return  validator(s);
+          return validator(s);
         },
         keyboardType: keybord,
         textAlignVertical: TextAlignVertical.top,
@@ -308,7 +311,9 @@ Widget defoultButtun({
       ),
     );
 
-Widget newProjectHorizontalCard(BuildContext context, newProject) => Padding(
+Widget newProjectHorizontalCard(
+        BuildContext context, ProjectModel newProject, NewProjectCubit cubit) =>
+    Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -342,7 +347,7 @@ Widget newProjectHorizontalCard(BuildContext context, newProject) => Padding(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    '${newProject.projectModel!.name} ',
+                    '${newProject.name} ',
                     style: const TextStyle(
                         color: Colors.black,
                         fontSize: 20,
@@ -355,7 +360,7 @@ Widget newProjectHorizontalCard(BuildContext context, newProject) => Padding(
                 ],
               ),
               subtitle: Text(
-                '${newProject.projectModel!.detail ?? const CircularProgressIndicator()} ',
+                '${newProject.detail ?? const CircularProgressIndicator()} ',
                 style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 14,
@@ -366,10 +371,11 @@ Widget newProjectHorizontalCard(BuildContext context, newProject) => Padding(
               trailing: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text('${newProject.projectModel!.publishtime}',
+                  Text('${NewProjectCubit.formattedDate(newProject.timeStamp)}',
                       style: const TextStyle(
-                        color: Colors.black,
-                      ),
+                          color: Colors.black,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold),
                       textAlign: TextAlign.start),
                 ],
               ),
