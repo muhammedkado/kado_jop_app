@@ -13,6 +13,7 @@ class ProjectModel {
   String? terms1;
   String? terms2;
   DateTime? timeStamp;
+  int? id;
   ProjectModel(
     this.duration,
     this.jobrole,
@@ -27,6 +28,7 @@ class ProjectModel {
     this.terms1,
     this.terms2,
     this.timeStamp,
+    this.id,
   );
 
   ProjectModel.fromJson(Map<String, dynamic> json) {
@@ -42,6 +44,7 @@ class ProjectModel {
     vaildhurs = json['vaildhurs'];
     terms1 = json['terms1'];
     terms2 = json['terms2'];
+    id = json['id'];
     timeStamp = json['timeStamp'].toDate();
   }
 

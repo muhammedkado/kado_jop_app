@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kadojopapp/modules/home/cubit/cubit.dart';
 import 'package:kadojopapp/modules/home/cubit/states.dart';
+import 'package:kadojopapp/modules/join_project/join_project_screen.dart';
 import 'package:kadojopapp/shard/components/componentes.dart';
 import 'package:kadojopapp/shard/styles/colors.dart';
 
@@ -20,7 +21,7 @@ class NewProject_Screen extends StatelessWidget {
     return BlocConsumer<NewProjectCubit, NewProjectStates>(
       listener: (context, state) => {},
       builder: (context, state) {
-        var newProject = NewProjectCubit.get(context).projectModel;
+
         var cubit = NewProjectCubit.get(context);
 
         return SingleChildScrollView(
@@ -62,51 +63,87 @@ class NewProject_Screen extends StatelessWidget {
               ),
               ConditionalBuilder(
                 condition: state is! GetNewProjectLoadingState,
-                builder: (context) => ListView.separated(
+                builder: (context) => ListView.builder(
                   shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (context, index) =>
-                      newProjectHorizontalCard(context, newProject!, cubit),
-                  separatorBuilder: (context, index) => const SizedBox(),
-                  itemCount: 3,
+                  itemBuilder:(context, index) =>  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 90,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 1.2,
+                                spreadRadius: 0.5,
+                              )
+                            ],
+                          ),
+                          child: ListTile(
+                            onTap: () {
+                              Navigatorto(
+                                  context: context, Widget: const JoinProjectScreen());
+                            },
+
+                            contentPadding: const EdgeInsets.all(10),
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  '${cubit.project[index]['name']} ',
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                      overflow: TextOverflow.ellipsis),
+                                  maxLines: 1,
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                )
+                              ],
+                            ),
+                            subtitle: Text(
+                              '${cubit.project[index]['detail']}',
+                              style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14,
+                                  overflow: TextOverflow.ellipsis),
+                              maxLines: 2,
+                            ),
+
+                            trailing: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(NewProjectCubit.formattedDate(cubit.projectModel!.timeStamp),
+                                    style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.start),
+                              ],
+                            ),
+                            //  horizontalTitleGap: 10,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  itemCount:cubit.project.length ,
                 ),
                 fallback: (context) =>
                     const Center(child: CircularProgressIndicator()),
               ),
               const SizedBox(
                 height: 10,
-              ),
-              Container(
-                width: double.infinity,
-                height: 100,
-                decoration: BoxDecoration(
-                    color: Colors.yellowAccent,
-                    border: Border.all(color: Colors.black)),
-                child: Column(
-                  children: [
-                    const Center(
-                        child: Text(
-                      'TODO',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    )),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Center(
-                        child: Row(
-                      children: const [
-                        Checkbox(value: true, onChanged: null),
-                        Text(
-                            '1- Add Time In contact Database AND project Database'),
-                      ],
-                    )),
-                    const Center(
-                        child: Text(
-                            '2- Create database for join project and save member date in him ')),
-                  ],
-                ),
               ),
             ],
           ),
