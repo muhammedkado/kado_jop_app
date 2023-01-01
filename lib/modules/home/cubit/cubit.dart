@@ -10,17 +10,20 @@ class NewProjectCubit extends Cubit<NewProjectStates> {
   static NewProjectCubit get(context) => BlocProvider.of(context);
 
   ProjectModel? projectModel;
+  List project= [];
   void getProject() async{
     //
     emit(GetNewProjectLoadingState());
-   await FirebaseFirestore.instance
-        .collection('project')
-        .doc('gFYmoTD4xzfb9MrGmqt0')
-        .get()
-        .then((value) {
-      print("value.data()==${value.data()}");
-      projectModel =
-          ProjectModel.fromJson(value.data() as Map<String, dynamic>);
+  await FirebaseFirestore.instance.collection('project').get().then((value) {
+      value.docs.forEach((element) {
+        project.add(element.data());
+
+        projectModel =
+            ProjectModel.fromJson(element.data() as Map<String, dynamic>);
+      });
+
+
+/*;*/
       emit(GetNewProjectSuccessState());
     }).catchError((Error) {
       print(Error.toString());

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kadojopapp/layout/cubit/states.dart';
 import 'package:kadojopapp/modules/home/newproject_screen.dart';
-import 'package:kadojopapp/modules/project/project_screen.dart';
+import 'package:kadojopapp/modules/project/myproject_screen.dart';
 import 'package:kadojopapp/modules/setting/setting_screen.dart';
 
 class HomeCubit extends Cubit<HomeState> {
@@ -13,7 +13,7 @@ class HomeCubit extends Cubit<HomeState> {
   int currentIndex = 0;
   List<Widget> screen = [
     NewProject_Screen(),
-    Project_Screen(),
+    MyProject_Screen(),
      Setting_Screen(),
   ];
   List<String> title = [

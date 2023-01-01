@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kadojopapp/Model/project_model.dart';
-import 'package:kadojopapp/modules/home/cubit/cubit.dart';
-import 'package:kadojopapp/modules/join_project/join_project_screen.dart';
+import 'package:kadojopapp/modules/project/myprojectdetails.dart';
 import 'package:kadojopapp/shard/styles/colors.dart';
 
 NavigatorAndFinish({required context, required Widget}) =>
@@ -132,134 +130,6 @@ Color? ChooseTostColor(TostState state) {
   return color;
 }
 
-Widget defaultProjectCard() => Container(
-      padding: const EdgeInsets.all(20),
-      margin: const EdgeInsets.all(1),
-      decoration: BoxDecoration(
-        border: Border.all(width: 0.3),
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: const [
-              Icon(
-                Icons.mic,
-                size: 25,
-                color: defaultColor,
-              ),
-              Text(
-                'German Recording ',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: defaultColor,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                  flex: 2,
-                  child: Column(
-                    children: const [
-                      Text(
-                        'Less than 30 h/week',
-                        style: TextStyle(
-                          fontSize: 13,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        'Hourly',
-                        style: TextStyle(
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
-                  )),
-              Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: const [
-                      Text(
-                        '1 month',
-                        style: TextStyle(fontSize: 13),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text('Duration', style: TextStyle(color: Colors.grey))
-                    ],
-                  )),
-              Expanded(
-                flex: 2,
-                child: Column(
-                  children: const [
-                    Text('Intermediate', style: TextStyle(fontSize: 13)),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text('Experience Level',
-                        style: TextStyle(color: Colors.grey)),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          const Text(
-            'Online German Recording  Task for Native Borne German (not immigrant) of German,Europe only.',
-            style: TextStyle(
-              fontSize: 12,
-            ),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.start,
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              defaultButton(
-                  function: () {},
-                  text: Text('See More'),
-                  width: 100,
-                  height: 30,
-                  colors: defaultColor),
-              const Spacer(),
-              const Icon(Icons.schedule, size: 15, color: Colors.grey),
-              const SizedBox(
-                width: 2,
-              ),
-              const Text(
-                '11/4/2022',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 11,
-                ),
-                textAlign: TextAlign.start,
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-
 @override
 Widget defoutformfield({
   bool obscureText = false,
@@ -310,9 +180,9 @@ Widget defoultButtun({
         ),
       ),
     );
-
+/*
 Widget newProjectHorizontalCard(
-        BuildContext context, ProjectModel newProject, NewProjectCubit cubit) =>
+        BuildContext context, NewProjectCubit cubit) =>
     Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
@@ -347,7 +217,7 @@ Widget newProjectHorizontalCard(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    '${newProject.name} ',
+                    '${cubit.project[i]} ',
                     style: const TextStyle(
                         color: Colors.black,
                         fontSize: 20,
@@ -360,7 +230,7 @@ Widget newProjectHorizontalCard(
                 ],
               ),
               subtitle: Text(
-                '${newProject.detail ?? const CircularProgressIndicator()} ',
+                '${cubit.projectModel!.detail}',
                 style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 14,
@@ -371,12 +241,117 @@ Widget newProjectHorizontalCard(
               trailing: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text('${NewProjectCubit.formattedDate(newProject.timeStamp)}',
+                  Text(NewProjectCubit.formattedDate(cubit.projectModel!.timeStamp),
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 10,
                           fontWeight: FontWeight.bold),
                       textAlign: TextAlign.start),
+                ],
+              ),
+              //  horizontalTitleGap: 10,
+            ),
+          ),
+        ],
+      ),
+    );*/
+
+Widget myProjectCard(
+  BuildContext context,
+) =>
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(
+            height: 8,
+          ),
+          Container(
+            width: double.infinity,
+            height: 100,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 1.2,
+                  spreadRadius: 0.5,
+                )
+              ],
+            ),
+            child: ListTile(
+              onTap: () {
+                Navigatorto(context: context, Widget: const MyProjectDetails());
+              },
+
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Text(
+                    'newProject.name',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        overflow: TextOverflow.ellipsis),
+                    maxLines: 1,
+                  ),
+                  SizedBox(
+                    height: 8,
+                  )
+                ],
+              ),
+              subtitle: const Text(
+                'newProject.detail ?? const CircularPro gressI ndicator()sd asd asd asd asd  asdas dasdasd  asd asd asdasd asd asd  Circu larProgre ssIndicator} ',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 14,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                maxLines: 3,
+              ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 8),
+              trailing: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(5),
+                    width: 50,
+                    height: 30,
+                    decoration: const BoxDecoration(
+                      color: defaultColor,
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 1.2,
+                          spreadRadius: 0.5,
+                        )
+                      ],
+                    ),
+                    child: Center(
+                        child: Text(
+                      '50\$',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
+                    )),
+                  ),
+                  Spacer(),
+                  const Text(
+                    '02/12/2023',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.end,
+                  ),
                 ],
               ),
               //  horizontalTitleGap: 10,
