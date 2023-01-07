@@ -21,51 +21,51 @@ class NewProject_Screen extends StatelessWidget {
     return BlocConsumer<NewProjectCubit, NewProjectStates>(
       listener: (context, state) => {},
       builder: (context, state) {
-
         var cubit = NewProjectCubit.get(context);
 
-        return SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                    border: Border(bottom: BorderSide(color: Colors.black12))),
-                height: 200.0,
-                width: double.infinity,
-                child: Carousel(
-                  dotSpacing: 15.0,
-                  dotSize: 5.0,
-                  dotIncreasedColor: defaultColor,
-                  dotColor: Colors.grey,
-                  dotBgColor: Colors.transparent,
-                  indicatorBgPadding: 10.0,
-                  dotPosition: DotPosition.bottomCenter,
-                  images: images
-                      .map((item) => Image.network(
-                            item,
-                            //  fit: BoxFit.cover,
-                          ))
-                      .toList(),
+        return ConditionalBuilder(
+          condition: cubit.project.isNotEmpty,
+          builder: (context) => SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                      border:
+                          Border(bottom: BorderSide(color: Colors.black12))),
+                  height: 200.0,
+                  width: double.infinity,
+                  child: Carousel(
+                    dotSpacing: 15.0,
+                    dotSize: 5.0,
+                    dotIncreasedColor: defaultColor,
+                    dotColor: Colors.grey,
+                    dotBgColor: Colors.transparent,
+                    indicatorBgPadding: 10.0,
+                    dotPosition: DotPosition.bottomCenter,
+                    images: images
+                        .map((item) => Image.network(
+                              item,
+                              //  fit: BoxFit.cover,
+                            ))
+                        .toList(),
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: const Text(
-                  'NEW PROJECT',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                const SizedBox(
+                  height: 15,
                 ),
-              ),
-              ConditionalBuilder(
-                condition: state is! GetNewProjectLoadingState,
-                builder: (context) => ListView.builder(
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Text(
+                    'NEW PROJECT',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                ),
+                ListView.builder(
                   shrinkWrap: true,
-                  itemBuilder:(context, index) =>  Padding(
+                  itemBuilder: (context, index) => Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,10 +76,11 @@ class NewProject_Screen extends StatelessWidget {
                         Container(
                           width: double.infinity,
                           height: 90,
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            boxShadow: [
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.primary,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                            boxShadow: const [
                               BoxShadow(
                                 color: Colors.black12,
                                 blurRadius: 1.2,
@@ -90,7 +91,10 @@ class NewProject_Screen extends StatelessWidget {
                           child: ListTile(
                             onTap: () {
                               Navigatorto(
-                                  context: context, Widget: const JoinProjectScreen());
+                                context: context,
+                                Widget: JoinProjectScreen(
+                                    newproject: cubit.project[index]!),
+                              );
                             },
 
                             contentPadding: const EdgeInsets.all(10),
@@ -100,10 +104,7 @@ class NewProject_Screen extends StatelessWidget {
                               children: [
                                 Text(
                                   '${cubit.project[index]['name']} ',
-                                  style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 20,
-                                      overflow: TextOverflow.ellipsis),
+                                  style: Theme.of(context).textTheme.bodyMedium,
                                   maxLines: 1,
                                 ),
                                 const SizedBox(
@@ -123,12 +124,13 @@ class NewProject_Screen extends StatelessWidget {
                             trailing: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Text(NewProjectCubit.formattedDate(cubit.projectModel!.timeStamp),
-                                    style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.start),
+                                Text(
+                                  NewProjectCubit.formattedDate(
+                                    cubit.project[index]['timeStamp'],
+                                  ),
+                                  style: Theme.of(context).textTheme.labelSmall,
+                                  textAlign: TextAlign.start,
+                                ),
                               ],
                             ),
                             //  horizontalTitleGap: 10,
@@ -137,15 +139,16 @@ class NewProject_Screen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  itemCount:cubit.project.length ,
+                  itemCount: cubit.project.length,
                 ),
-                fallback: (context) =>
-                    const Center(child: CircularProgressIndicator()),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-            ],
+                const SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
+          ),
+          fallback: (context) => const Center(
+            child: CircularProgressIndicator(),
           ),
         );
       },

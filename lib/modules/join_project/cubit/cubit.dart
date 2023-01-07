@@ -11,7 +11,9 @@ class JoinProjectCubit extends Cubit<JoinProjectStates> {
   JoinProjectCubit() : super(JoinProjectIniltionState());
 
   static JoinProjectCubit get(context) => BlocProvider.of(context);
+
   int CurrentStep = 0;
+
   void nextCurrentStep() {
     if (CurrentStep < 2) {
       emit(CurrentStepState());
@@ -23,23 +25,25 @@ class JoinProjectCubit extends Cubit<JoinProjectStates> {
     if (CurrentStep > 0) CurrentStep -= 1;
     emit(CurrentStepState());
   }
-  void onTapen(int value){
 
-    CurrentStep=value;
+  void onTapen(int value) {
+    CurrentStep = value;
     emit(CurrentStepState());
   }
+
   ProjectModel? projectModel;
-  void getProject() async{
+  List projectDetail = [];
+
+  void getProject() async {
     //
     emit(JoinProjectLoadingState());
-    await FirebaseFirestore.instance
-        .collection('project')
-        .doc('gFYmoTD4xzfb9MrGmqt0')
-        .get()
-        .then((value) {
-      print("value.data()==${value.data()}");
-      projectModel =
-          ProjectModel.fromJson(value.data() as Map<String, dynamic>);
+    await FirebaseFirestore.instance.collection('project').get().then((value) {
+      value.docs.forEach((element) {
+        projectDetail.add(element.data());
+        projectModel =
+            ProjectModel.fromJson(element.data() as Map<String, dynamic>);
+      });
+
       emit(JoinProjectSuccessState());
     }).catchError((Error) {
       print(Error.toString());
@@ -47,19 +51,22 @@ class JoinProjectCubit extends Cubit<JoinProjectStates> {
     });
   }
 
-  bool? isActiv=false;
-  void checkBox(value){
-    isActiv=value;
+  bool? isActiv = false;
+
+  void checkBox(value) {
+    isActiv = value;
     emit(TermsCheckBoxState());
   }
 
-  bool? isActiv2=false;
-  void checkBox2(value){
-    isActiv2=value;
+  bool? isActiv2 = false;
+
+  void checkBox2(value) {
+    isActiv2 = value;
     emit(Terms2CheckBoxState());
   }
 
   UserModel? userModel;
+
   void getUserData() async {
     emit(GetUserInfoLoadingState());
 
@@ -70,13 +77,14 @@ class JoinProjectCubit extends Cubit<JoinProjectStates> {
         .then((value) {
       emit(GetUserInfoSuccessState());
       userModel = UserModel.fromJson(value.data() as Map<String, dynamic>);
-      // print('Value data${value.data()}');
-
-      // print('Uid data${userModel!.uId}');
-
     }).catchError((Error) {
       print(Error.toString());
       emit(GetUserInfoErrorState(Error.toString()));
     });
   }
+
+ void setApplyProject()
+ {
+
+ }
 }

@@ -21,97 +21,108 @@ class ContactScreen extends StatelessWidget {
           var settingCubit = SettingCubit.get(context).userModel!;
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Contact & F.Q.A'),
+              title: Text('Contact & F.Q.A'),
+              centerTitle: true,
             ),
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  const ExpansionTile(
-                    textColor: defaultColor,
-                    collapsedBackgroundColor: defaultColor,
-                    iconColor: defaultColor,
-                    collapsedIconColor: Colors.white,
-                    collapsedTextColor: Colors.white,
-                    childrenPadding:
-                        EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    backgroundColor: Colors.white10,
-                    title: Text(
-                      'Who We Are',
-                      style: TextStyle(fontWeight: FontWeight.bold
-                          //color: Colors.black,
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        ExpansionTile(
+                          textColor: Theme.of(context).colorScheme.outline,
+                          collapsedBackgroundColor: defaultColor,
+                          iconColor: defaultColor,
+                          collapsedIconColor: Colors.white,
+                          collapsedTextColor: Colors.white,
+                          childrenPadding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
+                          backgroundColor: Colors.white10,
+                          title: const Text(
+                            'Who We Are',
+                            style: TextStyle(fontWeight: FontWeight.bold
+                                //color: Colors.black,
+                                ),
                           ),
-                    ),
-                    children: [
-                      Text(
-                        'We are a company that aims to provide jobs for people who want to provide them with additional income and help individuals develop their skills and professional backgrounds We also provide applicants with training to help them facilitate their work throughout their time working with us.',
-                        style: TextStyle(color: defaultColor),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 0.5,
-                    child: Container(
-                      color: Colors.white,
-                    ),
-                  ),
-                  const ExpansionTile(
-                    textColor: defaultColor,
-                    collapsedBackgroundColor: defaultColor,
-                    iconColor: defaultColor,
-                    collapsedIconColor: Colors.white,
-                    collapsedTextColor: Colors.white,
-                    childrenPadding:
-                        EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    backgroundColor: Colors.white10,
-                    title: Text(
-                      'How We To Pay',
-                      style: TextStyle(fontWeight: FontWeight.bold
-                          //color: Colors.black,
+                          children: [
+                            Text(
+                              'We are a company that aims to provide jobs for people who want to provide them with additional income and help individuals develop their skills and professional backgrounds We also provide applicants with training to help them facilitate their work throughout their time working with us.',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 0.5,
+                          child: Container(
+                            color: Colors.white,
                           ),
+                        ),
+                        ExpansionTile(
+                          textColor: Theme.of(context).colorScheme.outline,
+                          collapsedBackgroundColor: defaultColor,
+                          iconColor: defaultColor,
+                          collapsedIconColor: Colors.white,
+                          collapsedTextColor: Colors.white,
+                          childrenPadding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
+                          backgroundColor: Colors.white10,
+                          title: const Text(
+                            'How We To Pay',
+                            style: TextStyle(fontWeight: FontWeight.bold
+                                //color: Colors.black,
+                                ),
+                            //color: Colors.black,
+                          ),
+                          children: [
+                            Text(
+                              'Payment is made by these currencies:\n'
+                              ' - Usdt\n'
+                              ' - Payoneer\n'
+                              ' - Binance\n'
+                              ' - Payeer\n'
+                              ' - Bank transfer for people residing inside Turkey',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 0.5,
+                          child: Container(
+                            color: Colors.white,
+                          ),
+                        ),
+                        ExpansionTile(
+                          textColor: Theme.of(context).colorScheme.outline,
+                          collapsedBackgroundColor: defaultColor,
+                          iconColor: defaultColor,
+                          collapsedIconColor: Colors.white,
+                          collapsedTextColor: Colors.white,
+                          childrenPadding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
+                          backgroundColor: Colors.white10,
+                          title: const Text(
+                            'What are the skills required to work with you?',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          children: [
+                            Text(
+                                '- Proficiency in 90% of the language in which to work\n'
+                                '- Time management and serious work\n'
+                                '- Teamwork and speed at work\n',
+                                style: Theme.of(context).textTheme.bodySmall)
+                          ],
+                        ),
+                      ],
                     ),
-                    children: [
-                      Text(
-                        'Payment is made by these currencies:\n'
-                        ' - Usdt\n'
-                        ' - Payoneer\n'
-                        ' - Binance\n'
-                        ' - Payeer\n'
-                        ' - Bank transfer for people residing inside Turkey',
-                        style: TextStyle(color: defaultColor),
-                      )
-                    ],
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 0.5,
-                    child: Container(
-                      color: Colors.white,
-                    ),
-                  ),
-                  const ExpansionTile(
-                    textColor: defaultColor,
-                    collapsedBackgroundColor: defaultColor,
-                    iconColor: defaultColor,
-                    collapsedIconColor: Colors.white,
-                    collapsedTextColor: Colors.white,
-                    childrenPadding:
-                        EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    backgroundColor: Colors.white10,
-                    title: Text(
-                      'What are the skills required to work with you?',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    children: [
-                      Text(
-                        '- Proficiency in 90% of the language in which to work\n'
-                        '- Time management and serious work\n'
-                        '- Teamwork and speed at work\n',
-                        style: TextStyle(color: defaultColor),
-                      )
-                    ],
+                  const SizedBox(
+                    height: 20,
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -122,22 +133,24 @@ class ContactScreen extends StatelessWidget {
                           //mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               'Contact',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: defaultColor,
-                                  fontSize: 25),
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.outline,
+                                fontSize: 25,
+                              ),
                             ),
                             const SizedBox(
                               height: 1,
                             ),
-                            const Text(
+                            Text(
                               'If you have any problem contact us',
                               style: TextStyle(
-                                  fontSize: 14,
-                                  color: defaultColor,
-                                  fontWeight: FontWeight.bold),
+                                fontSize: 14,
+                                color: Theme.of(context).colorScheme.outline,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             const SizedBox(
                               height: 15,

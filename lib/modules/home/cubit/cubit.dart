@@ -32,9 +32,9 @@ class NewProjectCubit extends Cubit<NewProjectStates> {
   }
 
  static String formattedDate(timeStamp) {
-   // var dateFromTimeStamp=DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
-
-    return DateFormat('dd-MM-yyyy').format(timeStamp) ;
+   // DateTime dateFromTimeStamp=DateTime.fromMillisecondsSinceEpoch(timeStamp*1000);
+  var timeStampp=timeStamp.toDate();
+    return DateFormat('dd-MM-yyyy').format(timeStampp) ;
 
   }
 

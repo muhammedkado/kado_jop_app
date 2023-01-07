@@ -32,7 +32,9 @@ class EditProfile extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            elevation: 0.3,
+            title:const Text('Edit Your Profile'),
+            centerTitle: true,
+
             actions: [
               defaultTextButton(
                   function: () {
@@ -43,11 +45,14 @@ class EditProfile extends StatelessWidget {
                       brithDay: brithDayController.text,
                     );
                   },
-                  lable: const Text('Update'))
+                  lable: Text(
+                    'Update',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ))
             ],
           ),
           body: ConditionalBuilder(
-              condition: state is! GetUserUpdateSuccessState,
+              condition: state is! SettingUserUpdateLoadingState,
               builder: (context) => GestureDetector(
                     onTap: () {
                       FocusScope.of(context).requestFocus(FocusNode());
@@ -124,6 +129,7 @@ class EditProfile extends StatelessWidget {
                             child: Column(
                               children: [
                                 defaultFormField(
+                                    context: context,
                                     prefix: Icons.person_outline,
                                     controller: nameController,
                                     keybord: TextInputType.text,
@@ -138,6 +144,7 @@ class EditProfile extends StatelessWidget {
                                   height: 15,
                                 ),
                                 defaultFormField(
+                                    context: context,
                                     prefix: Icons.email_outlined,
                                     controller: emailController,
                                     keybord: TextInputType.emailAddress,
@@ -151,6 +158,7 @@ class EditProfile extends StatelessWidget {
                                   height: 15,
                                 ),
                                 defaultFormField(
+                                  context: context,
                                   lable: 'Phone',
                                   prefix: Icons.phone,
                                   controller: phoneController,
@@ -166,6 +174,7 @@ class EditProfile extends StatelessWidget {
                                   height: 15,
                                 ),
                                 defaultFormField(
+                                  context: context,
                                   lable: 'BrithDay',
                                   ontap: () async {
                                     await showDatePicker(
@@ -195,7 +204,9 @@ class EditProfile extends StatelessWidget {
                       ),
                     ),
                   ),
-              fallback: (context) =>const Center(child: CircularProgressIndicator(),)),
+              fallback: (context) => const Center(
+                    child: CircularProgressIndicator(),
+                  )),
         );
       },
     );

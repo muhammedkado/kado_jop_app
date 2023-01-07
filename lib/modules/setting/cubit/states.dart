@@ -3,6 +3,7 @@ abstract class SettingStates {}
 class SettingInitialState extends SettingStates {}
 
 class NotificationButtonSuccessState extends SettingStates {}
+class IsDarkButtonSuccessState extends SettingStates {}
 
 class SignOutSuccessState extends SettingStates {}
 
@@ -19,17 +20,18 @@ class SettingUserUpdateErrorState extends SettingStates {
   SettingUserUpdateErrorState(this.Error);
 }
 
-class GetUserUpdateLoadingState extends SettingStates {}
 
-class GetUserUpdateSuccessState extends SettingStates {}
 
-class GetUserUpdateErrorState extends SettingStates {
-  final String error;
 
-  GetUserUpdateErrorState(this.error);
-}
 
 class UserUpdateLoadingState extends SettingStates {}
 
+class UserUpdateSuccessState extends SettingStates {}
+
+class UserUpdateErrorState extends SettingStates {
+  final String error;
+
+  UserUpdateErrorState(this.error);
+}
 
 class LanguageSelectSuccessState extends SettingStates {}

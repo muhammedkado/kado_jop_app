@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kadojopapp/layout/cubit/cubit.dart';
 import 'package:kadojopapp/modules/login/login_screen.dart';
 import 'package:kadojopapp/modules/setting/about/about_screen.dart';
 import 'package:kadojopapp/modules/setting/contact/contact_screen.dart';
@@ -12,7 +13,6 @@ import 'package:kadojopapp/shard/network/local/CachHelper.dart';
 import 'package:kadojopapp/shard/styles/colors.dart';
 
 class Setting_Screen extends StatelessWidget {
-//  final user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SettingCubit, SettingStates>(
@@ -22,7 +22,7 @@ class Setting_Screen extends StatelessWidget {
         return Scaffold(
           body: SingleChildScrollView(
               child: ConditionalBuilder(
-                  condition: state is! SettingUserUpdateLoadingState,
+                  condition: settingCubit !=null,
                   builder: (context) => Center(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,11 +88,12 @@ class Setting_Screen extends StatelessWidget {
                               margin: const EdgeInsets.all(10),
                               // padding: EdgeInsets.all(1),
                               decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: const [
+                                color: Theme.of(context).colorScheme.primary,
+                                boxShadow: [
                                   BoxShadow(
-                                    blurRadius: 4,
-                                    color: Colors.grey,
+                                    blurRadius: 1,
+                                    color:
+                                        Theme.of(context).colorScheme.surface,
                                   )
                                 ],
                                 borderRadius:
@@ -102,24 +103,32 @@ class Setting_Screen extends StatelessWidget {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   ListTile(
-                                    title: const Text('Dark Mod'),
+                                    title: Text('Dark Mod',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium),
                                     leading: Icon(
-                                      SettingCubit.get(context).isDark == true
+                                      HomeCubit.get(context).isDark == true
                                           ? Icons.dark_mode
                                           : Icons.dark_mode_outlined,
-                                      color: SettingCubit.get(context).isDark ==
-                                              true
-                                          ? defaultColor
-                                          : Colors.grey,
+                                      color:
+                                          HomeCubit.get(context).isDark == true
+                                              ? Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimary
+                                              : Theme.of(context)
+                                                  .colorScheme
+                                                  .background,
                                     ),
                                     trailing: Switch(
-                                      activeColor: defaultColor,
+                                      activeColor: Theme.of(context)
+                                          .colorScheme
+                                          .background,
                                       activeTrackColor: Colors.green,
-                                      value:CachHelper.getData(key: 'darkMode') ,
+                                      value: HomeCubit.get(context).isDark,
                                       onChanged: (index) {
-                                        CachHelper.saveData(key: 'darkMode', value: index);
-                                        SettingCubit.get(context)
-                                            .changeMod(index);
+                                        HomeCubit.get(context)
+                                            .changeAppMod(index: index);
                                       },
                                     ),
                                   ),
@@ -130,11 +139,12 @@ class Setting_Screen extends StatelessWidget {
                               margin: const EdgeInsets.all(10),
                               // padding: EdgeInsets.all(1),
                               decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: const [
+                                color: Theme.of(context).colorScheme.primary,
+                                boxShadow: [
                                   BoxShadow(
-                                    blurRadius: 4,
-                                    color: Colors.grey,
+                                    blurRadius: 1,
+                                    color:
+                                        Theme.of(context).colorScheme.surface,
                                   )
                                 ],
                                 borderRadius:
@@ -149,33 +159,56 @@ class Setting_Screen extends StatelessWidget {
                                           context: context,
                                           Widget: EditProfile());
                                     },
-                                    title: const Text('Edit Profile'),
-                                    leading: const Icon(Icons.edit),
+                                    title: Text(
+                                      'Edit Profile',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
+                                    ),
+                                    leading: Icon(
+                                      Icons.edit,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background,
+                                    ),
                                     // subtitle:const Text('Name, Email, Password, Phone'),
-                                    trailing: const Icon(
+                                    trailing: Icon(
                                       Icons.arrow_forward_ios,
-                                      color: defaultColor,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background,
                                     ),
                                   ),
                                   //Divider(),
                                   ListTile(
-                                    title: const Text('Notification'),
+                                    title: Text('Notification',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium),
                                     leading: Icon(
                                       SettingCubit.get(context).isOff == true
                                           ? Icons.notifications_active
                                           : Icons.notifications,
                                       color: SettingCubit.get(context).isOff ==
                                               true
-                                          ? defaultColor
-                                          : Colors.grey,
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .onPrimary
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .background,
                                     ),
                                     trailing: Switch(
-                                      activeColor: defaultColor,
+                                      activeColor: Theme.of(context)
+                                          .colorScheme
+                                          .background,
                                       activeTrackColor: Colors.green,
                                       hoverColor: Colors.black,
-                                      value: CachHelper.getData(key: 'Notification'),
+                                      value: CachHelper.getData(
+                                          key: 'Notification'),
                                       onChanged: (index) {
-                                        CachHelper.saveData(key: 'Notification', value: index);
+                                        CachHelper.saveData(
+                                            key: 'Notification', value: index);
                                         SettingCubit.get(context)
                                             .changeNotification(index);
                                       },
@@ -184,18 +217,24 @@ class Setting_Screen extends StatelessWidget {
                                   // Divider(),
                                   ListTile(
                                     onTap: () {},
-                                    title: const Text('Language'),
+                                    title: Text('Language',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium),
                                     leading: const Icon(Icons.translate),
                                     trailing: DropdownButton(
                                       onChanged: (val) {
-                                        CachHelper.saveData(key: 'language', value: val);
+                                        CachHelper.saveData(
+                                            key: 'language', value: val);
                                         SettingCubit.get(context)
                                             .languageDropdown(val);
                                       },
                                       hint: const Text('Language'),
                                       value:
                                           CachHelper.getData(key: 'language'),
-                                      items: SettingCubit.get(context).language.map((len) {
+                                      items: SettingCubit.get(context)
+                                          .language
+                                          .map((len) {
                                         return DropdownMenuItem(
                                           child: Text(len),
                                           value: len,
@@ -210,11 +249,12 @@ class Setting_Screen extends StatelessWidget {
                               margin: const EdgeInsets.all(10),
                               // padding: EdgeInsets.all(1),
                               decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: const [
+                                color: Theme.of(context).colorScheme.primary,
+                                boxShadow: [
                                   BoxShadow(
-                                    blurRadius: 4,
-                                    color: Colors.grey,
+                                    blurRadius: 1,
+                                    color:
+                                        Theme.of(context).colorScheme.surface,
                                   )
                                 ],
                                 borderRadius:
@@ -229,12 +269,17 @@ class Setting_Screen extends StatelessWidget {
                                           context: context,
                                           Widget: ContactScreen());
                                     },
-                                    title: const Text('Contact & F.Q.A'),
+                                    title: Text('Contact & F.Q.A',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium),
                                     leading: const Icon(Icons.send_rounded),
                                     // subtitle:const Text('Name, Email, Password, Phone'),
-                                    trailing: const Icon(
+                                    trailing: Icon(
                                       Icons.arrow_forward_ios,
-                                      color: defaultColor,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background,
                                     ),
                                   ),
                                   ListTile(
@@ -243,12 +288,17 @@ class Setting_Screen extends StatelessWidget {
                                           context: context,
                                           Widget: const AboutScreen());
                                     },
-                                    title: const Text('About'),
+                                    title: Text('About',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium),
                                     leading: const Icon(Icons.info),
                                     // subtitle:const Text('Name, Email, Password, Phone'),
-                                    trailing: const Icon(
+                                    trailing: Icon(
                                       Icons.arrow_forward_ios,
-                                      color: defaultColor,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background,
                                     ),
                                   ),
                                 ],

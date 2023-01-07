@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kadojopapp/layout/cubit/cubit.dart';
 import 'package:kadojopapp/layout/cubit/states.dart';
-import 'package:kadojopapp/shard/styles/colors.dart';
 
+// ignore: camel_case_types
 class Home_layout extends StatelessWidget {
+  const Home_layout({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var cubit = HomeCubit.get(context);
@@ -12,21 +14,14 @@ class Home_layout extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) => Scaffold(
         appBar: AppBar(
-        titleSpacing: 10,
+          titleSpacing: 10,
           elevation: 0.2,
           title: Text(cubit.title[cubit.currentIndex]),
           actions: [
             IconButton(
                 onPressed: () {},
-                icon:const Icon(
-                  Icons.search,
-                  color: defaultColor,
-                )),
-            IconButton(
-                onPressed: () {},
-                icon:const Icon(
+                icon: const Icon(
                   Icons.notifications,
-                  color: defaultColor,
                 ))
           ],
         ),
@@ -47,7 +42,8 @@ class Home_layout extends StatelessWidget {
                 Icons.check_box_outlined,
               ),
               label: 'My project',
-            ),/*
+            ),
+            /*
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.send_rounded,
@@ -63,7 +59,6 @@ class Home_layout extends StatelessWidget {
               label: 'Settings',
             ),
           ],
-          selectedItemColor: defaultColor,
         ),
         body: cubit.screen[cubit.currentIndex],
       ),
