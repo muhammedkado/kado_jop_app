@@ -5,12 +5,16 @@ import 'package:intl/intl.dart';
 import 'package:kadojopapp/layout/home_layout.dart';
 import 'package:kadojopapp/modules/join_project/cubit/cubit.dart';
 import 'package:kadojopapp/modules/join_project/cubit/states.dart';
+import 'package:kadojopapp/modules/setting/cubit/cubit.dart';
+import 'package:kadojopapp/modules/setting/edit_profile/edit_profile_screen.dart';
 import 'package:kadojopapp/shard/components/componentes.dart';
 import 'package:kadojopapp/shard/styles/colors.dart';
 import 'package:readmore/readmore.dart';
+
 // ignore: must_be_immutable
 class Info extends StatelessWidget {
-  Info({Key? key}) : super(key: key);
+  var newProject;
+  Info({Key? key, this.newProject}) : super(key: key,);
 
   var nameController = TextEditingController();
   var emailController = TextEditingController();
@@ -20,6 +24,11 @@ class Info extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = JoinProjectCubit.get(context);
+    nameController.text = cubit.userModel!.name!;
+    emailController.text = cubit.userModel!.email!;
+    phoneController.text = cubit.userModel!.phone!;
+    brithDayController.text = cubit.userModel!.brithDay!;
+
     List<Step> getSteps() => [
           Step(
             state:
@@ -27,14 +36,15 @@ class Info extends StatelessWidget {
             isActive: cubit.CurrentStep >= 0,
             title: const Text('Account'),
             content: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Column(
                       children: [
                         defaultFormField(
+                          context:context ,
                             isClickable: false,
                             prefix: Icons.person_outline,
                             controller: nameController,
@@ -50,6 +60,7 @@ class Info extends StatelessWidget {
                           height: 15,
                         ),
                         defaultFormField(
+                          context: context,
                             isClickable: false,
                             prefix: Icons.email_outlined,
                             controller: emailController,
@@ -64,6 +75,7 @@ class Info extends StatelessWidget {
                           height: 15,
                         ),
                         defaultFormField(
+                          context: context,
                           isClickable: false,
                           lable: 'Phone',
                           prefix: Icons.phone,
@@ -80,8 +92,9 @@ class Info extends StatelessWidget {
                           height: 15,
                         ),
                         defaultFormField(
+                          context: context,
                           isClickable: false,
-                          lable: 'BrithDay',
+                          lable: 'BirthDay',
                           ontap: () async {
                             await showDatePicker(
                               context: context,
@@ -109,19 +122,25 @@ class Info extends StatelessWidget {
                   defaultButton(
                     colors: Colors.transparent,
                     text: const Text(
-                      'Do you want edite your information click here',
+                      'If you want to change this information, click here',
                       style: TextStyle(
                         color: Colors.blue,
                       ),
                     ),
-                    function: () {
-                      /*Navigatorto(
+                    function: () async {
+                      await SettingCubit.get(context).getUserData();
+                      Navigatorto(
                         context: context,
-                        Widget: null,
-
-
-                      ); */
+                        Widget: EditProfile(),
+                      );
                     },
+                  ),
+                  const Text(
+                    '*Please refresh this page after changing your information to make it appear to you',
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.grey,
+                    ),
                   )
                 ],
               ),
@@ -169,7 +188,7 @@ class Info extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ReadMoreText(
-                        '${cubit.projectModel!.terms1}',
+                        '${newProject['terms1']}',
                         style: const TextStyle(
                           fontSize: 16,
                         ),
@@ -214,7 +233,7 @@ class Info extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ReadMoreText(
-                        '${cubit.projectModel!.terms2}',
+                        '${newProject['terms2']}',
                         style: const TextStyle(
                           fontSize: 16,
                         ),
@@ -237,32 +256,32 @@ class Info extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 ListTile(
-                  title: Text('${cubit.userModel!.name!}'),
-                  leading: Icon(Icons.person_outline),
+                  title: Text('${cubit.userModel!.name}',style: Theme.of(context).textTheme.bodyMedium,),
+                  leading:  Icon(Icons.person_outline,color: Theme.of(context).colorScheme.onBackground,),
                 ),
                 ListTile(
-                  title: Text('${cubit.userModel!.email!}'),
-                  leading: Icon(Icons.email_outlined),
+                  title: Text('${cubit.userModel!.email}',style: Theme.of(context).textTheme.bodyMedium),
+                  leading: Icon(Icons.email_outlined,color: Theme.of(context).colorScheme.onBackground,),
                 ),
                 ListTile(
-                  title: Text(cubit.userModel!.phone!),
-                  leading: const Icon(Icons.phone),
+                  title: Text('${cubit.userModel!.phone}',style: Theme.of(context).textTheme.bodyMedium),
+                  leading:  Icon(Icons.phone,color: Theme.of(context).colorScheme.onBackground,),
                 ),
                 ListTile(
-                  title: Text(cubit.userModel!.brithDay!),
-                  leading: const Icon(Icons.cake),
+                  title: Text('${cubit.userModel!.brithDay}',style: Theme.of(context).textTheme.bodyMedium),
+                  leading:  Icon(Icons.calendar_month_outlined,color: Theme.of(context).colorScheme.onBackground,),
                 ),
                 ListTile(
-                  title: Text('${cubit.projectModel!.name}'),
-                  leading: const Icon(Icons.article_outlined),
+                  title: Text('${newProject['name']}',style: Theme.of(context).textTheme.bodyMedium),
+                  leading:  Icon(Icons.article_outlined,color: Theme.of(context).colorScheme.onBackground,),
                 ),
-                const ListTile(
-                  title: Text('Term 1'),
-                  leading: const Icon(Icons.check_box_outlined),
+                 ListTile(
+                  title: Text('Term 1',style: Theme.of(context).textTheme.bodyMedium),
+                  leading: Icon(Icons.check_box_outlined,color: Theme.of(context).colorScheme.onBackground,),
                 ),
-                const ListTile(
-                  title: Text('Term 2'),
-                  leading: Icon(Icons.check_box_outlined),
+                 ListTile(
+                  title: Text('Term 2',style: Theme.of(context).textTheme.bodyMedium),
+                  leading: Icon(Icons.check_box_outlined,color: Theme.of(context).colorScheme.onBackground,),
                 ),
               ],
             ),
@@ -271,14 +290,11 @@ class Info extends StatelessWidget {
     return BlocConsumer<JoinProjectCubit, JoinProjectStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        nameController.text = cubit.userModel!.name!;
-        emailController.text = cubit.userModel!.email!;
-        phoneController.text = cubit.userModel!.phone!;
-        brithDayController.text = cubit.userModel!.brithDay!;
+
         return SafeArea(
           child: Scaffold(
             appBar: AppBar(
-              title: const Text('CONFIRM NAD APPlY'),
+              title:  Text('Apply for ${newProject['name']}',style: const TextStyle(fontSize: 18),),
               centerTitle: true,
             ),
             body: GestureDetector(
@@ -299,9 +315,7 @@ class Info extends StatelessWidget {
                     ),
                     child: Stepper(
                       //physics: BouncingScrollPhysics(),
-                      onStepTapped: (value) {
-                        cubit.onTapen(value);
-                      },
+
                       elevation: 0.0,
                       steps: getSteps(),
                       type: StepperType.horizontal,
@@ -310,9 +324,12 @@ class Info extends StatelessWidget {
                         final isLastStep =
                             cubit.CurrentStep == getSteps().length - 1;
                         if (isLastStep) {
+
+
                           ShowTost(
                               msg: 'Apply Successfully',
                               state: TostState.SUCCESS);
+
                           NavigatorAndFinish(
                               context: context, Widget: Home_layout());
                           cubit.CurrentStep = 0;
@@ -335,7 +352,7 @@ class Info extends StatelessWidget {
                             Expanded(
                               child: ElevatedButton(
                                 onPressed: detiles.onStepCancel,
-                                child: const Text('Back'),
+                                child:  Text('Back',style:Theme.of(context).textTheme.titleMedium ,),
                               ),
                             ),
                             const SizedBox(
@@ -345,7 +362,7 @@ class Info extends StatelessWidget {
                               Expanded(
                                 child: ElevatedButton(
                                   onPressed: detiles.onStepContinue,
-                                  child: Text(isLastStep ? 'CONFiRM' : 'NEXT'),
+                                  child: Text(isLastStep ? 'CONFiRM' : 'NEXT',style:Theme.of(context).textTheme.titleMedium),
                                 ),
                               ),
                           ],
@@ -364,4 +381,5 @@ class Info extends StatelessWidget {
       },
     );
   }
+
 }

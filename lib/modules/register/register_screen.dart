@@ -1,5 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:country_list_pick/country_list_pick.dart';
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -20,9 +20,10 @@ class RegisterScreen extends StatelessWidget {
   var brithDayControlar = TextEditingController();
   var countryControlar = TextEditingController();
 
-  String chooseCountry = '+90';
+
 
   var formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -69,6 +70,7 @@ class RegisterScreen extends StatelessWidget {
                             height: 30,
                           ),
                           defaultFormField(
+                              context: context,
                               prefix: Icons.person,
                               controller: nameControlar,
                               keybord: TextInputType.text,
@@ -82,6 +84,7 @@ class RegisterScreen extends StatelessWidget {
                             height: 15,
                           ),
                           defaultFormField(
+                              context: context,
                               prefix: Icons.email_outlined,
                               controller: emailControlar,
                               keybord: TextInputType.emailAddress,
@@ -94,6 +97,7 @@ class RegisterScreen extends StatelessWidget {
                             height: 15,
                           ),
                           defaultFormField(
+                              context: context,
                               prefix: Icons.lock_outline,
                               isPassword: RegisterCubit.get(context).isPassword,
                               suffix: RegisterCubit.get(context).suffix,
@@ -172,9 +176,11 @@ class RegisterScreen extends StatelessWidget {
                                 width: 180,
                                 height: 60,
                                 child: defaultFormField(
+                                  context: context,
                                   lable: 'BrithDay',
                                   ontap: () async {
                                     await showDatePicker(
+                                      helpText: 'Select date',
                                       context: context,
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime(1900),
@@ -206,15 +212,23 @@ class RegisterScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(5)),
                                 child: DropdownButtonHideUnderline(
                                   child: DropdownButton(
-                                    hint: const Text(
-                                      'Gender',
+                                    hint: Center(
+                                      child: Text(
+                                        'Gender',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium,
+                                      ),
                                     ),
                                     icon: const Visibility(
                                         visible: false,
-                                        child: Icon(Icons.arrow_downward)),
+                                        child: Icon(Icons.sick)),
                                     items: ['MALE', 'FEMALE']
                                         .map((e) => DropdownMenuItem(
-                                              child: Text('$e'),
+                                              child: Text(e,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyMedium),
                                               value: e,
                                             ))
                                         .toList(),
@@ -235,50 +249,79 @@ class RegisterScreen extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: Container(
-                                  decoration: const BoxDecoration(boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2,
-                                        spreadRadius: 0.5)
-                                  ]),
-                                  child: Container(
-                                    padding: const EdgeInsets.only(left: 15),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: Row(
-                                      children: [
-                                        const Text(
-                                          'Nationality:',
-                                          style: TextStyle(color: Colors.grey),
-                                        ),
-                                        const SizedBox(
-                                          width: 25,
-                                        ),
-                                        CountryListPick(
-                                          initialSelection: chooseCountry,
-                                          theme: CountryTheme(
-                                              labelColor: Colors.black,
-                                              showEnglishName: true,
-                                              alphabetTextColor: Colors.black,
-                                              isShowCode: false),
+                                  padding: const EdgeInsets.only(left: 15),
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color:Theme.of(context).colorScheme.surface,
+                                        blurRadius: 1,
+                                        spreadRadius: 0.5,
+                                      )
+                                    ],
+                                    color: Theme.of(context).colorScheme.primary,
+                                      borderRadius: BorderRadius.circular(5),
 
-                                          // to initial code number countrey
 
-                                          // to get feedback data from picker
-                                          onChanged: (code) {
-                                            if (code!.dialCode != null) {
-                                              chooseCountry = code.name!;
-                                              print(
-                                                  'this is in sead $chooseCountry');
-                                            } else {
-                                              print(
-                                                  'error =>>>> code.dialCode = null');
-                                            }
-                                          },
+                                  ),
+
+                                  child: Row(
+                                    children: [
+                                      Text('Nationality:',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall),
+                                      const SizedBox(
+                                        width: 25,
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          showCountryPicker(
+                                            context: context,
+                                            onSelect: (Country value) {
+                                              RegisterCubit.get(context).countryChoose(value.name);
+                                            },
+                                          );
+                                        },
+                                        child: Text(RegisterCubit.get(context).chooseCountry,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall,
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                      /*
+                                      CountryListPick(
+                                        useSafeArea: true,
+                                        useUiOverlay: true,
+                                        initialSelection: chooseCountry,
+                                        theme: CountryTheme(
+                                            labelColor:Colors.black,
+                                            showEnglishName: true,
+                                           // alphabetTextColor:  Theme.of(context).colorScheme.background,
+                                            isShowCode: false,
+                                          alphabetSelectedBackgroundColor: Colors.white,
+                                          alphabetSelectedTextColor: Colors.black,
+                                          isDownIcon: true,
+                                          isShowTitle: true
+
+                                        ),
+
+                                        // to initial code number countrey
+
+                                        // to get feedback data from picker
+                                        onChanged: (code) {
+                                          if (code!.dialCode != null) {
+                                            chooseCountry = code.name!;
+                                            print(
+                                                'this is in sead $chooseCountry');
+                                          } else {
+                                            print(
+                                                'error =>>>> code.dialCode = null');
+                                          }
+                                        },
+                                      ),
+
+                                       */
+                                    ],
                                   ),
                                 ),
                               ),
@@ -313,7 +356,7 @@ class RegisterScreen extends StatelessWidget {
                                       context: context,
                                       Widget: WebViewScreen());
                                 },
-                                lable: const Text('Terms & Conditions'),
+                                lable: Text('Terms & Conditions',style: Theme.of(context).textTheme.bodySmall,),
                               ),
                             ],
                           ),
@@ -321,11 +364,9 @@ class RegisterScreen extends StatelessWidget {
                             condition: state is! RegisterLoadingState,
                             builder: (context) => defaultButton(
                               colors: defaultColor,
-                              text: const Text(
+                              text:  Text(
                                 'Register',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              ),
+                                style: Theme.of(context).textTheme.titleLarge,),
                               function: () {
                                 if (formKey.currentState!.validate()) {
                                   if (RegisterCubit.get(context).isActiv ==
@@ -339,7 +380,7 @@ class RegisterScreen extends StatelessWidget {
                                       name: nameControlar.text,
                                       phone: phoneControlar!,
                                       password: passwordControlar.text,
-                                      country: chooseCountry,
+                                      country: RegisterCubit.get(context).chooseCountry,
                                     );
                                   } else {
                                     ShowTost(

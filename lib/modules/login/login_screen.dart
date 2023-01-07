@@ -67,6 +67,8 @@ class Login extends StatelessWidget {
                           height: 30,
                         ),
                         defaultFormField(
+                          context: context,
+
                             prefix: Icons.email_outlined,
                             controller: emailController,
                             keybord: TextInputType.emailAddress,
@@ -79,6 +81,7 @@ class Login extends StatelessWidget {
                           height: 15,
                         ),
                         defaultFormField(
+                          context: context,
                             prefix: Icons.lock_outline,
                             isPassword: LoginCubit.get(context).isPassword,
                             suffix: LoginCubit.get(context).suffix,
@@ -107,11 +110,11 @@ class Login extends StatelessWidget {
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
-                          children: const [
+                          children:  [
                             Text(
-                              'forget password?',
+                              'forget password?',style: Theme.of(context).textTheme.bodySmall,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 15,
                             ),
                           ],
@@ -123,9 +126,9 @@ class Login extends StatelessWidget {
                           condition: state is! LoginLoadingState,
                           builder: (context) => defaultButton(
                             colors: defaultColor,
-                            text: const Text(
+                            text:  Text(
                               'Login',
-                              style: TextStyle(color: Colors.white),
+                              style:Theme.of(context).textTheme.titleLarge,
                             ),
                             function: () {
                               if (formKey.currentState!.validate()) {
@@ -142,13 +145,13 @@ class Login extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text('Don\'t Have Account?'),
+                             Text('Don\'t Have Account?',style: Theme.of(context).textTheme.bodySmall,),
                             defaultTextButton(
                               function: () {
                                 Navigatorto(
                                     context: context, Widget: RegisterScreen());
                               },
-                              lable: const Text('Register'),
+                              lable:  Text('Register Here',style: Theme.of(context).textTheme.bodySmall,),
                             ),
                           ],
                         )

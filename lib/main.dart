@@ -8,6 +8,7 @@ import 'package:kadojopapp/modules/home/cubit/cubit.dart';
 import 'package:kadojopapp/modules/join_project/cubit/cubit.dart';
 import 'package:kadojopapp/modules/login/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:kadojopapp/modules/project/cubit/cubit.dart';
 import 'package:kadojopapp/modules/setting/contact/cubit/cubit.dart';
 import 'package:kadojopapp/modules/setting/cubit/cubit.dart';
 import 'package:kadojopapp/shard/components/constants.dart';
@@ -20,6 +21,7 @@ Future<void> main() async {
   await Firebase.initializeApp();
   await CachHelper.init();
   uId = CachHelper.getData(key: 'uId');
+  bool isDark = CachHelper.getData(key: 'isDark');
   Widget? widget;
 
   if (uId != null) {
@@ -29,25 +31,33 @@ Future<void> main() async {
   }
 
   runApp(MyApp(
+    isDark: isDark,
     startScreen: widget,
   ));
 }
 
 class MyApp extends StatelessWidget {
   final Widget startScreen;
-  const MyApp({Key? key, required this.startScreen}) : super(key: key);
+  final bool? isDark;
+
+  const MyApp({Key? key, required this.startScreen, this.isDark})
+      : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-
+        BlocProvider(
+          create: (context) => MyProjectCubit()..getProject(),
+        ),
         BlocProvider(
           create: (context) => NewProjectCubit()..getProject(),
         ),
         BlocProvider(
-          create: (context) => JoinProjectCubit()..getProject()..getUserData(),
+          create: (context) => JoinProjectCubit()
+            ..getProject()
+            ..getUserData(),
         ),
         BlocProvider(
           create: (context) => ContactCubit(),
@@ -56,7 +66,7 @@ class MyApp extends StatelessWidget {
           create: (context) => SettingCubit()..getUserData(),
         ),
         BlocProvider(
-          create: (context) => HomeCubit()
+          create: (context) => HomeCubit()..changeAppMod(shereed: isDark),
         ),
       ],
       child: BlocConsumer<HomeCubit, HomeState>(
@@ -66,7 +76,10 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
             darkTheme: darkTheme,
-            home:startScreen,
+            themeMode: HomeCubit.get(context).isDark
+                ? ThemeMode.dark
+                : ThemeMode.light,
+            home: startScreen,
           );
         },
       ),

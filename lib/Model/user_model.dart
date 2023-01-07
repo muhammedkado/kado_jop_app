@@ -7,7 +7,7 @@ class UserModel {
   String? country;
   String? gender;
   String? uId;
-  DateTime? timeStamp;
+  //DateTime? timeStamp;
   bool? isEmailVerified;
 
   UserModel({
@@ -18,7 +18,7 @@ class UserModel {
     required this.country,
     required this.gender,
     required this.uId,
-     this.timeStamp,
+     //this.timeStamp,
     required this.isEmailVerified,
   });
 
@@ -30,7 +30,7 @@ class UserModel {
     country = json['country'];
     gender = json['gender'];
     uId = json['uId'];
-    timeStamp = json['timeStamp'].toDate();
+   //timeStamp = json['timeStamp'].toDate();
     isEmailVerified = json['isEmailVerified'];
   }
 

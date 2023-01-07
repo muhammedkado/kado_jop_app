@@ -4,6 +4,7 @@ import 'package:kadojopapp/layout/cubit/states.dart';
 import 'package:kadojopapp/modules/home/newproject_screen.dart';
 import 'package:kadojopapp/modules/project/myproject_screen.dart';
 import 'package:kadojopapp/modules/setting/setting_screen.dart';
+import 'package:kadojopapp/shard/network/local/CachHelper.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitialState());
@@ -14,12 +15,12 @@ class HomeCubit extends Cubit<HomeState> {
   List<Widget> screen = [
     NewProject_Screen(),
     MyProject_Screen(),
-     Setting_Screen(),
+    Setting_Screen(),
   ];
   List<String> title = [
     'Search Project',
     'My Project',
-   // 'F.A.Q',
+    // 'F.A.Q',
     'Setting',
   ];
 
@@ -27,8 +28,6 @@ class HomeCubit extends Cubit<HomeState> {
     currentIndex = index;
     emit(ChangeNavBarSuccessState());
   }
-
-
 
 /*
   IconData suffix = Icons.visibility_outlined;
@@ -47,5 +46,20 @@ class HomeCubit extends Cubit<HomeState> {
     emit(UpdateGenderSuccessState());
   }
 
+  bool isDark = true;
 
+  void changeAppMod({bool? index, bool? shereed}) {
+    if (shereed != null) {
+      isDark = shereed;
+      emit(IsDarkButtonSuccessState());
+    }else{
+      isDark = index!;
+      CachHelper.saveData(key: 'isDark', value: isDark).then((value) {
+        emit(IsDarkButtonSuccessState());
+      }).catchError((onError) {
+        print(onError.toString());
+      });
+    }
+
+  }
 }

@@ -6,6 +6,7 @@ class ChangeNavBarSuccessState extends HomeState{}
 
 class EditProfileChangePasswordVisibilityState extends HomeState{}
 class UpdateGenderSuccessState extends HomeState{}
+class IsDarkButtonSuccessState extends HomeState{}
 
 
 

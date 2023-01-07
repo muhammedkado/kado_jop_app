@@ -14,6 +14,7 @@ Navigatorto({required context, required Widget}) => Navigator.push(
 
 @override
 Widget defaultFormField({
+  required BuildContext context,
   required TextEditingController controller,
   required TextInputType keybord,
   required Function validate,
@@ -27,17 +28,14 @@ Widget defaultFormField({
   bool isClickable = true,
 }) =>
     TextFormField(
-      style: const TextStyle(
-        color: defaultColor,
+      style:  TextStyle(
+        color: Theme.of(context).colorScheme.onBackground,
       ),
       enabled: isClickable,
       onTap: () {
         ontap!();
       },
       obscureText: isPassword,
-      onFieldSubmitted: (s) {
-        onSubmit!(s);
-      },
       controller: controller,
       keyboardType: keybord,
       validator: (value) {
@@ -59,9 +57,9 @@ Widget defaultFormField({
         labelText: lable,
         prefixIcon: Icon(
           prefix,
-          color: defaultColor,
+          color:Theme.of(context).colorScheme.onSurface
         ),
-        border: OutlineInputBorder(),
+        border:const OutlineInputBorder(),
       ),
     );
 

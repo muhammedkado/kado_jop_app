@@ -13,23 +13,23 @@ class SettingCubit extends Cubit<SettingStates> {
 
   static SettingCubit get(context) => BlocProvider.of(context);
 
-  bool isOff = false;
+  bool isOff = true;
+
   void changeNotification(index) {
     isOff = index;
     emit(NotificationButtonSuccessState());
   }
-  bool isDark = false;
-  void changeMod(index) {
-    isDark = index;
 
-    emit(NotificationButtonSuccessState());
-  }
+
+
   List<String> language = ['English', 'Arabic', 'Turkish'];
   var languages;
+
   languageDropdown(value) {
     languages = value.toString();
     emit(LanguageSelectSuccessState());
   }
+
   void signOut({
     required context,
     required Widget screen,
@@ -45,7 +45,8 @@ class SettingCubit extends Cubit<SettingStates> {
   }
 
   UserModel? userModel;
-  void getUserData() async {
+
+  Future getUserData() async {
     emit(SettingUserUpdateLoadingState());
 
     await FirebaseFirestore.instance
@@ -58,9 +59,9 @@ class SettingCubit extends Cubit<SettingStates> {
       // print('Value data${value.data()}');
 
       // print('Uid data${userModel!.uId}');
-
     }).catchError((Error) {
       print(Error.toString());
+      print('============>${Error.toString()}');
       emit(SettingUserUpdateErrorState(Error.toString()));
     });
   }
@@ -85,15 +86,16 @@ class SettingCubit extends Cubit<SettingStates> {
       uId: userModel!.uId,
       isEmailVerified: false,
     );
+
     FirebaseFirestore.instance
         .collection('user')
         .doc(userModel!.uId)
         .update(model.toMap())
         .then((value) {
       getUserData();
-
     }).catchError((Error) {
-      print(Error.toString());
+      emit(UserUpdateErrorState(Error));
+      print('============>${Error.toString()}');
     });
   }
 }

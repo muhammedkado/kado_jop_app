@@ -59,13 +59,11 @@ class RegisterCubit extends Cubit<RegisterStates> {
         country: country,
         gender: gender,
         uId: uId,
-        timeStamp: DateTime.now(),
+        //timeStamp: DateTime.now(),
         isEmailVerified: isEmailVerified);
     emit(CreateLoadingState());
     FirebaseFirestore.instance
-        .collection('user')
-        .doc(uId)
-        .set(model.toMap())
+        .collection('user').doc(uId).set(model.toMap())
         .then((value) {
 
       emit(CreateSuccessState());
@@ -88,6 +86,11 @@ class RegisterCubit extends Cubit<RegisterStates> {
   genderDropdown(value) {
     gender = value.toString();
     emit(GenderSuccessState());
+  }
+  String chooseCountry='Choose your country';
+  countryChoose(value) {
+    chooseCountry = value;
+    emit(CountrySuccessState());
   }
   bool? isActiv=false;
  void checkBox(value){
