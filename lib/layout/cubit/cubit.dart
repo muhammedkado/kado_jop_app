@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kadojopapp/layout/cubit/states.dart';
-import 'package:kadojopapp/modules/home/newproject_screen.dart';
+import 'package:kadojopapp/modules/new_project/newproject_screen.dart';
 import 'package:kadojopapp/modules/project/myproject_screen.dart';
 import 'package:kadojopapp/modules/setting/setting_screen.dart';
 import 'package:kadojopapp/shard/network/local/CachHelper.dart';
@@ -48,12 +48,12 @@ class HomeCubit extends Cubit<HomeState> {
 
   bool isDark = true;
 
-  void changeAppMod({bool? index, bool? shereed}) {
+  void changeAppMod({required bool index, bool? shereed}) {
     if (shereed != null) {
       isDark = shereed;
       emit(IsDarkButtonSuccessState());
     }else{
-      isDark = index!;
+      isDark = index;
       CachHelper.saveData(key: 'isDark', value: isDark).then((value) {
         emit(IsDarkButtonSuccessState());
       }).catchError((onError) {

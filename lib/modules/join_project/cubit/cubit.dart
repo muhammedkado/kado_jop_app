@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kadojopapp/Model/project_model.dart';
+import 'package:kadojopapp/Model/project_applicants.dart';
 import 'package:kadojopapp/modules/join_project/cubit/states.dart';
 import 'package:kadojopapp/shard/components/constants.dart';
 
@@ -26,12 +26,6 @@ class JoinProjectCubit extends Cubit<JoinProjectStates> {
     emit(CurrentStepState());
   }
 
-  void onTapen(int value) {
-    CurrentStep = value;
-    emit(CurrentStepState());
-  }
-
-  ProjectModel? projectModel;
   List projectDetail = [];
 
   void getProject() async {
@@ -40,14 +34,31 @@ class JoinProjectCubit extends Cubit<JoinProjectStates> {
     await FirebaseFirestore.instance.collection('project').get().then((value) {
       value.docs.forEach((element) {
         projectDetail.add(element.data());
-        projectModel =
-            ProjectModel.fromJson(element.data() as Map<String, dynamic>);
       });
 
       emit(JoinProjectSuccessState());
     }).catchError((Error) {
       print(Error.toString());
       emit(JoinProjectErrorState(Error.toString()));
+    });
+  }
+
+  UserModel? userModel;
+
+  void getUserData() async {
+    emit(GetUserInfoLoadingState());
+
+    await FirebaseFirestore.instance
+        .collection('user')
+        .doc(uId)
+        .get()
+        .then((value) {
+      userModel = UserModel.fromJson(value.data() as Map<String, dynamic>);
+      emit(GetUserInfoSuccessState());
+      print(userModel!.name);
+    }).catchError((Error) {
+      print(Error.toString());
+      emit(GetUserInfoErrorState(Error.toString()));
     });
   }
 
@@ -65,26 +76,40 @@ class JoinProjectCubit extends Cubit<JoinProjectStates> {
     emit(Terms2CheckBoxState());
   }
 
-  UserModel? userModel;
+  void setUserApplyProject(
+  {
+    required String pId,
+    required String docId,
+    required String projectName,
+    required String projectEndData,
+    required String projectProfit,
+    required String projectDetails,
 
-  void getUserData() async {
-    emit(GetUserInfoLoadingState());
-
-    await FirebaseFirestore.instance
+}
+      ) {
+    emit(SetMyProjectLadingState());
+    Project_Applicants myProject = Project_Applicants(
+      projectName: projectName,
+      pId:pId,
+      projectDetails:projectDetails ,
+       projectEndData:projectEndData ,
+       projectProfit:projectProfit ,
+    );
+    FirebaseFirestore.instance
         .collection('user')
         .doc(uId)
-        .get()
+        .collection('myProject').doc(docId)
+        .set(myProject.toMap())
         .then((value) {
-      emit(GetUserInfoSuccessState());
-      userModel = UserModel.fromJson(value.data() as Map<String, dynamic>);
+          emit(SetMyProjectSuccessState());
+
     }).catchError((Error) {
       print(Error.toString());
-      emit(GetUserInfoErrorState(Error.toString()));
-    });
+      emit(SetMyProjectErrorState(Error.toString()));
+
+    }
+    );
   }
 
- void setApplyProject()
- {
-
- }
 }
+

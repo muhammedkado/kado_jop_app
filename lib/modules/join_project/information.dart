@@ -14,7 +14,11 @@ import 'package:readmore/readmore.dart';
 // ignore: must_be_immutable
 class Info extends StatelessWidget {
   var newProject;
-  Info({Key? key, this.newProject}) : super(key: key,);
+
+  Info({Key? key, this.newProject})
+      : super(
+          key: key,
+        );
 
   var nameController = TextEditingController();
   var emailController = TextEditingController();
@@ -44,7 +48,7 @@ class Info extends StatelessWidget {
                     child: Column(
                       children: [
                         defaultFormField(
-                          context:context ,
+                            context: context,
                             isClickable: false,
                             prefix: Icons.person_outline,
                             controller: nameController,
@@ -60,7 +64,7 @@ class Info extends StatelessWidget {
                           height: 15,
                         ),
                         defaultFormField(
-                          context: context,
+                            context: context,
                             isClickable: false,
                             prefix: Icons.email_outlined,
                             controller: emailController,
@@ -256,32 +260,62 @@ class Info extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 ListTile(
-                  title: Text('${cubit.userModel!.name}',style: Theme.of(context).textTheme.bodyMedium,),
-                  leading:  Icon(Icons.person_outline,color: Theme.of(context).colorScheme.onBackground,),
+                  title: Text(
+                    '${cubit.userModel!.name}',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  leading: Icon(
+                    Icons.person_outline,
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
                 ),
                 ListTile(
-                  title: Text('${cubit.userModel!.email}',style: Theme.of(context).textTheme.bodyMedium),
-                  leading: Icon(Icons.email_outlined,color: Theme.of(context).colorScheme.onBackground,),
+                  title: Text('${cubit.userModel!.email}',
+                      style: Theme.of(context).textTheme.bodyMedium),
+                  leading: Icon(
+                    Icons.email_outlined,
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
                 ),
                 ListTile(
-                  title: Text('${cubit.userModel!.phone}',style: Theme.of(context).textTheme.bodyMedium),
-                  leading:  Icon(Icons.phone,color: Theme.of(context).colorScheme.onBackground,),
+                  title: Text('${cubit.userModel!.phone}',
+                      style: Theme.of(context).textTheme.bodyMedium),
+                  leading: Icon(
+                    Icons.phone,
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
                 ),
                 ListTile(
-                  title: Text('${cubit.userModel!.brithDay}',style: Theme.of(context).textTheme.bodyMedium),
-                  leading:  Icon(Icons.calendar_month_outlined,color: Theme.of(context).colorScheme.onBackground,),
+                  title: Text('${cubit.userModel!.brithDay}',
+                      style: Theme.of(context).textTheme.bodyMedium),
+                  leading: Icon(
+                    Icons.calendar_month_outlined,
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
                 ),
                 ListTile(
-                  title: Text('${newProject['name']}',style: Theme.of(context).textTheme.bodyMedium),
-                  leading:  Icon(Icons.article_outlined,color: Theme.of(context).colorScheme.onBackground,),
+                  title: Text('${newProject['name']}',
+                      style: Theme.of(context).textTheme.bodyMedium),
+                  leading: Icon(
+                    Icons.article_outlined,
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
                 ),
-                 ListTile(
-                  title: Text('Term 1',style: Theme.of(context).textTheme.bodyMedium),
-                  leading: Icon(Icons.check_box_outlined,color: Theme.of(context).colorScheme.onBackground,),
+                ListTile(
+                  title: Text('Term 1',
+                      style: Theme.of(context).textTheme.bodyMedium),
+                  leading: Icon(
+                    Icons.check_box_outlined,
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
                 ),
-                 ListTile(
-                  title: Text('Term 2',style: Theme.of(context).textTheme.bodyMedium),
-                  leading: Icon(Icons.check_box_outlined,color: Theme.of(context).colorScheme.onBackground,),
+                ListTile(
+                  title: Text('Term 2',
+                      style: Theme.of(context).textTheme.bodyMedium),
+                  leading: Icon(
+                    Icons.check_box_outlined,
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
                 ),
               ],
             ),
@@ -290,89 +324,107 @@ class Info extends StatelessWidget {
     return BlocConsumer<JoinProjectCubit, JoinProjectStates>(
       listener: (context, state) {},
       builder: (context, state) {
-
         return SafeArea(
           child: Scaffold(
             appBar: AppBar(
-              title:  Text('Apply for ${newProject['name']}',style: const TextStyle(fontSize: 18),),
+              title: Text(
+                'Apply for ${newProject['name']}',
+                style: const TextStyle(fontSize: 18),
+              ),
               centerTitle: true,
             ),
-            body: GestureDetector(
-              onTap: () {
-                FocusScope.of(context).requestFocus(FocusNode());
+            body: RefreshIndicator(
+              onRefresh: () async {
+                nameController.text = cubit.userModel!.name!;
+                print('nameController.text==>${nameController.text}');
+                emailController.text = cubit.userModel!.email!;
+                phoneController.text = cubit.userModel!.phone!;
+                brithDayController.text = cubit.userModel!.brithDay!;
+                cubit.getUserData();
               },
-              child: RefreshIndicator(
-                onRefresh: () async {
-                  cubit.getUserData();
-                },
-                child: ConditionalBuilder(
-                  condition: state is! GetUserInfoLoadingState,
-                  builder: (context) => Theme(
-                    data: Theme.of(context).copyWith(
-                      colorScheme: const ColorScheme.light(
-                        primary: defaultColor,
-                      ),
+              child: ConditionalBuilder(
+                condition: state is! GetUserInfoLoadingState,
+                builder: (context) => Theme(
+                  data: Theme.of(context).copyWith(
+                    colorScheme: const ColorScheme.light(
+                      primary: defaultColor,
                     ),
-                    child: Stepper(
-                      //physics: BouncingScrollPhysics(),
+                  ),
+                  child: Stepper(
+                    //physics: BouncingScrollPhysics(),
 
-                      elevation: 0.0,
-                      steps: getSteps(),
-                      type: StepperType.horizontal,
-                      currentStep: cubit.CurrentStep,
-                      onStepContinue: () {
-                        final isLastStep =
-                            cubit.CurrentStep == getSteps().length - 1;
-                        if (isLastStep) {
+                    elevation: 0.0,
+                    steps: getSteps(),
+                    type: StepperType.horizontal,
+                    currentStep: cubit.CurrentStep,
+                    onStepContinue: () {
+                      final isLastStep =
+                          cubit.CurrentStep == getSteps().length - 1;
+                      if (isLastStep) {
+                        cubit.setUserApplyProject(
+                          docId:newProject['uId'] ,
+                          pId:newProject['uId'] ,
+                          projectName:newProject['name'],
+                          projectProfit:newProject['name'] ,
+                          projectEndData:newProject['endtime']  ,
+                          projectDetails: newProject['detail'] ,
+
+                        );
 
 
-                          ShowTost(
-                              msg: 'Apply Successfully',
-                              state: TostState.SUCCESS);
 
-                          NavigatorAndFinish(
-                              context: context, Widget: Home_layout());
-                          cubit.CurrentStep = 0;
-                        } else {
-                          cubit.nextCurrentStep();
-                        }
-                      },
-                      onStepCancel: cubit.CurrentStep == 0
-                          ? null
-                          : () {
-                              cubit.backCurrentStep();
-                            },
-                      controlsBuilder: (context, detiles) {
-                        final isLastStep =
-                            cubit.CurrentStep == getSteps().length - 1;
-                        var terms = JoinProjectCubit.get(context).isActiv;
-                        var terms2 = JoinProjectCubit.get(context).isActiv2;
-                        return Row(
-                          children: [
+                        ShowTost(
+                            msg: 'Apply Successfully',
+                            state: TostState.SUCCESS);
+
+                        NavigatorAndFinish(
+                            context: context, Widget: Home_layout());
+                        cubit.CurrentStep = 0;
+                      } else {
+                        cubit.nextCurrentStep();
+                      }
+                    },
+                    onStepCancel: cubit.CurrentStep == 0
+                        ? null
+                        : () {
+                            cubit.backCurrentStep();
+                          },
+                    controlsBuilder: (context, detiles) {
+                      final isLastStep =
+                          cubit.CurrentStep == getSteps().length - 1;
+                      var terms = JoinProjectCubit.get(context).isActiv;
+                      var terms2 = JoinProjectCubit.get(context).isActiv2;
+                      return Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: detiles.onStepCancel,
+                              child: Text(
+                                'Back',
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          if (cubit.CurrentStep != 1 || terms! && terms2!)
                             Expanded(
                               child: ElevatedButton(
-                                onPressed: detiles.onStepCancel,
-                                child:  Text('Back',style:Theme.of(context).textTheme.titleMedium ,),
+                                onPressed: detiles.onStepContinue,
+                                child: Text(isLastStep ? 'CONFiRM' : 'NEXT',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium),
                               ),
                             ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            if (cubit.CurrentStep != 1 || terms! && terms2!)
-                              Expanded(
-                                child: ElevatedButton(
-                                  onPressed: detiles.onStepContinue,
-                                  child: Text(isLastStep ? 'CONFiRM' : 'NEXT',style:Theme.of(context).textTheme.titleMedium),
-                                ),
-                              ),
-                          ],
-                        );
-                      },
-                    ),
+                        ],
+                      );
+                    },
                   ),
-                  fallback: (context) => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                ),
+                fallback: (context) => const Center(
+                  child: CircularProgressIndicator(),
                 ),
               ),
             ),
@@ -381,5 +433,4 @@ class Info extends StatelessWidget {
       },
     );
   }
-
 }
