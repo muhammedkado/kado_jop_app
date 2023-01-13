@@ -1,15 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:kadojopapp/Model/project_model.dart';
-import 'package:kadojopapp/modules/home/cubit/states.dart';
+import 'package:kadojopapp/modules/new_project/cubit/states.dart';
 
 class NewProjectCubit extends Cubit<NewProjectStates> {
   NewProjectCubit() : super(NewProjectInitialState());
 
   static NewProjectCubit get(context) => BlocProvider.of(context);
 
-  ProjectModel? projectModel;
   List project= [];
   void getProject() async{
     //
@@ -18,8 +16,6 @@ class NewProjectCubit extends Cubit<NewProjectStates> {
       value.docs.forEach((element) {
         project.add(element.data());
 
-        projectModel =
-            ProjectModel.fromJson(element.data() as Map<String, dynamic>);
       });
 
 

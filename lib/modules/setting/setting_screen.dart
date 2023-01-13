@@ -204,8 +204,7 @@ class Setting_Screen extends StatelessWidget {
                                           .background,
                                       activeTrackColor: Colors.green,
                                       hoverColor: Colors.black,
-                                      value: CachHelper.getData(
-                                          key: 'Notification'),
+                                      value:true,
                                       onChanged: (index) {
                                         CachHelper.saveData(
                                             key: 'Notification', value: index);

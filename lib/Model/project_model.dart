@@ -13,7 +13,7 @@ class ProjectModel {
   String? terms1;
   String? terms2;
   DateTime? timeStamp;
-  int? id;
+  String? pid;
   ProjectModel(
     this.duration,
     this.jobrole,
@@ -28,7 +28,7 @@ class ProjectModel {
     this.terms1,
     this.terms2,
     this.timeStamp,
-    this.id,
+    this.pid,
   );
 
   ProjectModel.fromJson(Map<String, dynamic> json) {
@@ -44,7 +44,7 @@ class ProjectModel {
     vaildhurs = json['vaildhurs'];
     terms1 = json['terms1'];
     terms2 = json['terms2'];
-    id = json['id'];
+    pid = json['pid'];
     timeStamp = json['timeStamp'].toDate();
   }
 
@@ -62,6 +62,7 @@ class ProjectModel {
       'vaildhurs': vaildhurs,
       'terms2': terms2,
       'terms1': terms1,
+      'pid': pid,
      //'timeStamp': DateTime.now(),
     };
   }

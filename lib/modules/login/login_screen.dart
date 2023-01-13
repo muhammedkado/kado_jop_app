@@ -26,10 +26,12 @@ class Login extends StatelessWidget {
                 value: state.uid,
               ).then((value) {
                 uId = state.uid;
-
                 NavigatorAndFinish(context: context, Widget: Home_layout());
+
                 ShowTost(msg: 'Login Success', state: TostState.SUCCESS);
+
               }).catchError((Error) {
+
                 ShowTost(msg: Error.toString(), state: TostState.ERROR);
               });
             }
@@ -123,7 +125,7 @@ class Login extends StatelessWidget {
                           height: 15,
                         ),
                         ConditionalBuilder(
-                          condition: state is! LoginLoadingState,
+                          condition:LoginCubit.get(context).login! ,
                           builder: (context) => defaultButton(
                             colors: defaultColor,
                             text:  Text(

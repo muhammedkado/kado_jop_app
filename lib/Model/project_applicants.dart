@@ -1,33 +1,30 @@
 import 'dart:core';
 
 class Project_Applicants {
-  String? uId;
-  String? name;
-  String? email;
-  String? phone;
-  String? gender;
-  String? birthDay;
-  String? country;
+  String? pId;
+  String? projectName;
+  String? projectEndData;
+  String? projectProfit;
+  String? projectDetails;
 
-  Project_Applicants(
-    this.name,
-    this.uId,
-    this.email,
-    this.phone,
-    this.birthDay,
-    this.gender,
-    this.country,
-  );
+  //DateTime? timeStamp;
+
+  Project_Applicants( //this.timeStamp,
+      {
+    required this.pId,
+    required this.projectName,
+    required this.projectEndData,
+    required this.projectProfit,
+    required this.projectDetails,
+  });
 
   Map<String, dynamic> toMap() {
     return {
-      'name': name,
-      'email': email,
-      'phone': phone,
-      'birthDay': birthDay,
-      'country': country,
-      'gender': gender,
-      'uId': uId,
+      'pId': pId,
+      'projectName': projectName,
+      'projectEndData': projectEndData,
+      'projectProfit': projectProfit,
+      'projectDetails': projectDetails,
       'timeStamp': DateTime.now(),
     };
   }

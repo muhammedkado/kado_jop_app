@@ -18,7 +18,16 @@ class GetUserInfoLoadingState extends JoinProjectStates {}
 
 class GetUserInfoSuccessState extends JoinProjectStates {}
 
+
 class GetUserInfoErrorState extends JoinProjectStates {
   final Error;
   GetUserInfoErrorState(this.Error);
+}
+
+class SetMyProjectLadingState extends JoinProjectStates {}
+class SetMyProjectSuccessState extends JoinProjectStates {}
+
+class SetMyProjectErrorState extends JoinProjectStates {
+  final Error;
+  SetMyProjectErrorState(this.Error);
 }

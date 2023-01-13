@@ -45,7 +45,7 @@ class SettingCubit extends Cubit<SettingStates> {
   }
 
   UserModel? userModel;
-
+List userModelList=[];
   Future getUserData() async {
     emit(SettingUserUpdateLoadingState());
 
@@ -55,6 +55,7 @@ class SettingCubit extends Cubit<SettingStates> {
         .get()
         .then((value) {
       emit(SettingUserUpdateSuccessState());
+
       userModel = UserModel.fromJson(value.data() as Map<String, dynamic>);
       // print('Value data${value.data()}');
 
@@ -62,6 +63,7 @@ class SettingCubit extends Cubit<SettingStates> {
     }).catchError((Error) {
       print(Error.toString());
       print('============>${Error.toString()}');
+      ShowTost(msg: Error.toString(), state: TostState.ERROR);
       emit(SettingUserUpdateErrorState(Error.toString()));
     });
   }
