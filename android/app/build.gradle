@@ -51,7 +51,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.kadojob.kadojobapp"//com.example.kadojopapp
+        applicationId "com.kadojob.kadojobapp"
       //gradle --stop  minSdkVersion flutter.minSdkVersion
         minSdkVersion 25
         targetSdkVersion flutter.targetSdkVersion
@@ -72,8 +72,8 @@ android {
     buildTypes {
 
         release {
-            signingConfig signingConfigs.debug
-           // signingConfig signingConfigs.release
+           // signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
     }
 }

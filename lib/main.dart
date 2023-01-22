@@ -8,7 +8,7 @@ import 'package:kadojopapp/modules/join_project/cubit/cubit.dart';
 import 'package:kadojopapp/modules/login/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:kadojopapp/modules/new_project/cubit/cubit.dart';
-import 'package:kadojopapp/modules/project/cubit/cubit.dart';
+import 'package:kadojopapp/modules/myproject/cubit/cubit.dart';
 import 'package:kadojopapp/modules/setting/contact/cubit/cubit.dart';
 import 'package:kadojopapp/modules/setting/cubit/cubit.dart';
 import 'package:kadojopapp/shard/components/constants.dart';
@@ -58,7 +58,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => JoinProjectCubit()
             ..getProject()
-            ..getUserData(),
+            ..getUserData()
+            ..getUserApplyProject(),
         ),
         BlocProvider(
           create: (context) => ContactCubit(),
@@ -69,6 +70,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => HomeCubit()..changeAppMod(shereed: isDark, index: false),
         ),
+
       ],
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {},
@@ -77,9 +79,12 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
             darkTheme: darkTheme,
-            themeMode: HomeCubit.get(context).isDark
-                ? ThemeMode.dark
-                : ThemeMode.light,
+            themeMode:HomeCubit.get(context).isDark
+                ?ThemeMode.dark
+                :ThemeMode.light,
+                /*ThemeMode.dark,*/
+
+
             home: startScreen,
           );
         },

@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kadojopapp/Model/user_model.dart';
 import 'package:kadojopapp/modules/register/cubit/state.dart';
+import 'package:kadojopapp/shard/components/componentes.dart';
 
 class RegisterCubit extends Cubit<RegisterStates> {
   RegisterCubit() : super(RegisterInitialState());
 
   static RegisterCubit get(context) => BlocProvider.of(context);
-
+  bool? register=true;
   void userRegister({
     required String email,
     required String password,
@@ -26,6 +27,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
       email: email,
       password: password,
     ).then((value) {
+      register=false;
       userCreate(
         email: email,
         name: name,
@@ -36,8 +38,10 @@ class RegisterCubit extends Cubit<RegisterStates> {
         gender: gender,
       );
     }).catchError((onError) {
+      register=true;
       print(onError.toString());
-      emit(RegisterErorrState(onError));
+      ShowTost(msg: onError.code, state: TostState.ERROR);
+      emit(RegisterErorrState(onError.toString()));
     });
   }
 
@@ -52,6 +56,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
     bool isEmailVerified = false,
   }) {
     UserModel model = UserModel(
+
         name: name,
         email: email,
         phone: phone,
@@ -60,7 +65,8 @@ class RegisterCubit extends Cubit<RegisterStates> {
         gender: gender,
         uId: uId,
         //timeStamp: DateTime.now(),
-        isEmailVerified: isEmailVerified);
+        isEmailVerified: isEmailVerified
+    );
     emit(CreateLoadingState());
     FirebaseFirestore.instance
         .collection('user').doc(uId).set(model.toMap())
@@ -69,6 +75,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
       emit(CreateSuccessState());
     }).catchError((Error) {
       print(Error.toString());
+
       emit(CreateErorrState(Error.toString()));
     });
   }
@@ -92,9 +99,9 @@ class RegisterCubit extends Cubit<RegisterStates> {
     chooseCountry = value;
     emit(CountrySuccessState());
   }
-  bool? isActiv=false;
+  bool? isAgreeTerms=false;
  void checkBox(value){
-     isActiv=value;
+   isAgreeTerms=value;
      emit(CheckBoxState());
   }
 }

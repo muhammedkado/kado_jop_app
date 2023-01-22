@@ -8,16 +8,14 @@ class NewProjectCubit extends Cubit<NewProjectStates> {
 
   static NewProjectCubit get(context) => BlocProvider.of(context);
 
-  List project= [];
-  void getProject() async{
-    //
+  List project = [];
+
+  void getProject() async {
     emit(GetNewProjectLoadingState());
-  await FirebaseFirestore.instance.collection('project').get().then((value) {
+    await FirebaseFirestore.instance.collection('project').get().then((value) {
       value.docs.forEach((element) {
         project.add(element.data());
-
       });
-
 
 /*;*/
       emit(GetNewProjectSuccessState());
@@ -27,14 +25,9 @@ class NewProjectCubit extends Cubit<NewProjectStates> {
     });
   }
 
- static String formattedDate(timeStamp) {
-   // DateTime dateFromTimeStamp=DateTime.fromMillisecondsSinceEpoch(timeStamp*1000);
-  var timeStampp=timeStamp.toDate();
-    return DateFormat('dd-MM-yyyy').format(timeStampp) ;
-
+  static String formattedDate(timeStamp) {
+    // DateTime dateFromTimeStamp=DateTime.fromMillisecondsSinceEpoch(timeStamp*1000);
+    var timeStampp = timeStamp.toDate();
+    return DateFormat('dd-MM-yyyy').format(timeStampp);
   }
-
-
-
-
 }

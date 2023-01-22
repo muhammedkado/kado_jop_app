@@ -12,9 +12,11 @@ ThemeData lightTheme = ThemeData(
     ),
     titleLarge: TextStyle(
       fontSize: 20.0,
-      color: Colors.white,
+      color: defaultColor,
       fontWeight: FontWeight.bold,
-    ),titleMedium: TextStyle(
+    ),
+
+    titleMedium: TextStyle(
     fontSize: 18.0,
     color: Colors.white,
     overflow: TextOverflow.ellipsis,
@@ -51,6 +53,7 @@ ThemeData lightTheme = ThemeData(
     onSurface: defaultColor,
   ),
   scaffoldBackgroundColor: Colors.white,
+  primaryColor: defaultColor,
   appBarTheme: const AppBarTheme(
     iconTheme: IconThemeData(
       color: defaultColor,

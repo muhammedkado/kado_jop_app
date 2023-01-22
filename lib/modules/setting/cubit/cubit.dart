@@ -13,10 +13,10 @@ class SettingCubit extends Cubit<SettingStates> {
 
   static SettingCubit get(context) => BlocProvider.of(context);
 
-  bool isOff = true;
+  bool notification = true;
 
   void changeNotification(index) {
-    isOff = index;
+    notification = index;
     emit(NotificationButtonSuccessState());
   }
 
@@ -57,6 +57,7 @@ List userModelList=[];
       emit(SettingUserUpdateSuccessState());
 
       userModel = UserModel.fromJson(value.data() as Map<String, dynamic>);
+
       // print('Value data${value.data()}');
 
       // print('Uid data${userModel!.uId}');
@@ -68,7 +69,7 @@ List userModelList=[];
     });
   }
 
-  void userUpdate({
+  Future userUpdate({
     required String email,
     required String name,
     required String phone,
@@ -87,14 +88,16 @@ List userModelList=[];
       gender: userModel!.gender,
       uId: userModel!.uId,
       isEmailVerified: false,
+
     );
 
-    FirebaseFirestore.instance
+  await  FirebaseFirestore.instance
         .collection('user')
         .doc(userModel!.uId)
         .update(model.toMap())
         .then((value) {
       getUserData();
+
     }).catchError((Error) {
       emit(UserUpdateErrorState(Error));
       print('============>${Error.toString()}');

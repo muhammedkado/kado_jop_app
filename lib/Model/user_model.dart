@@ -10,7 +10,10 @@ class UserModel {
   //DateTime? timeStamp;
   bool? isEmailVerified;
 
-  UserModel({
+  UserModel(
+
+      {
+        required this.isEmailVerified,
     required this.name,
     required this.email,
     required this.phone,
@@ -18,8 +21,8 @@ class UserModel {
     required this.country,
     required this.gender,
     required this.uId,
-     //this.timeStamp,
-    required this.isEmailVerified,
+
+
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {

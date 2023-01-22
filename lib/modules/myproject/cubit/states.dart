@@ -8,3 +8,5 @@ class MyProjectErrorState extends MyProjectStates{
   MyProjectErrorState(this.Error);
 
 }
+
+class MyProjectLadingState extends MyProjectStates {}
