@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:kadojopapp/modules/setting/cubit/cubit.dart';
 import 'package:kadojopapp/modules/setting/cubit/states.dart';
 import 'package:kadojopapp/shard/components/componentes.dart';
+import 'package:kadojopapp/shard/styles/colors.dart';
 
 class EditProfile extends StatelessWidget {
   EditProfile({Key? key}) : super(key: key);
@@ -37,13 +38,16 @@ class EditProfile extends StatelessWidget {
 
             actions: [
               defaultTextButton(
-                  function: () {
+                  onPressed: () {
+                    if(formKey.currentState!.validate()){
                     cubit.userUpdate(
                       email: emailController.text,
                       name: nameController.text,
                       phone: phoneController.text,
                       brithDay: brithDayController.text,
                     );
+                    ShowTost(msg: 'Information Has been Updated', state: TostState.SUCCESS);
+                    }
                   },
                   lable: Text(
                     'Update',
@@ -58,149 +62,135 @@ class EditProfile extends StatelessWidget {
                       FocusScope.of(context).requestFocus(FocusNode());
                     },
                     child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          if (state is UserUpdateLoadingState)
-                            const LinearProgressIndicator(),
-                          Container(
-                            padding:
-                                const EdgeInsets.only(left: 15, bottom: 15),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  '${cubit.userModel!.name}',
-                                  maxLines: 1,
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                      child: Form(
+                        key: formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (state is UserUpdateLoadingState) const LinearProgressIndicator(),
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Basic Date',style: Theme.of(context).textTheme.bodyLarge,),
+                                  SizedBox(
+                                    height: 25,
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                                Text(
-                                  'Email: ${cubit.userModel!.email}',
-                                  style: const TextStyle(
-                                    //color: Colors.grey
-                                    fontSize: 14,
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        'Phone:${cubit.userModel!.phone}',
-                                        style: const TextStyle(
-                                          //color: Colors.grey
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  'Nationality:${cubit.userModel!.country}.',
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  'BrithDay: ${cubit.userModel!.brithDay}.',
-                                ),
-                              ],
-                            ),
-                          ),
-                          const Divider(
-                            endIndent: 1,
-                            height: 1,
-                            thickness: 1,
-                            color: Colors.grey,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Column(
-                              children: [
-                                defaultFormField(
-                                    context: context,
-                                    prefix: Icons.person_outline,
-                                    controller: nameController,
-                                    keybord: TextInputType.text,
-                                    lable: 'Full Name',
-                                    validate: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'Name must not be Empty';
-                                      }
-                                      return null;
-                                    }),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                defaultFormField(
-                                    context: context,
-                                    prefix: Icons.email_outlined,
-                                    controller: emailController,
-                                    keybord: TextInputType.emailAddress,
-                                    validate: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'Email Address must not be Empty';
-                                      }
-                                      return null;
-                                    }),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                defaultFormField(
-                                  context: context,
-                                  lable: 'Phone',
-                                  prefix: Icons.phone,
-                                  controller: phoneController,
-                                  keybord: TextInputType.visiblePassword,
-                                  validate: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Password is too short';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                defaultFormField(
-                                  context: context,
-                                  lable: 'BrithDay',
-                                  ontap: () async {
-                                    await showDatePicker(
+                                  defaultFormField(
                                       context: context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime(1900),
-                                      lastDate: DateTime.now(),
-                                    ).then((value) {
-                                      // print(DateFormat.yMd().format(value!));
-                                      brithDayController.text =
-                                          DateFormat.yMd().format(value!);
-                                    });
-                                  },
-                                  controller: brithDayController,
-                                  keybord: TextInputType.datetime,
-                                  validate: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'BrithDay must not be Empty';
-                                    }
-                                  },
-                                  prefix: Icons.date_range,
+                                      prefix: Icons.person_outline,
+                                      controller: nameController,
+                                      keybord: TextInputType.text,
+                                      lable: 'Full Name',
+                                      validate: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Name must not be Empty';
+                                        }
+                                        return null;
+                                      }),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+
+                                  defaultFormField(
+                                    context: context,
+                                    lable: 'BirthDay',
+                                    ontap: () async {
+                                      await showDatePicker(
+                                        builder: (context, child) {
+                                          return Theme(
+                                            data: Theme.of(context).copyWith(
+                                                colorScheme: ColorScheme.light(
+                                                  primary: defaultColor,
+                                                  // <-- SEE HERE
+                                                  onPrimary: Colors.white,
+                                                  // <-- SEE HERE
+                                                  onSurface: Colors
+                                                      .blueAccent, // <-- SEE HERE
+                                                )
+                                            ),
+                                            child: child!,
+                                          );
+                                        },
+                                        helpText: 'Select Your BrithDay',
+
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(1900),
+                                        lastDate: DateTime.now(),
+                                      ).then((value) {
+                                        // print(DateFormat.yMd().format(value!));
+                                        brithDayController.text =
+                                            DateFormat.yMd().format(value!);
+                                      });
+                                    },
+                                    controller: brithDayController,
+                                    keybord: TextInputType.datetime,
+                                    validate: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'BrithDay must not be Empty';
+                                      }
+                                    },
+                                    prefix: Icons.date_range,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Column(
+                              children: [
+
+
+                                Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text('Contact Detail',style: Theme.of(context).textTheme.bodyLarge,),
+
+
+                                      const SizedBox(
+                                        height: 25,
+                                      ),
+                                      defaultFormField(
+                                          context: context,
+                                          prefix: Icons.email_outlined,
+                                          controller: emailController,
+                                          keybord: TextInputType.emailAddress,
+                                          validate: (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Email Address must not be Empty';
+                                            }
+                                            return null;
+                                          }),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      defaultFormField(
+                                        context: context,
+                                        lable: 'Phone',
+                                        prefix: Icons.phone,
+                                        controller: phoneController,
+                                        keybord: TextInputType.visiblePassword,
+                                        validate: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'Password is too short';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
-                          ),
-                        ],
+
+                          ],
+                        ),
                       ),
                     ),
                   ),

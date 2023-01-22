@@ -171,7 +171,7 @@ class NewProject_Screen extends StatelessWidget {
             height:double.infinity,
             child: Shimmer.fromColors(
               baseColor: Colors.grey[300]!,
-              highlightColor: Colors.white,
+              highlightColor:Colors.white,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -226,7 +226,12 @@ class NewProject_Screen extends StatelessWidget {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Container(
-                                        color: Colors.blue,
+                                        decoration: const BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                          BorderRadius.all(
+                                            Radius.circular(
+                                                10),),),
                                         height: 10,
                                         width: MediaQuery
                                             .of(context)
@@ -240,7 +245,12 @@ class NewProject_Screen extends StatelessWidget {
                                     ],
                                   ),
                                   subtitle: Container(
-                                    color: Colors.white,
+                                    decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius:
+                                      BorderRadius.all(
+                                          Radius.circular(
+                                              10),),),
                                     height: 20,
                                     width: MediaQuery
                                         .of(context)
@@ -253,7 +263,12 @@ class NewProject_Screen extends StatelessWidget {
                                     children: [
 
                                       Container(
-                                        color: Colors.white,
+                                        decoration: const BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                          BorderRadius.all(
+                                            Radius.circular(
+                                                10),),),
                                         height: 10,
                                         width: MediaQuery
                                             .of(context)

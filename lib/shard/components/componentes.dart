@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kadojopapp/modules/project/myprojectdetails.dart';
 import 'package:kadojopapp/shard/styles/colors.dart';
 
 NavigatorAndFinish({required context, required Widget}) =>
@@ -15,11 +14,12 @@ Navigatorto({required context, required Widget}) => Navigator.push(
 @override
 Widget defaultFormField({
   required BuildContext context,
-  required TextEditingController controller,
+  required TextEditingController controller ,
   required TextInputType keybord,
   required Function validate,
   required IconData prefix,
   String lable = 'Email Address',
+  String hintText = 'Email Address',
   IconData? suffix,
   Function? onSubmit,
   Function? ontap,
@@ -28,12 +28,16 @@ Widget defaultFormField({
   bool isClickable = true,
 }) =>
     TextFormField(
+
       style:  TextStyle(
         color: Theme.of(context).colorScheme.onBackground,
       ),
       enabled: isClickable,
       onTap: () {
-        ontap!();
+        if(ontap != null){
+          ontap();
+        }
+
       },
       obscureText: isPassword,
       controller: controller,
@@ -41,8 +45,13 @@ Widget defaultFormField({
       validator: (value) {
         return validate(value);
       },
+      autofocus: true,
       decoration: InputDecoration(
-        hintStyle: TextStyle(color: Colors.grey.shade500),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Theme.of(context).colorScheme.onSecondary)
+          ),
+        hintStyle: TextStyle(color: Colors.grey),
+        hintText: hintText,
         filled: false,
         suffixIcon: suffix != null
             ? IconButton(
@@ -55,11 +64,16 @@ Widget defaultFormField({
               )
             : null,
         labelText: lable,
+        labelStyle: TextStyle(color:Theme.of(context).colorScheme.onBackground ),
         prefixIcon: Icon(
           prefix,
           color:Theme.of(context).colorScheme.onSurface
         ),
+
+        //prefixIconColor:,
+
         border:const OutlineInputBorder(),
+
       ),
     );
 
@@ -84,12 +98,12 @@ Widget defaultButton({
     );
 
 Widget defaultTextButton({
-  required Function function,
+  required Function onPressed,
   required Text lable,
 }) =>
     TextButton(
       onPressed: () {
-        function();
+        onPressed();
       },
       child: lable,
     );
@@ -130,6 +144,7 @@ Color? ChooseTostColor(TostState state) {
 
 @override
 Widget defoutformfield({
+  required BuildContext context,
   bool obscureText = false,
   required TextEditingController controller,
   TextInputType? keybord,
@@ -140,6 +155,9 @@ Widget defoutformfield({
   int? maxLength,
 }) =>
     TextFormField(
+      style: TextStyle(
+        color: Theme.of(context).colorScheme.onBackground
+      ),
         controller: controller,
         maxLength: maxLength,
         validator: (s) {
@@ -148,9 +166,13 @@ Widget defoutformfield({
         keyboardType: keybord,
         textAlignVertical: TextAlignVertical.top,
         obscureText: obscureText,
+
         decoration: InputDecoration(
             filled: true,
             labelText: lebel,
+            labelStyle: TextStyle(
+                color: Theme.of(context).colorScheme.onBackground
+            ) ,
             alignLabelWithHint: true,
             prefixIcon: icon,
             border:
@@ -280,9 +302,7 @@ Widget myProjectCard(
               ],
             ),
             child: ListTile(
-              onTap: () {
-                Navigatorto(context: context, Widget: const MyProjectDetails());
-              },
+
 
               title: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

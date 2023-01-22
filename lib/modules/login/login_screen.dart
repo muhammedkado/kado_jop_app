@@ -37,129 +37,138 @@ class Login extends StatelessWidget {
             }
           },
           builder: (context, state) => Scaffold(
-            body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Center(
-                child: SizedBox(
-                  width: double.infinity,
-                  child: SingleChildScrollView(
-                      child: Form(
-                    key: formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'LOGIN',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge
-                              ?.copyWith(fontSize: 35),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Login now to browse our Job offers',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(color: Colors.grey),
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        defaultFormField(
-                          context: context,
-
-                            prefix: Icons.email_outlined,
-                            controller: emailController,
-                            keybord: TextInputType.emailAddress,
-                            validate: (value) {
-                              if (value!.isEmpty) {
-                                return 'Email Address is Empty';
-                              }
-                            }),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        defaultFormField(
-                          context: context,
-                            prefix: Icons.lock_outline,
-                            isPassword: LoginCubit.get(context).isPassword,
-                            suffix: LoginCubit.get(context).suffix,
-                            controller: passController,
-                            keybord: TextInputType.visiblePassword,
-                            onSubmit: (valuee) {
-                              if (formKey.currentState!.validate()) {
-                                LoginCubit.get(context).userLogin(
-                                  email: emailController.text,
-                                  password: passController.text,
-                                );
-                              }
-                            },
-                            validate: (value) {
-                              if (value!.isEmpty) {
-                                return 'Password is to short';
-                              }
-                            },
-                            lable: 'Password',
-                            suffixPressed: () {
-                              LoginCubit.get(context)
-                                  .ChangePasswordVisibility();
-                            }),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children:  [
-                            Text(
-                              'forget password?',style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        ConditionalBuilder(
-                          condition:LoginCubit.get(context).login! ,
-                          builder: (context) => defaultButton(
-                            colors: defaultColor,
-                            text:  Text(
-                              'Login',
-                              style:Theme.of(context).textTheme.titleLarge,
-                            ),
-                            function: () {
-                              if (formKey.currentState!.validate()) {
-                                LoginCubit.get(context).userLogin(
-                                  email: emailController.text,
-                                  password: passController.text,
-                                );
-                              }
-                            },
+            body: GestureDetector(
+              onTap: () {
+                FocusScope.of(context).requestFocus(FocusNode());
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Center(
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: SingleChildScrollView(
+                        child: Form(
+                      key: formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'LOGIN',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(fontSize: 35),
                           ),
-                          fallback: (context) =>
-                              const Center(child: CircularProgressIndicator()),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                             Text('Don\'t Have Account?',style: Theme.of(context).textTheme.bodySmall,),
-                            defaultTextButton(
-                              function: () {
-                                Navigatorto(
-                                    context: context, Widget: RegisterScreen());
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Login now to browse our Job offers',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(color: Colors.grey),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          defaultFormField(
+                            context: context,
+
+                              prefix: Icons.email_outlined,
+                              controller: emailController,
+                              keybord: TextInputType.emailAddress,
+                              validate: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Email Address is Empty';
+                                }
+                              }),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          defaultFormField(
+                            context: context,
+                              hintText: 'Enter Your Password',
+                              prefix: Icons.lock_outline,
+                              isPassword: LoginCubit.get(context).isPassword,
+                              suffix: LoginCubit.get(context).suffix,
+                              controller: passController,
+                              keybord: TextInputType.visiblePassword,
+                              onSubmit: (valuee) {
+                                if (formKey.currentState!.validate()) {
+                                  LoginCubit.get(context).userLogin(
+                                    email: emailController.text,
+                                    password: passController.text,
+                                  );
+                                }
                               },
-                              lable:  Text('Register Here',style: Theme.of(context).textTheme.bodySmall,),
+                              validate: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Password is to short';
+                                }
+                              },
+                              lable: 'Password',
+                              suffixPressed: () {
+                                LoginCubit.get(context)
+                                    .ChangePasswordVisibility();
+                              }),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children:  [
+                              Text(
+                                'forget password?',style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          ConditionalBuilder(
+                            condition:LoginCubit.get(context).login! ,
+                            builder: (context) => defaultButton(
+                              colors: defaultColor,
+                              text:  Text(
+                                'Login',
+                                style:Theme.of(context).textTheme.titleLarge!.copyWith(
+                                    color:Colors.white,
+                                  fontSize: 30
+                                ),
+                              ),
+                              function: () {
+                                if (formKey.currentState!.validate()) {
+                                  LoginCubit.get(context).userLogin(
+                                    email: emailController.text,
+                                    password: passController.text,
+                                  );
+                                }
+                              },
                             ),
-                          ],
-                        )
-                      ],
-                    ),
-                  )),
+                            fallback: (context) =>
+                                const Center(child: CircularProgressIndicator()),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                               Text('Don\'t Have Account?',style: Theme.of(context).textTheme.bodySmall,),
+                              defaultTextButton(
+                                onPressed: () {
+                                  Navigatorto(
+                                      context: context, Widget: RegisterScreen());
+                                },
+                                lable:  Text('Register Here',style: Theme.of(context).textTheme.bodySmall,),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    )),
+                  ),
                 ),
               ),
             ),

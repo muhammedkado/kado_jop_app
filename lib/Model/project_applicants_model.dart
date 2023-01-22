@@ -1,11 +1,11 @@
-import 'dart:core';
-
 class Project_Applicants {
   String? pId;
   String? projectName;
   String? projectEndData;
   String? projectProfit;
   String? projectDetails;
+  bool? isApply=false;
+
 
   //DateTime? timeStamp;
 
@@ -16,8 +16,13 @@ class Project_Applicants {
     required this.projectEndData,
     required this.projectProfit,
     required this.projectDetails,
-  });
+    required this.isApply,
 
+  });
+  Project_Applicants.FromJson(Map<String,dynamic> json) {
+    isApply = json['isApply'];
+
+  }
   Map<String, dynamic> toMap() {
     return {
       'pId': pId,
@@ -25,6 +30,8 @@ class Project_Applicants {
       'projectEndData': projectEndData,
       'projectProfit': projectProfit,
       'projectDetails': projectDetails,
+      'isApply':isApply,
+
       'timeStamp': DateTime.now(),
     };
   }

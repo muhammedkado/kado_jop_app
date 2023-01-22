@@ -203,7 +203,7 @@ class Info extends StatelessWidget {
                     ),
                   ),
                 ),
-                if (!cubit.isActiv2!)
+                if (!cubit.isActiv2)
                   const Text(
                     'You cannot continue if you do not agree to the terms',
                     style: TextStyle(color: Colors.red, fontSize: 10),
@@ -362,17 +362,32 @@ class Info extends StatelessWidget {
                           cubit.CurrentStep == getSteps().length - 1;
                       if (isLastStep) {
                         cubit.setUserApplyProject(
-                          docId:newProject['uId'] ,
-                          pId:newProject['uId'] ,
-                          projectName:newProject['name'],
-                          projectProfit:newProject['name'] ,
-                          projectEndData:newProject['endtime']  ,
-                          projectDetails: newProject['detail'] ,
+                          docId: newProject['uId'],
+                          pId: newProject['uId'],
+                          projectName: newProject['name'],
+                          projectProfit: newProject['name'],
+                          projectEndData: newProject['endtime'],
+                          projectDetails: newProject['detail'],
 
                         );
-
-
-
+                        cubit.ApplyProject(
+                          pId: newProject['uId'],
+                          ProjectName: newProject['name'],
+                          ProjectDetail: newProject['detail'],
+                          UserId: cubit.userModel!.uId!,
+                          Username: cubit.userModel!.name!,
+                          UserEmail: cubit.userModel!.email!,
+                          UserPhone: cubit.userModel!.phone!,
+                        );
+                        /*
+                        cubit.SetMembers(
+                          UserId: cubit.userModel!.uId!,
+                          Username: cubit.userModel!.name!,
+                          UserEmail: cubit.userModel!.email!,
+                          UserPhone: cubit.userModel!.phone!,
+                          pId: newProject['uId'],
+                        );
+*/
                         ShowTost(
                             msg: 'Apply Successfully',
                             state: TostState.SUCCESS);
@@ -408,7 +423,7 @@ class Info extends StatelessWidget {
                           const SizedBox(
                             width: 10,
                           ),
-                          if (cubit.CurrentStep != 1 || terms! && terms2!)
+                          if (cubit.CurrentStep != 1 || terms! && terms2)
                             Expanded(
                               child: ElevatedButton(
                                 onPressed: detiles.onStepContinue,

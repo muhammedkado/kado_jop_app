@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kadojopapp/layout/cubit/states.dart';
+import 'package:kadojopapp/modules/myproject/myproject_screen.dart';
 import 'package:kadojopapp/modules/new_project/newproject_screen.dart';
-import 'package:kadojopapp/modules/project/myproject_screen.dart';
-import 'package:kadojopapp/modules/setting/setting_screen.dart';
+ import 'package:kadojopapp/modules/setting/setting_screen.dart';
 import 'package:kadojopapp/shard/network/local/CachHelper.dart';
 
 class HomeCubit extends Cubit<HomeState> {
