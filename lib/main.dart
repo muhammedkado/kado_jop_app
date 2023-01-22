@@ -26,6 +26,7 @@ Future<void> main() async {
   messaging.getToken().then((value) {});
 
   await CachHelper.init();
+
   uId = CachHelper.getData(key: 'uId');
 
   dynamic isDark = CachHelper.getData(key: 'isDark');
