@@ -365,7 +365,7 @@ class Info extends StatelessWidget {
                           docId: newProject['uId'],
                           pId: newProject['uId'],
                           projectName: newProject['name'],
-                          projectProfit: newProject['name'],
+                          projectProfit: '50',
                           projectEndData: newProject['endtime'],
                           projectDetails: newProject['detail'],
 
@@ -379,15 +379,6 @@ class Info extends StatelessWidget {
                           UserEmail: cubit.userModel!.email!,
                           UserPhone: cubit.userModel!.phone!,
                         );
-                        /*
-                        cubit.SetMembers(
-                          UserId: cubit.userModel!.uId!,
-                          Username: cubit.userModel!.name!,
-                          UserEmail: cubit.userModel!.email!,
-                          UserPhone: cubit.userModel!.phone!,
-                          pId: newProject['uId'],
-                        );
-*/
                         ShowTost(
                             msg: 'Apply Successfully',
                             state: TostState.SUCCESS);

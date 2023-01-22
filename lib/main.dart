@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kadojopapp/blocobserver.dart';
@@ -19,10 +20,15 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = SimpleBlocObserver();
   await Firebase.initializeApp();
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+  await messaging.requestPermission();
+  messaging.getToken().then((value) {});
+
   await CachHelper.init();
   uId = CachHelper.getData(key: 'uId');
 
-dynamic isDark = CachHelper.getData(key: 'isDark');
+  dynamic isDark = CachHelper.getData(key: 'isDark');
   Widget? widget;
 
   if (uId != null) {
@@ -68,9 +74,9 @@ class MyApp extends StatelessWidget {
           create: (context) => SettingCubit()..getUserData(),
         ),
         BlocProvider(
-          create: (context) => HomeCubit()..changeAppMod(shereed: isDark, index: false),
+          create: (context) =>
+              HomeCubit()..changeAppMod(shereed: isDark, index: false),
         ),
-
       ],
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {},
@@ -79,11 +85,10 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
             darkTheme: darkTheme,
-            themeMode:HomeCubit.get(context).isDark
-                ?ThemeMode.dark
-                :ThemeMode.light,
-                /*ThemeMode.dark,*/
-
+            themeMode: HomeCubit.get(context).isDark
+                ? ThemeMode.dark
+                : ThemeMode.light,
+            /*ThemeMode.dark,*/
 
             home: startScreen,
           );

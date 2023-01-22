@@ -20,7 +20,12 @@ class Project_Applicants {
 
   });
   Project_Applicants.FromJson(Map<String,dynamic> json) {
+    pId = json['pId'];
     isApply = json['isApply'];
+    projectName = json['projectName'];
+    projectEndData = json['projectEndData'];
+    projectProfit = json['projectProfit'];
+    projectDetails = json['projectDetails'];
 
   }
   Map<String, dynamic> toMap() {
