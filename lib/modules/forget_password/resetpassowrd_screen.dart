@@ -1,16 +1,15 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kadojopapp/shard/components/componentes.dart';
 import 'package:kadojopapp/shard/styles/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class Reset extends StatefulWidget {
+class Reset_Password extends StatefulWidget {
   @override
-  State<Reset> createState() => _ResetState();
+  State<Reset_Password> createState() => _Reset_PasswordState();
 }
 
-class _ResetState extends State<Reset> {
+class _Reset_PasswordState extends State<Reset_Password> {
   var emailController = TextEditingController();
 
   var formKey = GlobalKey<FormState>();
@@ -19,12 +18,14 @@ class _ResetState extends State<Reset> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        centerTitle: true,
+        title: Text(
           'Reset Password',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, color: Colors.white, fontSize: 30),
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontSize: 30,
+              ),
         ),
-        backgroundColor: defaultColor,
+        //backgroundColor: defaultColor,
       ),
       body: Padding(
         padding: const EdgeInsets.only(
@@ -32,37 +33,52 @@ class _ResetState extends State<Reset> {
           left: 20,
           right: 20,
         ),
-        child: Container(
-          width: double.infinity,
-          child: SingleChildScrollView(
-            child: Form(
-              key: formKey,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-
-                  defoutformfield(
-                    context: context,
-                      validator: (value) {
+        child: Center(
+          child: Container(
+            width: double.infinity,
+            child: SingleChildScrollView(
+              child: Form(
+                key: formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    defaultFormField(
+                      hintText: 'example@gmail.com',
+                      context: context,
+                      prefix: Icons.email,
+                      keybord: TextInputType.emailAddress,
+                      controller: emailController,
+                      validate: (value) {
                         if (value.isEmpty) {
                           return "Email must not empty";
                         }
                         return null;
                       },
-                      lebel: 'Email',
-                      icon: const Icon(Icons.email),
-                      controller: emailController,
-                      keybord: TextInputType.emailAddress),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.03,
+                    ),
+                    defoultButtun(
+                        text: 'Reset Password',
+                        function: () {
+                          if (formKey.currentState!.validate()) {
+                            FirebaseAuth.instance
+                                .sendPasswordResetEmail(
+                                    email: emailController.text)
+                                .then((value) {
+                              Navigator.of(context).pop();
 
-                  defoultButtun(
-                      text: 'Reset Password',
-                      function: () {
-                        FirebaseAuth.instance
-                        .sendPasswordResetEmail(email: emailController.text)
-                        .then((value) => Navigator.of(context).pop());
-                      }),
-                ],
+                              ShowTost(
+                                msg:
+                                    'Check your email. A password reset link has been sent',
+                                state: TostState.SUCCESS,
+                              );
+                            });
+                          }
+                        }),
+                  ],
+                ),
               ),
             ),
           ),

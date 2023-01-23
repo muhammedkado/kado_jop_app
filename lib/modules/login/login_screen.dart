@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kadojopapp/layout/home_layout.dart';
+import 'package:kadojopapp/modules/forget_password/resetpassowrd_screen.dart';
 import 'package:kadojopapp/modules/login/cubit/cubit.dart';
 import 'package:kadojopapp/modules/login/cubit/states.dart';
 import 'package:kadojopapp/modules/register/register_screen.dart';
@@ -118,8 +119,13 @@ class Login extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children:  [
-                              Text(
-                                'forget password?',style: Theme.of(context).textTheme.bodySmall,
+                              InkWell(
+                                onTap: ()=>Navigatorto(context: context, Widget: Reset_Password()),
+                                child: Container(
+                                  child: Text(
+                                    'forgot password?',style: Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                ),
                               ),
                               const SizedBox(
                                 width: 15,
