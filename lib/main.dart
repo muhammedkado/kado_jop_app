@@ -21,9 +21,13 @@ Future<void> main() async {
   Bloc.observer = SimpleBlocObserver();
   await Firebase.initializeApp();
   FirebaseMessaging messaging = FirebaseMessaging.instance;
-
+  var Token =await FirebaseMessaging.instance.getToken();
   await messaging.requestPermission();
-  messaging.getToken().then((value) {});
+  print(Token);
+
+  FirebaseMessaging.onMessage.listen((event){
+    print(event.data.toString());
+  });
 
   await CachHelper.init();
 
