@@ -297,9 +297,7 @@ class JoinProjectScreen extends StatelessWidget {
                         ),
                       ),
                       const Spacer(),
-                       JoinProjectCubit
-                          .get(context)
-                          .startValue == false  ?
+
                       defaultButton(
                         colors: defaultColor,
                         text: Text(
@@ -317,12 +315,6 @@ class JoinProjectScreen extends StatelessWidget {
                             ),
                           );
                         },
-                      ) : Container(
-                        width: double.infinity,
-                        height: 30,
-                        color: Colors.green,
-                        child: Center(
-                            child: Text('you apply this project before')),
                       ),
 
 

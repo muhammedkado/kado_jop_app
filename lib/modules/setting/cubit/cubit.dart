@@ -22,7 +22,7 @@ class SettingCubit extends Cubit<SettingStates> {
 
 
 
-  List<String> language = ['English', 'Arabic', 'Turkish'];
+  List<String> language = ['English'];
   var languages;
 
   languageDropdown(value) {

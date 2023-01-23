@@ -77,23 +77,27 @@ class JoinProjectCubit extends Cubit<JoinProjectStates> {
     emit(Terms2CheckBoxState());
   }
 
-
   List getDetailApplyProject = [];
 
-  void getUserApplyProject( ) async {
-    //
+  void getUserApplyProject() async {
     emit(getUserApplyProjectLadingState());
-    await FirebaseFirestore.instance.collection('user').doc(uId).collection('myProject').get().then((value) {
+    await FirebaseFirestore.instance
+        .collection('user')
+        .doc(uId)
+        .collection('myProject')
+        .get()
+        .then((value) {
       value.docs.forEach((element) {
         getDetailApplyProject.add(element.data());
       });
+
       emit(getUserApplyProjectSuccessState());
     }).catchError((Error) {
       print(Error.toString());
       emit(getUserApplyProjectErrorState(Error.toString()));
     });
   }
-  bool startValue=false;
+
   void setUserApplyProject({
     required String pId,
     required String docId,
@@ -121,7 +125,6 @@ class JoinProjectCubit extends Cubit<JoinProjectStates> {
         .set(myProject.toMap())
         .then((value) {
       emit(SetMyProjectSuccessState());
-
     }).catchError((Error) {
       print(Error.toString());
       emit(SetMyProjectErrorState(Error.toString()));
