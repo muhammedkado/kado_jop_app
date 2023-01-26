@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kadojopapp/shard/components/componentes.dart';
-import 'package:kadojopapp/shard/styles/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Reset_Password extends StatefulWidget {
@@ -74,7 +73,7 @@ class _Reset_PasswordState extends State<Reset_Password> {
                                     'Check your email. A password reset link has been sent',
                                 state: TostState.SUCCESS,
                               );
-                            });
+                            }).catchError((Error)=> ShowTost(msg: Error.code, state: TostState.ERROR));
                           }
                         }),
                   ],

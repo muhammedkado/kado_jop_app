@@ -313,7 +313,7 @@ class RegisterScreen extends StatelessWidget {
                                         TextButton(
                                           onPressed: () {
                                             showCountryPicker(
-                                             showSearch: false,
+                                             showSearch: true,
                                               context: context,
                                               onSelect: (Country value) {
                                                 RegisterCubit.get(context)
@@ -327,7 +327,7 @@ class RegisterScreen extends StatelessWidget {
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodySmall!.copyWith(
-                                              fontSize: 20,
+                                              fontSize: 19,
                                               color: Colors.blue
                                             ),
                                           ),

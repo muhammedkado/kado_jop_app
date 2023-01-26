@@ -7,6 +7,7 @@ class UserModel {
   String? country;
   String? gender;
   String? uId;
+  String? time;
   //DateTime? timeStamp;
   bool? isEmailVerified;
 
@@ -23,6 +24,7 @@ class UserModel {
     required this.uId,
 
 
+
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {
@@ -33,6 +35,7 @@ class UserModel {
     country = json['country'];
     gender = json['gender'];
     uId = json['uId'];
+
    //timeStamp = json['timeStamp'].toDate();
     isEmailVerified = json['isEmailVerified'];
   }
@@ -46,6 +49,7 @@ class UserModel {
       'country': country,
       'gender': gender,
       'uId': uId,
+      'time': DateTime.now(),
       //'timeStamp': DateTime.now(),
       'isEmailVerified': isEmailVerified,
     };

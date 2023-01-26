@@ -184,7 +184,7 @@ class JoinProjectScreen extends StatelessWidget {
                                     spreadRadius: 1.5,
                                   )
                                 ]),
-                            width: 120,
+                            width: MediaQuery.of(context).size.width*0.26,
                             height: 70,
                             child: ListTile(
                               title: Text('Job Type',
@@ -213,7 +213,7 @@ class JoinProjectScreen extends StatelessWidget {
                                     spreadRadius: 1.5,
                                   )
                                 ]),
-                            width: 120,
+                            width: MediaQuery.of(context).size.width*0.26,
                             height: 70,
                             child: ListTile(
                               //dense: true,
@@ -243,7 +243,7 @@ class JoinProjectScreen extends StatelessWidget {
                                     spreadRadius: 1.5,
                                   )
                                 ]),
-                            width: 120,
+                            width: MediaQuery.of(context).size.width*0.30,
                             height: 70,
                             child: ListTile(
                               //  dense: true,
