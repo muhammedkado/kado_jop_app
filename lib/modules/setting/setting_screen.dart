@@ -43,44 +43,58 @@ class Setting_Screen extends StatelessWidget {
                       height: 10,
                     ),
                     Align(
-                      child: Text(
-                        settingCubit!.name!,
-                        style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            overflow: TextOverflow.ellipsis),
-                        maxLines: 1,
+                      child: Expanded(
+                        child: Text(
+                          settingCubit!.name!,
+                          style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              overflow: TextOverflow.ellipsis),
+                          maxLines: 1 ,
+                        ),
                       ),
                     ),
                     const SizedBox(
                       height: 8,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          settingCubit.email!,
-                          style: const TextStyle(
-                            overflow: TextOverflow.ellipsis,
-                            //color: Colors.grey
-                            fontSize: 14,
+                    Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 15,
                           ),
-                          maxLines: 1,
-                        ),
-                        const SizedBox(
-                          width: 8,
-                          child: Text('|'),
-                        ),
-                        Text(
-                          settingCubit.phone!,
-                          style: const TextStyle(
-                            overflow: TextOverflow.ellipsis,
-                            //color: Colors.grey
-                            fontSize: 14,
+                          Expanded(
+                            child: Text(
+                              settingCubit.email!,
+                              style: const TextStyle(
+                                overflow: TextOverflow.ellipsis,
+                                //color: Colors.grey
+                                fontSize: 14,
+                              ),
+                              maxLines: 1,
+                            ),
                           ),
-                          maxLines: 1,
-                        ),
-                      ],
+                          const SizedBox(
+                            width: 8,
+                            child: Text('|'),
+                          ),SizedBox(
+                            width: 1,
+                          ),
+                          Expanded(
+                            child: Text(
+                              settingCubit.phone!,
+                              style: const TextStyle(
+                                overflow: TextOverflow.ellipsis,
+                                //color: Colors.grey
+                                fontSize: 14,
+                              ),
+                              maxLines: 1,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(
                       height: 15,

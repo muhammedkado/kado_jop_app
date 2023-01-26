@@ -174,12 +174,15 @@ class Info extends StatelessWidget {
                         JoinProjectCubit.get(context).checkBox(value);
                       },
                     ),
-                    Text(
-                      'I agree to the terms of this project',
-                      style: TextStyle(
-                        color: JoinProjectCubit.get(context).isActiv == false
-                            ? Colors.red
-                            : Colors.green,
+                    Expanded(
+                      child: Text(
+                        'I agree to the terms of this project',
+                        style: TextStyle(
+                          color: JoinProjectCubit.get(context).isActiv == false
+                              ? Colors.red
+                              : Colors.green,
+                        ),
+                        maxLines: 2,
                       ),
                     ),
                   ],
@@ -219,12 +222,15 @@ class Info extends StatelessWidget {
                         JoinProjectCubit.get(context).checkBox2(value);
                       },
                     ),
-                    Text(
-                      'I agree to the terms of this project',
-                      style: TextStyle(
-                        color: JoinProjectCubit.get(context).isActiv2 == false
-                            ? Colors.red
-                            : Colors.green,
+                    Expanded(
+                      child: Text(
+                        'I agree to the terms of this project',
+                        style: TextStyle(
+                          color: JoinProjectCubit.get(context).isActiv2 == false
+                              ? Colors.red
+                              : Colors.green,
+                        ),
+                        maxLines: 2,
                       ),
                     ),
                   ],
@@ -260,9 +266,12 @@ class Info extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 ListTile(
-                  title: Text(
-                    '${cubit.userModel!.name}',
-                    style: Theme.of(context).textTheme.bodyMedium,
+                  title: Expanded(
+                    child: Text(
+                      '${cubit.userModel!.name}',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      maxLines: 2,
+                    ),
                   ),
                   leading: Icon(
                     Icons.person_outline,
@@ -270,8 +279,13 @@ class Info extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  title: Text('${cubit.userModel!.email}',
-                      style: Theme.of(context).textTheme.bodyMedium),
+                  title: Expanded(
+                    child: Text(
+                      '${cubit.userModel!.email}',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      maxLines: 2,
+                    ),
+                  ),
                   leading: Icon(
                     Icons.email_outlined,
                     color: Theme.of(context).colorScheme.onBackground,
@@ -294,8 +308,13 @@ class Info extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  title: Text('${newProject['name']}',
-                      style: Theme.of(context).textTheme.bodyMedium),
+                  title: Expanded(
+                    child: Text(
+                      '${newProject['name']}',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      maxLines: 2,
+                    ),
+                  ),
                   leading: Icon(
                     Icons.article_outlined,
                     color: Theme.of(context).colorScheme.onBackground,
@@ -368,7 +387,6 @@ class Info extends StatelessWidget {
                           projectProfit: '50',
                           projectEndData: newProject['endtime'],
                           projectDetails: newProject['detail'],
-
                         );
                         cubit.ApplyProject(
                           pId: newProject['uId'],

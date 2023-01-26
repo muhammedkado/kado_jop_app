@@ -102,6 +102,7 @@ Widget defaultTextButton({
   required Text lable,
 }) =>
     TextButton(
+
       onPressed: () {
         onPressed();
       },
@@ -200,81 +201,7 @@ Widget defoultButtun({
         ),
       ),
     );
-/*
-Widget newProjectHorizontalCard(
-        BuildContext context, NewProjectCubit cubit) =>
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: 8,
-          ),
-          Container(
-            width: double.infinity,
-            height: 90,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 1.2,
-                  spreadRadius: 0.5,
-                )
-              ],
-            ),
-            child: ListTile(
-              onTap: () {
-                Navigatorto(
-                    context: context, Widget: const JoinProjectScreen());
-              },
 
-              contentPadding: const EdgeInsets.all(10),
-              title: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    '${cubit.project[i]} ',
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        overflow: TextOverflow.ellipsis),
-                    maxLines: 1,
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  )
-                ],
-              ),
-              subtitle: Text(
-                '${cubit.projectModel!.detail}',
-                style: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14,
-                    overflow: TextOverflow.ellipsis),
-                maxLines: 2,
-              ),
-
-              trailing: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(NewProjectCubit.formattedDate(cubit.projectModel!.timeStamp),
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.start),
-                ],
-              ),
-              //  horizontalTitleGap: 10,
-            ),
-          ),
-        ],
-      ),
-    );*/
 
 Widget myProjectCard(
   BuildContext context,
