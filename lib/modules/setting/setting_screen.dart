@@ -12,6 +12,7 @@ import 'package:kadojopapp/shard/components/componentes.dart';
 import 'package:kadojopapp/shard/network/local/CachHelper.dart';
 import 'package:kadojopapp/shard/styles/colors.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:sizer/sizer.dart';
 
 class Setting_Screen extends StatelessWidget {
   @override
@@ -43,62 +44,53 @@ class Setting_Screen extends StatelessWidget {
                       height: 10,
                     ),
                     Align(
-                      child: Expanded(
-                        child: Text(
-                          settingCubit!.name!,
-                          style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              overflow: TextOverflow.ellipsis),
-                          maxLines: 1 ,
+                      child: Text(
+                        settingCubit!.name!,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          overflow: TextOverflow.ellipsis,
                         ),
+                        maxLines: 1,
                       ),
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Center(
-                      child: Row(
+
+                    Container(
+                      padding: EdgeInsets.only(left: 20.w),
+                      width: double.infinity,
+                      height: 12.h,
+
+
+                      child: Column(
+
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Expanded(
-                            child: Text(
+                          ListTile(
+                            title:Text(
                               settingCubit.email!,
-                              style: const TextStyle(
-                                overflow: TextOverflow.ellipsis,
-                                //color: Colors.grey
-                                fontSize: 14,
-                              ),
-                              maxLines: 1,
-                            ),
+                              style:Theme.of(context).textTheme.bodySmall,
+                              maxLines: 2,
+                            ) ,
+                        dense: true,
+                            horizontalTitleGap: 1,
+                            leading: Icon(Icons.email_outlined),
                           ),
-                          const SizedBox(
-                            width: 8,
-                            child: Text('|'),
-                          ),SizedBox(
-                            width: 1,
-                          ),
-                          Expanded(
-                            child: Text(
+                          ListTile(
+                            title:Text(
                               settingCubit.phone!,
-                              style: const TextStyle(
-                                overflow: TextOverflow.ellipsis,
-                                //color: Colors.grey
-                                fontSize: 14,
-                              ),
-                              maxLines: 1,
-                            ),
+                              style:Theme.of(context).textTheme.bodySmall,
+                              maxLines: 2,
+                            ) ,
+                            dense: true,minVerticalPadding: 2,
+                            horizontalTitleGap: 1,
+                            leading: Icon(Icons.phone_outlined),
                           ),
-                        ],
+                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
+                    Divider(),
+
                     Container(
                       margin: const EdgeInsets.all(10),
                       // padding: EdgeInsets.all(1),
@@ -134,7 +126,7 @@ class Setting_Screen extends StatelessWidget {
                               color: Theme.of(context).colorScheme.background,
                             ),
                           ),
-                          //Divider(),
+                          Divider(),
 
                           // Divider(),
                           ListTile(
@@ -169,6 +161,7 @@ class Setting_Screen extends StatelessWidget {
                         ],
                       ),
                     ),
+                  //  Divider(),
                     Container(
                       margin: const EdgeInsets.all(10),
                       // padding: EdgeInsets.all(1),
@@ -207,6 +200,7 @@ class Setting_Screen extends StatelessWidget {
                               },
                             ),
                           ),
+                          Divider(),
                           ListTile(
                             subtitle: Text(
                                 'When this feature is turned off, you cannot receive notifications from this app',
@@ -242,6 +236,7 @@ class Setting_Screen extends StatelessWidget {
                         ],
                       ),
                     ),
+                  //  Divider(),
                     Container(
                       margin: const EdgeInsets.all(10),
                       // padding: EdgeInsets.all(1),
@@ -272,6 +267,7 @@ class Setting_Screen extends StatelessWidget {
                               color: Theme.of(context).colorScheme.background,
                             ),
                           ),
+                          Divider(),
                           ListTile(
                             onTap: () {
                               Navigatorto(
@@ -290,9 +286,8 @@ class Setting_Screen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 15,
-                    ),
+                  //  Divider(),
+                            Divider(),
                     ConditionalBuilder(
                       condition: state is! SignOutLoadingState,
                       builder: (context) => InkWell(

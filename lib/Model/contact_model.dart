@@ -1,5 +1,6 @@
 class ContactModel {
   String? subject;
+  String? mId;
   String? message;
   String? email;
   String? phone;
@@ -11,6 +12,7 @@ class ContactModel {
     required this.phone,
     required this.subject,
     required this.message,
+     this.mId,
     required this.time,
   });
   ContactModel.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class ContactModel {
     subject = json['subject'];
     message = json['massage'];
     time = json['time'];
+    mId = json['mId'];
   }
 
   Map<String, dynamic> toMap() {
@@ -30,6 +33,7 @@ class ContactModel {
       'email': email,
       'phone': phone,
       'time': time,
+      'mId': mId,
     };
   }
 }

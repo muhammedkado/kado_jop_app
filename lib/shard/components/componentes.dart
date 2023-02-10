@@ -59,7 +59,7 @@ Widget defaultFormField({
                   suffixPressed!();
                 },
                 icon: Icon(
-                  suffix,
+                  suffix,color: Theme.of(context).colorScheme.onBackground,
                 ),
               )
             : null,

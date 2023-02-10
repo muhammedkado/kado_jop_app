@@ -93,7 +93,7 @@ ThemeData darkTheme = ThemeData(
       background: Colors.white,
       onBackground: Colors.white,
       surface: Colors.white10,
-      onSurface: Colors.grey),
+      onSurface: Colors.grey,),
   scaffoldBackgroundColor: HexColor('333739'),
   textTheme: const TextTheme(
     titleMedium: TextStyle(

@@ -7,6 +7,7 @@ import 'package:kadojopapp/layout/cubit/cubit.dart';
 import 'package:kadojopapp/layout/cubit/states.dart';
 import 'package:kadojopapp/layout/home_layout.dart';
 import 'package:kadojopapp/modules/admin/admin_layout.dart';
+import 'package:kadojopapp/modules/admin/cubit/cubit.dart';
 import 'package:kadojopapp/modules/join_project/cubit/cubit.dart';
 import 'package:kadojopapp/modules/login/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -93,6 +94,11 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               HomeCubit()..changeAppMod(shereed: isDark, index: false),
         ),
+        BlocProvider(
+          create: (context) =>AdminCubit()..getProject()..getMessages()
+
+
+        ),
       ],
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {},
@@ -103,10 +109,10 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               theme: lightTheme,
               darkTheme: darkTheme,
-              themeMode: ThemeMode.dark,/* HomeCubit.get(context).isDark
+              themeMode:  HomeCubit.get(context).isDark
                   ? ThemeMode.dark
                   : ThemeMode.light,
-              ThemeMode.dark,*/
+                /*ThemeMode.light, */
 
               home: AdminLayout(),
             );

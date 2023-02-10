@@ -43,7 +43,6 @@ class ContactCubit extends Cubit<ContactState> {
     required DateTime time,
   }) {
     ContactModel contactModel = ContactModel(
-      // name: contactModel!.name,
       email: email,
       name: name,
       phone: phone,
@@ -51,15 +50,14 @@ class ContactCubit extends Cubit<ContactState> {
       subject: subject,
       time: time,
     );
-    print('massage= $message');
-    print('subject= $subject');
-    print('contactModel.massage = ${contactModel.message}');
+
 
     emit(MessageSaveLoadingState());
-    FirebaseFirestore.instance
-        .collection('contact')
-        .doc()
-        .set(contactModel.toMap())
+  var messag= FirebaseFirestore.instance
+        .collection('contact').doc();
+  print(messag.id);
+    contactModel.mId=messag.id;
+    messag.set(contactModel.toMap())
         .then((value) {
       emit(MessageSaveSuccessesState());
     }).catchError((Error) {

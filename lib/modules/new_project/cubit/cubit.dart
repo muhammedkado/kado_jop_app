@@ -11,12 +11,12 @@ class NewProjectCubit extends Cubit<NewProjectStates> {
   List project = [];
 
   void getProject() async {
-    emit(GetNewProjectLoadingState());
+
     await FirebaseFirestore.instance.collection('project').get().then((value) {
       value.docs.forEach((element) {
         project.add(element.data());
       });
-
+      emit(GetNewProjectLoadingState());
 /*;*/
       emit(GetNewProjectSuccessState());
     }).catchError((Error) {
