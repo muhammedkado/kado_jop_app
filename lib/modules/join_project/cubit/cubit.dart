@@ -99,8 +99,8 @@ class JoinProjectCubit extends Cubit<JoinProjectStates> {
   }
 
   void setUserApplyProject({
-    required String pId,
-    required String docId,
+     String? pId,
+     String? docId,
     required String projectName,
     required String projectEndData,
     required String projectProfit,

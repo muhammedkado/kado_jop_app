@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kadojopapp/modules/admin/Add_project_screen.dart';
+
+import 'package:kadojopapp/modules/admin/messages/contact_messages_screen.dart';
+import 'package:kadojopapp/modules/admin/project/project_view_screen.dart';
 import 'package:kadojopapp/shard/components/componentes.dart';
 import 'package:kadojopapp/shard/styles/colors.dart';
 import 'package:sizer/sizer.dart';
@@ -17,12 +19,15 @@ class AdminLayout extends StatelessWidget {
           Center(
               child: MaterialButton(
             onPressed: () {
-              Navigatorto(context: context, Widget: AddProjectScreen());
+              Navigatorto(context: context, Widget: ProjectViewScreen());
             },
             height: 5.h,
             color: defaultColor,
-            child: Text('Add Project'),
+            child: Text('Show Projects'),
           )),
+          SizedBox(
+            height: 0.5.h,
+          ),
           Center(
               child: MaterialButton(
             onPressed: () {
@@ -30,14 +35,19 @@ class AdminLayout extends StatelessWidget {
             },
             height: 5.h,
             color: defaultColor,
-            child: Text('Edit Project'),
+            child: Text('Member for Project'),
           )),
+          SizedBox(
+            height: 0.5.h,
+          ),
           Center(
               child: MaterialButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigatorto(context: context, Widget: ContactMessagesScreen());
+            },
             height: 5.h,
             color: defaultColor,
-            child: Text('View project'),
+            child: Text('Contact Messages'),
           )),
         ],
       ),

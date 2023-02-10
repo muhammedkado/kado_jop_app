@@ -68,11 +68,13 @@ class RegisterCubit extends Cubit<RegisterStates> {
         isEmailVerified: isEmailVerified
     );
     emit(CreateLoadingState());
+
     FirebaseFirestore.instance
         .collection('user').doc(uId).set(model.toMap())
         .then((value) {
 
       emit(CreateSuccessState());
+
     }).catchError((Error) {
       print(Error.toString());
 

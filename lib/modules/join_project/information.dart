@@ -123,6 +123,7 @@ class Info extends StatelessWidget {
                       ],
                     ),
                   ),
+                  Divider(),
                   defaultButton(
                     colors: Colors.transparent,
                     text: const Text(
@@ -206,6 +207,7 @@ class Info extends StatelessWidget {
                     ),
                   ),
                 ),
+                Divider(),
                 if (!cubit.isActiv2)
                   const Text(
                     'You cannot continue if you do not agree to the terms',
@@ -254,6 +256,7 @@ class Info extends StatelessWidget {
                     ),
                   ),
                 ),
+                Divider(),
               ],
             ),
           ),
@@ -266,12 +269,10 @@ class Info extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 ListTile(
-                  title: Expanded(
-                    child: Text(
-                      '${cubit.userModel!.name}',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                      maxLines: 2,
-                    ),
+                  title: Text(
+                    '${cubit.userModel!.name}',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    maxLines: 1,
                   ),
                   leading: Icon(
                     Icons.person_outline,
@@ -279,12 +280,10 @@ class Info extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  title: Expanded(
-                    child: Text(
-                      '${cubit.userModel!.email}',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                      maxLines: 2,
-                    ),
+                  title: Text(
+                    '${cubit.userModel!.email}',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    maxLines: 1,
                   ),
                   leading: Icon(
                     Icons.email_outlined,
@@ -307,13 +306,12 @@ class Info extends StatelessWidget {
                     color: Theme.of(context).colorScheme.onBackground,
                   ),
                 ),
+                Divider(),
                 ListTile(
-                  title: Expanded(
-                    child: Text(
-                      '${newProject['name']}',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                      maxLines: 2,
-                    ),
+                  title: Text(
+                    '${newProject['name']}',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    maxLines: 1,
                   ),
                   leading: Icon(
                     Icons.article_outlined,
@@ -336,6 +334,7 @@ class Info extends StatelessWidget {
                     color: Theme.of(context).colorScheme.onBackground,
                   ),
                 ),
+                Divider(),
               ],
             ),
           ),

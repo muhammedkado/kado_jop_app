@@ -14,7 +14,6 @@ class SettingCubit extends Cubit<SettingStates> {
   static SettingCubit get(context) => BlocProvider.of(context);
 
   bool notification = true;
-
   void changeNotification(index) {
     notification = index;
     emit(NotificationButtonSuccessState());
@@ -24,7 +23,6 @@ class SettingCubit extends Cubit<SettingStates> {
 
   List<String> language = ['English'];
   var languages;
-
   languageDropdown(value) {
     languages = value.toString();
     emit(LanguageSelectSuccessState());

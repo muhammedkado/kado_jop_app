@@ -1,4 +1,3 @@
-
 class ProjectModel {
   String? duration;
   String? jobrole;
@@ -14,22 +13,23 @@ class ProjectModel {
   String? terms2;
   DateTime? timeStamp;
   String? pid;
-  ProjectModel(
-    this.duration,
-    this.jobrole,
-    this.jobtybe,
-    this.detail,
-    this.endtime,
-    this.name,
+
+  ProjectModel({
+    required this.duration,
+    required this.jobrole,
+    required this.jobtybe,
+    required this.detail,
+    required this.endtime,
+    required this.name,
     this.publishtime,
     this.rules,
-    this.starttime,
-    this.vaildhurs,
-    this.terms1,
-    this.terms2,
-    this.timeStamp,
-    this.pid,
-  );
+    required this.starttime,
+    required this.vaildhurs,
+    required this.terms1,
+    required this.terms2,
+     this.timeStamp,
+     this.pid,
+  });
 
   ProjectModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -57,13 +57,13 @@ class ProjectModel {
       'jobtybe': jobtybe,
       'starttime': starttime,
       'endtime': endtime,
-      'publishtime': publishtime,
-      'rules': rules,
+      //'publishtime': publishtime,
+    //  'rules': rules,
       'vaildhurs': vaildhurs,
       'terms2': terms2,
       'terms1': terms1,
       'pid': pid,
-     //'timeStamp': DateTime.now(),
+      'timeStamp': DateTime.now(),
     };
   }
 }
