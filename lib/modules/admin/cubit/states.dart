@@ -31,3 +31,15 @@ class GetMessagesErrorState extends AdminState{
   final String Error;
   GetMessagesErrorState(this.Error);
 }
+class getProjectMemberLoadingState extends AdminState{}
+class getProjectMemberSuccessState extends AdminState{}
+class getProjectMemberErrorState extends AdminState{
+  final String Error;
+  getProjectMemberErrorState(this.Error);
+}
+class getMemberLoadingState extends AdminState{}
+class getMemberSuccessState extends AdminState{}
+class getMemberErrorState extends AdminState{
+  final String Error;
+  getMemberErrorState(this.Error);
+}
