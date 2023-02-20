@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:kadojopapp/modules/admin/messages/contact_messages_screen.dart';
 import 'package:kadojopapp/modules/admin/project/project_view_screen.dart';
+import 'package:kadojopapp/modules/admin/project_member/project_member.dart';
 import 'package:kadojopapp/shard/components/componentes.dart';
 import 'package:kadojopapp/shard/styles/colors.dart';
 import 'package:sizer/sizer.dart';
@@ -23,7 +23,7 @@ class AdminLayout extends StatelessWidget {
             },
             height: 5.h,
             color: defaultColor,
-            child: Text('Show Projects'),
+            child: Text('Show Projects',style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.white),),
           )),
           SizedBox(
             height: 0.5.h,
@@ -31,11 +31,11 @@ class AdminLayout extends StatelessWidget {
           Center(
               child: MaterialButton(
             onPressed: () {
-
+              Navigatorto(context: context, Widget: ProjectMember());
             },
             height: 5.h,
             color: defaultColor,
-            child: Text('Member for Project'),
+            child: Text('Member for Project',style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.white)),
           )),
           SizedBox(
             height: 0.5.h,
@@ -47,7 +47,7 @@ class AdminLayout extends StatelessWidget {
             },
             height: 5.h,
             color: defaultColor,
-            child: Text('Contact Messages'),
+            child: Text('Contact Messages',style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.white)),
           )),
         ],
       ),

@@ -19,16 +19,17 @@ import 'package:kadojopapp/shard/components/constants.dart';
 import 'package:kadojopapp/shard/network/local/CachHelper.dart';
 import 'package:kadojopapp/shard/styles/thememod.dart';
 import 'package:sizer/sizer.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = SimpleBlocObserver();
   await Firebase.initializeApp();
   FirebaseMessaging messaging = FirebaseMessaging.instance;
-  var Token =await FirebaseMessaging.instance.getToken();
+  var Token = await FirebaseMessaging.instance.getToken();
   await messaging.requestPermission();
   print(Token);
 
-  FirebaseMessaging.onMessage.listen((event){
+  FirebaseMessaging.onMessage.listen((event) {
     print(event.data.toString());
   });
 
@@ -38,26 +39,21 @@ Future<void> main() async {
 
   dynamic isDark = CachHelper.getData(key: 'isDark');
 
-
-  runApp(
-      DevicePreview(
-        enabled:!false ,
-
-
-        builder: (BuildContext context) {
-    Widget? widget;
-    if (uId != null) {
-      widget = Home_layout();
-    } else {
-      widget = Login();
-    }
-    return MyApp(
-      isDark: isDark,
-      startScreen: widget,
-    );
-  },
+  runApp(DevicePreview(
+    enabled: !false,
+    builder: (BuildContext context) {
+      Widget? widget;
+      if (uId != null) {
+        widget = Home_layout();
+      } else {
+        widget = Login();
+      }
+      return MyApp(
+        isDark: isDark,
+        startScreen: widget,
+      );
+    },
   ));
-
 }
 
 class MyApp extends StatelessWidget {
@@ -95,32 +91,31 @@ class MyApp extends StatelessWidget {
               HomeCubit()..changeAppMod(shereed: isDark, index: false),
         ),
         BlocProvider(
-          create: (context) =>AdminCubit()..getProject()..getMessages()
-
-
-        ),
+            create: (context) => AdminCubit()
+              ..getProject()
+              ..getMessages()
+              ..getProjectMember()
+              ),
       ],
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {},
         builder: (context, state) {
           return Sizer(
-            builder: (BuildContext context, Orientation orientation,  deviceType) {
+            builder:
+                (BuildContext context, Orientation orientation, deviceType) {
               return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              theme: lightTheme,
-              darkTheme: darkTheme,
-              themeMode:  HomeCubit.get(context).isDark
-                  ? ThemeMode.dark
-                  : ThemeMode.light,
+                debugShowCheckedModeBanner: false,
+                theme: lightTheme,
+                darkTheme: darkTheme,
+                themeMode: HomeCubit.get(context).isDark
+                    ? ThemeMode.dark
+                    : ThemeMode.light,
                 /*ThemeMode.light, */
 
-              home: AdminLayout(),
-            );
+                home: AdminLayout(),
+              );
             },
-
           );
-
-
         },
       ),
     );

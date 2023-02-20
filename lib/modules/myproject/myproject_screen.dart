@@ -5,6 +5,7 @@ import 'package:kadojopapp/modules/myproject/cubit/cubit.dart';
 import 'package:kadojopapp/modules/myproject/cubit/states.dart';
 import 'package:kadojopapp/shard/styles/colors.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:sizer/sizer.dart';
 
 class MyProject_Screen extends StatelessWidget {
   @override
@@ -15,6 +16,7 @@ class MyProject_Screen extends StatelessWidget {
         var cubit = MyProjectCubit.get(context);
         return SafeArea(
           child: SingleChildScrollView(
+
             child: Column(
               children: [
                 SizedBox(
@@ -34,9 +36,10 @@ class MyProject_Screen extends StatelessWidget {
                           condition: state is! MyProjectLoadingState,
                           builder: (context) => ListView.separated(
                             shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) => Container(
                               width: double.infinity,
-                              height: 100,
+                              height: 10.h,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.primary,
                                 borderRadius:
@@ -72,7 +75,7 @@ class MyProject_Screen extends StatelessWidget {
                                     fontSize: 14,
                                     overflow: TextOverflow.ellipsis,
                                   ),
-                                  maxLines: 3,
+                                  maxLines: 2,
                                 ),
                                 contentPadding:
                                     const EdgeInsets.symmetric(horizontal: 8),
